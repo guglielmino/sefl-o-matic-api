@@ -10,8 +10,10 @@ var MongoDBProvider = function(config) {
     throw err;
   }
 
-  this.db = mongoose.createConnection(config.mongo.uri);
+  mongoose.connect(config.mongo.uri);
 
+  this.db = mongoose.connection;
+  
   this.db.on('error', console.error.bind(console, 'connection error:'));
   this.db.once('open', function () {
       console.log(chalk.green("DB CONNNECTED"));

@@ -16,7 +16,7 @@ MachinesProvider.prototype.addOrUpdateMachine = function(machineData) {
   // TODO: Test if machineData or it must be esploded ({name : machineData["name"], ...})
   var machine = new Machine(machineData);
 
-  machine.save(function (err, machine) {
+  machine.save(function (err) {
     if (err) {
       deferred.reject(new Error(err));
     }

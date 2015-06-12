@@ -15,7 +15,7 @@ MachineController.prototype.index = function(req, res){
 MachineController.prototype.addOrUpdateMachine = function(req, res){
 	self.storageProvider.addOrUpdateMachine(req.body).then(function(result) {
 		console.log("result " + result);
-		res.json(201, {});
+		res.json(201, result);
 	}, function(err) {
 		console.log("err " + err.message);
 		res.status(500).send(err.message);
