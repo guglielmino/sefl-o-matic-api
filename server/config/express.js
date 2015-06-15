@@ -12,6 +12,7 @@ var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
+var expressValidator = require('express-validator');
 
 
 module.exports = function(app) {
@@ -22,6 +23,7 @@ module.exports = function(app) {
     extended: false
   }));
   app.use(bodyParser.json());
+  app.use(expressValidator());
   app.use(methodOverride());
   app.use(cookieParser());
 

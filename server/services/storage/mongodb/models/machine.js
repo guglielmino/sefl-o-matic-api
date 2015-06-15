@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 var MachineSchema = new mongoose.Schema({
-    serial : {type: String, index: true},
+    serial: {type: String, index: {unique: true, sparse: true}},
     name: String
 });
 
