@@ -5,11 +5,11 @@ var errorStatuses = {
 	'KeyViolation' : 304,
 };
 
-exports.errorCodeToStatus = function (code) {
+exports.errorCodeToStatus = function (statusCode) {
 	var res = 500;
 
-	if (code in errorStatuses) {
-		res = errorStatuses[code];
+	if (statusCode in errorStatuses) {
+		res = errorStatuses[statusCode];
 	}
 
 	return res;

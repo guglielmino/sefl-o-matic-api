@@ -13,10 +13,23 @@ var MongoDBProvider = function(config) {
   mongoose.connect(config.mongo.uri);
 
   this.db = mongoose.connection;
+
   
+
   this.db.on('error', console.error.bind(console, 'connection error:'));
   this.db.once('open', function () {
-      console.log(chalk.green("DB CONNNECTED"));
+      if (config.mongo.dropdb) {
+    console.log(chalk.red("!!! Dropping database !!!"));
+         
+    this.db.dropCollection('machines', function(err, result) {
+      if(err){
+        console.log(chalk.red(err));
+      }
+      else{
+        console.log("machines collection removed");
+      }
+    });
+  }
   });
 
   
