@@ -6,6 +6,7 @@ module.exports = {
   // MongoDB connection options
   mongo: {
     uri: 'mongodb://localhost/selfomatic-test',
-    dropdb: true
+    dropdb: true,
+    seedTestData: true
   }
 };

@@ -26,4 +26,49 @@ MachinesProvider.prototype.addOrUpdateMachine = function(machineData) {
   return deferred.promise;
 };
 
+MachinesProvider.prototype.getMachineBySerial = function(serial) {
+  var deferred = Q.defer();
+
+  Machine.findOne({ 'serial': serial }, function (err, machine) {
+    if (err) {
+      deferred.reject(errorHandler.getDecodedError(err));
+    }
+    else{
+      var m = {} || machine;
+      deferred.resolve(machine);
+    }
+  });
+
+  return deferred.promise;
+};
+
+MachinesProvider.prototype.saveMachineConfig = function(serial, configData) {
+  var deferred = Q.defer();
+
+  Machine.findOne({ 'serial': serial }, function (err, machine) {
+    if (err) {
+      deferred.reject(errorHandler.getDecodedError(err));
+    }
+    else {
+      if(machine){
+        machine.config = configData;
+
+        machine.save(function (err) {
+          if (err) {
+            deferred.reject(errorHandler.getDecodedError(err));
+          }
+          else{
+            deferred.resolve(machine);
+          }
+        });
+      }
+      else{ 
+        deferred.reject({ 'status' : 'NotFound', 'message' : ''});
+      }
+    }
+  });
+
+  return deferred.promise;
+};
+
 module.exports = MachinesProvider;

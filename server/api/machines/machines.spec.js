@@ -61,6 +61,49 @@ describe('Machines controller', function() {
     });
   });
 
+  it('get 404 if machines config does not exists', function(done) {
+    request(app)
+    .get('/api/machines/123/config')
+    .expect(404)
+    .end(function(err, res) {
+      if (err) {
+        return done(err);
+      }
+      done();
+    });
+  });
+
+
+  it('get machines config', function(done) {
+    request(app)
+    .get('/api/machines/333/config')
+    .expect(200)
+    .end(function(err, res) {
+      if (err) {
+        return done(err);
+      }
+      done();
+    });
+  });
+
+  it('set config for a machine identified by serial 333', function(done) {
+    var configData = {
+      fbid: "1111111111",
+      fbalbumid: "3333333333333"
+    };
+
+    request(app)
+    .post('/api/machines/333/config')
+    .send(configData)
+    .expect(200)
+    .end(function(err, res) {
+      if(err){
+        return done(err);
+      }
+      done();
+    });
+  });
+
 });
 
 

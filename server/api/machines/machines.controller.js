@@ -35,8 +35,61 @@ MachineController.prototype.addOrUpdateMachine = function(req, res){
 	});
 };
 
+MachineController.prototype.getMachineBySerial = function(req, res) {
+var serial = req.params.serialnumber;
+
+	self.storageProvider.getMachineBySerial(serial).then(function(result) {
+		if(result){
+			res.json(200, result);
+		}
+		else{
+			res.status(404).send();
+		}
+
+	}, function(providerError) {
+		console.log("err " + providerError.message);
+		res
+		.status(errorMapper.errorCodeToStatus(providerError.status))
+		.send(providerError.message);
+	});
+};
+
 MachineController.prototype.getMachineConfig = function(req, res){
-	res.status(200).send("MachineConfig");
+	var serial = req.params.serialnumber;
+
+	self.storageProvider.getMachineBySerial(serial).then(function(result) {
+		if(result && result.config){
+			res.json(200, result.config);
+		}
+		else{
+			res.status(404).send();
+		}
+
+	}, function(providerError) {
+		console.log("err " + providerError.message);
+		res
+		.status(errorMapper.errorCodeToStatus(providerError.status))
+		.send(providerError.message);
+	});
+};
+
+MachineController.prototype.setMachineConfig = function(req, res) {
+	var serial = req.params.serialnumber;
+	var configData = req.body;
+
+	self.storageProvider.saveMachineConfig(serial, configData).then(function(result) {
+		if(result){
+			res.json(200, result.config);
+		}
+		else{
+			res.status(404).send();
+		}
+	}, function(providerError) {
+		console.log("err " + providerError.message);
+		res
+		.status(errorMapper.errorCodeToStatus(providerError.status))
+		.send(providerError.message);
+	});
 };
 
 module.exports = MachineController;
