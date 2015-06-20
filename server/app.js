@@ -11,16 +11,23 @@ var express = require('express');
 var config = require('./config/environment');
 var chalk = require('chalk');
 
-var MongoDBProvider = require('./services/storage/mongodb');
-var storageProvider = new MongoDBProvider(config);
 
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
+var socketio = require('socket.io')(server, {
+  serveClient: true,
+  path: '/socket.io'
+});
+require('./config/socket.io')(socketio);
+
+// Storage providers
+var MongoDBProvider = require('./services/storage/mongodb');
+var storageProvider = new MongoDBProvider(config);
 
 
 require('./config/express')(app);
-require('./routes')(app, storageProvider);
+require('./routes')(app, storageProvider, socketio);
 
 console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
 

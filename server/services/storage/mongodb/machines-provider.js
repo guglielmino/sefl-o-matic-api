@@ -34,7 +34,6 @@ MachinesProvider.prototype.getMachineBySerial = function(serial) {
       deferred.reject(errorHandler.getDecodedError(err));
     }
     else{
-      var m = {} || machine;
       deferred.resolve(machine);
     }
   });

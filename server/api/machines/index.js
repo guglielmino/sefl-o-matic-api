@@ -2,12 +2,15 @@
 
 var express = require('express');
 
-module.exports = function(machinesProvider) {
+module.exports = function(machinesProvider, socketio) {
 
   var router = express.Router();
 
+  var MachineSocketController = require('./machines.socket');
+  var machineSocketController = new MachineSocketController(socketio);
+
   var MachineController = require('./machines.controller');
-  var machinesController = new MachineController(machinesProvider);
+  var machinesController = new MachineController(machinesProvider, machineSocketController);
   
   router.post('/', machinesController.addOrUpdateMachine);
   router.get('/:serialnumber', machinesController.getMachineBySerial);

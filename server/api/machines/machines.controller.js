@@ -6,8 +6,9 @@ var errorMapper = require('./machine.controller.error');
 
 var self;
 
-var MachineController = function(storageProvider)  {
+var MachineController = function(storageProvider, machineSocketController)  {
 	this.storageProvider = storageProvider;
+	this.socketController = machineSocketController;
 	self = this;
 };
 
@@ -79,6 +80,8 @@ MachineController.prototype.setMachineConfig = function(req, res) {
 
 	self.storageProvider.saveMachineConfig(serial, configData).then(function(result) {
 		if(result){
+			// WebSocket notify
+			self.socketController.notifyConfigUpdate(result.config);
 			res.json(200, result.config);
 		}
 		else{
