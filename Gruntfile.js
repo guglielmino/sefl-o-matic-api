@@ -11,7 +11,13 @@ module.exports = function(grunt) {
 
   // Load grunt tasks automatically, when needed
   require('jit-grunt')(grunt, {
-    express: 'grunt-express-server'
+    express: 'grunt-express-server',
+    useminPrepare: 'grunt-usemin',
+    ngtemplates: 'grunt-angular-templates',
+    cdnify: 'grunt-google-cdn',
+    protractor: 'grunt-protractor-runner',
+    injector: 'grunt-asset-injector',
+    buildcontrol: 'grunt-build-control'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -45,12 +51,49 @@ module.exports = function(grunt) {
       }
     },
     watch: {
+      injectJS: {
+        files: [
+          'client/{app,components}/**/*.js',
+          '!client/{app,components}/**/*.spec.js',
+          '!client/{app,components}/**/*.mock.js',
+          '!client/app/app.js'],
+        tasks: ['injector:scripts']
+      },
+      injectCss: {
+        files: [
+          'client/{app,components}/**/*.css'
+        ],
+        tasks: ['injector:css']
+      },
       mochaTest: {
         files: ['server/**/*.spec.js'],
         tasks: ['env:test', 'mochaTest']
       },
+      injectSass: {
+        files: [
+          'client/{app,components}/**/*.{scss,sass}'],
+        tasks: ['injector:sass']
+      },
+      sass: {
+        files: [
+          'client/{app,components}/**/*.{scss,sass}'],
+        tasks: ['sass', 'autoprefixer']
+      },
       gruntfile: {
         files: ['Gruntfile.js']
+      },
+      livereload: {
+        files: [
+          '{.tmp,client/{app,components}/**/*.css',
+          '{.tmp,client/{app,components}/**/*.html',
+          '{.tmp,client/{app,components}/**/*.js',
+          '!{.tmp,client}{app,components}/**/*.spec.js',
+          '!{.tmp,client}/{app,components}/**/*.mock.js',
+          'client/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
+        ],
+        options: {
+          livereload: true
+        }
       },
       express: {
         files: [
@@ -67,6 +110,7 @@ module.exports = function(grunt) {
     // Make sure code styles are up to par and there are no obvious mistakes
     jshint: {
       options: {
+        jshintrc: 'client/.jshintrc',
         reporter: require('jshint-stylish')
       },
       server: {
@@ -83,12 +127,50 @@ module.exports = function(grunt) {
           jshintrc: 'server/.jshintrc-spec'
         },
         src: ['server/**/*.spec.js']
+      },
+      all: [
+        'client/{app,components}/**/*.js',
+        '!client/{app,components}/**/*.spec.js',
+        '!client/{app,components}/**/*.mock.js'
+      ],
+      test: {
+        src: [
+          'client/{app,components}/**/*.spec.js',
+          'client/{app,components}/**/*.mock.js'
+        ]
       }
     },
 
     // Empties folders to start fresh
     clean: {
+      dist: {
+        files: [{
+          dot: true,
+          src: [
+            '.tmp',
+            'dist/*',
+            '!dist/.git*',
+            '!dist/.openshift',
+            '!dist/Procfile'
+          ]
+        }]
+      },
       server: '.tmp'
+    },
+
+     // Add vendor prefixed styles
+    autoprefixer: {
+      options: {
+        browsers: ['last 1 version']
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/',
+          src: '{,*/}*.css',
+          dest: '.tmp/'
+        }]
+      }
     },
 
     // Debugging with node inspector
@@ -125,10 +207,197 @@ module.exports = function(grunt) {
       }
     },
 
+    // Automatically inject Bower components into the app
+    wiredep: {
+      target: {
+        src: 'client/index.html',
+        ignorePath: 'client/',
+        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
+      }
+    },
+
+    // Renames files for browser caching purposes
+    rev: {
+      dist: {
+        files: {
+          src: [
+            'dist/public/{,*/}*.js',
+            'dist/public/{,*/}*.css',
+            'dist/public/assets/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            'dist/public/assets/fonts/*'
+          ]
+        }
+      }
+    },
+
+    // Reads HTML for usemin blocks to enable smart builds that automatically
+    // concat, minify and revision files. Creates configurations in memory so
+    // additional tasks can operate on them
+    useminPrepare: {
+      html: ['client/index.html'],
+      options: {
+        dest: 'dist/public'
+      }
+    },
+
+    // Performs rewrites based on rev and the useminPrepare configuration
+    usemin: {
+      html: ['dist/public/{,*/}*.html'],
+      css: ['dist/public/{,*/}*.css'],
+      js: ['dist/public/{,*/}*.js'],
+      options: {
+        assetsDirs: [
+          'dist/public',
+          'dist/public/assets/images'
+        ],
+        // This is so we update image references in our ng-templates
+        patterns: {
+          js: [
+            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+          ]
+        }
+      }
+    },
+
+    // The following *-min tasks produce minified files in the dist folder
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'client/assets/images',
+          src: '{,*/}*.{png,jpg,jpeg,gif}',
+          dest: 'dist/public/assets/images'
+        }]
+      }
+    },
+
+    svgmin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: 'client/assets/images',
+          src: '{,*/}*.svg',
+          dest: 'dist/public/assets/images'
+        }]
+      }
+    },
+
+    // Allow the use of non-minsafe AngularJS files. Automatically makes it
+    // minsafe compatible so Uglify does not destroy the ng references
+    ngAnnotate: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/concat',
+          src: '*/**.js',
+          dest: '.tmp/concat'
+        }]
+      }
+    },
+
+    // Package all the html partials into a single javascript payload
+    ngtemplates: {
+      options: {
+        // This should be the name of your apps angular module
+        module: 'SelfOMaticApp',
+        htmlmin: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          removeAttributeQuotes: true,
+          removeEmptyAttributes: true,
+          removeRedundantAttributes: true,
+          removeScriptTypeAttributes: true,
+          removeStyleLinkTypeAttributes: true
+        },
+        usemin: 'app/app.js'
+      },
+      main: {
+        cwd: 'client',
+        src: ['{app,components}/**/*.html'],
+        dest: '.tmp/templates.js'
+      },
+      tmp: {
+        cwd: '.tmp',
+        src: ['{app,components}/**/*.html'],
+        dest: '.tmp/tmp-templates.js'
+      }
+    },
+
+    // Replace Google CDN references
+    cdnify: {
+      dist: {
+        html: ['dist/public/*.html']
+      }
+    },
+
+    // Copies remaining files to places other tasks can use
+    copy: {
+      dist: {
+        files: [{
+          expand: true,
+          dot: true,
+          cwd: 'client',
+          dest: 'dist/public',
+          src: [
+            '*.{ico,png,txt}',
+            '.htaccess',
+            'bower_components/**/*',
+            'assets/images/{,*/}*.{webp}',
+            'assets/fonts/**/*',
+            'index.html'
+          ]
+        }, {
+          expand: true,
+          cwd: '.tmp/images',
+          dest: 'dist/public/assets/images',
+          src: ['generated/*']
+        }, {
+          expand: true,
+          dest: 'dist',
+          src: [
+            'package.json',
+            'server/**/*'
+          ]
+        }]
+      },
+      styles: {
+        expand: true,
+        cwd: 'client',
+        dest: '.tmp/',
+        src: ['{app,components}/**/*.css']
+      }
+    },
+
+    buildcontrol: {
+      options: {
+        dir: 'dist',
+        commit: true,
+        push: true,
+        connectCommits: false,
+        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+      },
+      heroku: {
+        options: {
+          remote: 'heroku',
+          branch: 'master'
+        }
+      },
+      openshift: {
+        options: {
+          remote: 'openshift',
+          branch: 'master'
+        }
+      }
+    },
+
     // Run some tasks in parallel to speed up the build process
-    concurrent: {
-      server: [],
-      test: [],
+     concurrent: {
+      server: [
+        'sass',
+      ],
+      test: [
+        'sass',
+      ],
       debug: {
         tasks: [
           'nodemon',
@@ -137,7 +406,12 @@ module.exports = function(grunt) {
         options: {
           logConcurrentOutput: true
         }
-      }
+      },
+      dist: [
+        'sass',
+        'imagemin',
+        'svgmin'
+      ]
     },
 
     // Test settings
@@ -155,6 +429,18 @@ module.exports = function(grunt) {
       src: ['server/**/*.spec.js']
     },
 
+    protractor: {
+      options: {
+        configFile: 'protractor.conf.js'
+      },
+      chrome: {
+        options: {
+          args: {
+            browser: 'chrome'
+          }
+        }
+      }
+    },
 
     env: {
       test: {
@@ -164,7 +450,87 @@ module.exports = function(grunt) {
         NODE_ENV: 'production'
       },
       all: localConfig
-    }
+    },
+    
+    // Compiles Sass to CSS
+    sass: {
+      server: {
+        options: {
+          loadPath: [
+            'client/bower_components',
+            'client/app',
+            'client/components'
+          ],
+          compass: false
+        },
+        files: {
+          '.tmp/app/app.css' : 'client/app/app.scss'
+        }
+      }
+    },
+
+    injector: {
+      options: {
+
+      },
+      // Inject application script files into index.html (doesn't include bower)
+      scripts: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/.tmp/', '');
+            return '<script src="' + filePath + '"></script>';
+          },
+          starttag: '<!-- injector:js -->',
+          endtag: '<!-- endinjector -->'
+        },
+        files: {
+          'client/index.html': [
+              ['{.tmp,client}/{app,components}/**/*.js',
+               '!{.tmp,client}/app/app.js',
+               '!{.tmp,client}/{app,components}/**/*.spec.js',
+               '!{.tmp,client}/{app,components}/**/*.mock.js']
+            ]
+        }
+      },
+
+      // Inject component scss into app.scss
+      sass: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/app/', '');
+            filePath = filePath.replace('/client/components/', '');
+            return '@import \'' + filePath + '\';';
+          },
+          starttag: '// injector',
+          endtag: '// endinjector'
+        },
+        files: {
+          'client/app/app.scss': [
+            'client/{app,components}/**/*.{scss,sass}',
+            '!client/app/app.{scss,sass}'
+          ]
+        }
+      },
+
+      // Inject component css into index.html
+      css: {
+        options: {
+          transform: function(filePath) {
+            filePath = filePath.replace('/client/', '');
+            filePath = filePath.replace('/.tmp/', '');
+            return '<link rel="stylesheet" href="' + filePath + '">';
+          },
+          starttag: '<!-- injector:css -->',
+          endtag: '<!-- endinjector -->'
+        },
+        files: {
+          'client/index.html': [
+            'client/{app,components}/**/*.css'
+          ]
+        }
+      }
+    },
 
 
   });
@@ -244,8 +610,21 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
+    'injector:sass', 
     'concurrent:dist',
-    'concat'
+    'injector',
+    'wiredep',
+    'useminPrepare',
+    'autoprefixer',
+    'ngtemplates',
+    'concat',
+    'ngAnnotate',
+    'copy:dist',
+    'cdnify',
+    'cssmin',
+    'uglify',
+    'rev',
+    'usemin'
   ]);
 
   grunt.registerTask('default', [

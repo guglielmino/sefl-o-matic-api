@@ -13,6 +13,8 @@ var cookieParser = require('cookie-parser');
 var errorHandler = require('errorhandler');
 var path = require('path');
 var expressValidator = require('express-validator');
+var config = require('./environment');
+
 
 
 module.exports = function(app) {
@@ -37,6 +39,10 @@ module.exports = function(app) {
 
   if ('development' === env || 'test' === env) {
     app.use(require('connect-livereload')());
+    app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(express.static(path.join(config.root, 'client')));
+    app.set('appPath', 'client');
+  
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }
