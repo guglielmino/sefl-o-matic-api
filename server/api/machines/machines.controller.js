@@ -13,8 +13,21 @@ var MachineController = function(storageProvider, machineSocketController)  {
 };
 
 MachineController.prototype.index = function(req, res){
-	console.log("DEBUG --- index");
-	res.status(200).send("Self-O-Matic API");
+	self.storageProvider.getMachines()
+		.then(function(result) {
+			if(result){
+				res.json(200, result);
+			}
+			else{
+				res.status(404).send();
+			}
+
+		}, function(providerError) {
+			console.log("err " + providerError.message);
+			res
+				.status(errorMapper.errorCodeToStatus(providerError.status))
+				.send(providerError.message);
+		});
 };
 
 MachineController.prototype.addOrUpdateMachine = function(req, res){
@@ -25,19 +38,20 @@ MachineController.prototype.addOrUpdateMachine = function(req, res){
 		return;
 	}
 
-	self.storageProvider.addOrUpdateMachine(req.body).then(function(result) {
-		console.log("result " + result);
-		res.json(201, result);
-	}, function(providerError) {
-		console.log("err " + providerError.message);
-		res
-		.status(errorMapper.errorCodeToStatus(providerError.status))
-		.send(providerError.message);
-	});
+	self.storageProvider.addOrUpdateMachine(req.body)
+		.then(function(result) {
+			console.log("result " + result);
+			res.json(201, result);
+		}, function(providerError) {
+			console.log("err " + providerError.message);
+			res
+				.status(errorMapper.errorCodeToStatus(providerError.status))
+				.send(providerError.message);
+		});
 };
 
 MachineController.prototype.getMachineBySerial = function(req, res) {
-var serial = req.params.serialnumber;
+	var serial = req.params.serialnumber;
 
 	self.storageProvider.getMachineBySerial(serial).then(function(result) {
 		if(result){

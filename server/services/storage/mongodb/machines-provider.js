@@ -26,6 +26,21 @@ MachinesProvider.prototype.addOrUpdateMachine = function(machineData) {
   return deferred.promise;
 };
 
+MachinesProvider.prototype.getMachines = function(){
+  var deferred = Q.defer();
+
+  Machine.find({}, function(err, machines) {
+    if (err) {
+      deferred.reject(errorHandler.getDecodedError(err));
+    }
+    else{
+      deferred.resolve(machines);
+    }
+  });
+
+  return deferred.promise;
+};
+
 MachinesProvider.prototype.getMachineBySerial = function(serial) {
   var deferred = Q.defer();
 

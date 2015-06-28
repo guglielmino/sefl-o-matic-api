@@ -45,6 +45,10 @@
     machinesProvider: function() {
       var MachinesProvider = require('./machines-provider')
       return new MachinesProvider(this.db);
+    },
+    usersProvider: function() {
+      var MachinesProvider = require('./users-provider')
+      return new MachinesProvider(this.db);
     }
   };
 
