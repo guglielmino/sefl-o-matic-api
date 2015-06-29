@@ -14,23 +14,13 @@
 
     this.db = mongoose.connection;
 
-    
-
     this.db.on('error', console.error.bind(console, 'connection error:'));
     this.db.once('open', function () {
 
       // Drop database
       if (config.mongo.dropdb) {
-        console.log(chalk.red("!!! Dropping database !!!"));
-
-        this.db.dropCollection('machines', function(err, result) {
-          if(err){
-            console.log(chalk.red(err));
-          }
-          else{
-            console.log("machines collection removed");
-          }
-        });
+        console.log(chalk.red("!!! DROPPING DATABASE !!!"));
+        mongoose.connection.db.dropDatabase();
       }
 
       // Load test data

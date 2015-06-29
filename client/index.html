@@ -22,7 +22,7 @@
    </head>
    <body ng-app="SelfOMaticApp" layout="column">
 
-      <md-toolbar layout="row">
+      <md-toolbar layout-margin="row">
          <div class="md-toolbar-tools">
             <md-button class="md-icon-button" aria-label="Settings">
                <md-icon md-svg-icon="assets/svg/menu.svg"></md-icon>
@@ -55,9 +55,15 @@
                 <md-button ng-href="/#/machines">
                     <md-icon md-font-set="material-icons"> list </md-icon> 
                     </md-icon> 
-                   
                      Macchine
                  </md-button>
+               </md-item >
+               <md-item >
+                  <md-button  ng-href="#">
+                    <md-icon md-font-set="material-icons"> people </md-icon> 
+                    </md-icon> 
+                     Utenti
+                  </md-button>
                </md-item >
                <md-item >
                   <md-button  ng-href="#">
@@ -90,7 +96,7 @@
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/angular-aria/angular-aria.js"></script>
       <script src="bower_components/angular-material/angular-material.js"></script>
-      <script src="//cdnjs.cloudflare.com/ajax/libs/angular-material-icons/0.5.0/angular-material-icons.min.js"></script> 
+      <script src="bower_components/angular-material-icons/angular-material-icons.js"></script>
       <!-- endbower -->
       <!-- endbuild -->
       <!-- build:js({.tmp,client}) app/app.js -->
@@ -100,11 +106,11 @@
       <script src="app/account/login/login.controller.js"></script>
       <script src="app/home/home.controller.js"></script>
       <script src="app/home/home.js"></script>
-      <script src="app/machines/machines.service.js"></script>
       <script src="app/machines/machines.controller.js"></script>
       <script src="app/machines/machines.js"></script>
-      <script src="components/toolbar/toolbar.controller.js"></script>
+      <script src="app/machines/machines.service.js"></script>
       <script src="components/auth/auth.service.js"></script>
+      <script src="components/toolbar/toolbar.controller.js"></script>
       <!-- endinjector -->
       <!-- endbuild -->
    </body>

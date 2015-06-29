@@ -29,6 +29,7 @@
     "socketio-jwt": "^2.0.2"
   },
   "devDependencies": {
+    "async": "^1.2.1",
     "grunt": "~0.4.4",
     "grunt-autoprefixer": "~0.7.2",
     "grunt-wiredep": "~1.8.0",
@@ -81,7 +82,8 @@
     "karma": "~0.12.9",
     "karma-ng-html2js-preprocessor": "~0.1.0",
     "supertest": "~0.11.0",
-    "should": "~3.3.1"
+    "should": "~3.3.1",
+    "proxyquire": "^1.5.0"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -1,22 +1,24 @@
 <md-content class="md-whiteframe-z2">  
+
     <md-subheader class="md-no-sticky">Macchine registrate</md-subheader>
     
     <md-list >
 
-      <md-list-item class="md-2-line" ng-repeat="item in machines">
-        <img ng-src="assets/img/selfomatic.png" class="md-avatar" alt="Machine" />
-        <div class="md-list-item-text">
-          <h3>{{ item.name }}</h3>
-          <p> {{ item.serial }}</p>
-        </div>
-      
-        <md-button flex>
-          Configurazione
-          <md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon>
-
-        </md-button>
-    
+      <md-list-item  class="md-2-line" ng-repeat="item in machines">
+        
+           <md-button >
+              <div layout="row" md-padding>
+                <img ng-src="assets/img/selfomatic.png" class="md-avatar" alt="Machine" />
           
+                <div offset="5" class="md-list-item-text">
+                  <h3>{{ item.name }}</h3>
+                  <p> {{ item.serial }}</p>
+                </div>
+            
+                <md-icon  md-font-set="material-icons">keyboard_arrow_right</md-icon>
+              </div>
+         </md-button>
+    
       </md-list-item> 
 
   </md-list>

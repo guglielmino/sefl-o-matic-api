@@ -3,8 +3,9 @@
 var should = require('should');
 var app = require('../../app');
 var request = require('supertest');
+var chalk = require('chalk');
 
-describe('User controller', function(){
+describe('Users controller', function() {
 
 
 	it('should create new user', function(done) {
@@ -15,7 +16,7 @@ describe('User controller', function(){
 	    };
 
 	    request(app)
-		    .post('/api/users/')
+		    .post('/api/users')
 		    .send(userData)
 		    .expect(201)
 		    .end(function(err, res) {

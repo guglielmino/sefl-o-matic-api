@@ -2,7 +2,7 @@
 
 var util = require('util');
 var validation = require('./machines.validation');
-var errorMapper = require('./machine.controller.error');
+var errorMapper = require('../../services/helpers/controller.error');
 
 var self;
 

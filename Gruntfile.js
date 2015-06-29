@@ -188,6 +188,7 @@ module.exports = function(grunt) {
         script: 'server/app.js',
         options: {
           nodeArgs: ['--debug'],
+          ignore: ['node_modules/**'],
           env: {
             PORT: process.env.PORT || 9000
           },
