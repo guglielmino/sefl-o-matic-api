@@ -17,7 +17,8 @@ module.exports = function(grunt) {
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
     injector: 'grunt-asset-injector',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    rsync: 'grunt-rsync'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -533,6 +534,22 @@ module.exports = function(grunt) {
       }
     },
 
+    rsync: {
+      options: {
+          args: ["--verbose"],
+          exclude: [".git*","*.scss","node_modules", "bower_components"],
+          recursive: true
+      },
+      prod: {
+          options: {
+              src: "dist/",
+              dest: "/home/nodejs/admin_selfomatic",
+              host: "nodejs@www.gumino.com",
+              delete: false
+          }
+    }
+}
+
 
   });
 
@@ -632,5 +649,11 @@ module.exports = function(grunt) {
     'newer:jshint',
     'test',
     'build'
+  ]);
+
+  grunt.registerTask('deploy', [
+    'build',
+    //'test',
+    'rsync:prod'
   ]);
 };
