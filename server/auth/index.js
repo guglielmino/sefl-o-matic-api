@@ -8,7 +8,7 @@ module.exports = function(usersProvider, socketio) {
 	var router = express.Router();
 
 	require('./local/passport').setup(usersProvider, config);
-	router.use('/local', require('./local'));
+	router.use('/local', require('./local')(usersProvider));
 
 	return router;
 }

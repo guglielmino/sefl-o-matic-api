@@ -90,4 +90,6 @@ AuthService.prototype.setTokenCookie = function(req, res) {
     res.redirect('/');
 }
 
+
+
 module.exports = AuthService;

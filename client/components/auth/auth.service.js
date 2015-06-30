@@ -1,8 +1,8 @@
 angular.module('SelfOMaticApp')
-	.factory('Auth', function Auth($location, $rootScope, $http, User, $cookieStore, $q) {
+	.factory('Auth', function Auth($location, $rootScope, $http, $cookieStore, $q) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-      currentUser = User.get();
+    //  currentUser = User.get();
     }
 
     return {
@@ -11,11 +11,9 @@ angular.module('SelfOMaticApp')
        * Authenticate user and save token
        *
        * @param  {Object}   user     - login info
-       * @param  {Function} callback - optional
        * @return {Promise}
        */
-      login: function(user, callback) {
-        var cb = callback || angular.noop;
+      login: function(user) {
         var deferred = $q.defer();
 
         $http.post('/auth/local', {
@@ -24,14 +22,12 @@ angular.module('SelfOMaticApp')
         }).
         success(function(data) {
           $cookieStore.put('token', data.token);
-          currentUser = User.get();
+         // currentUser = User.get();
           deferred.resolve(data);
-          return cb();
         }).
         error(function(err) {
-          this.logout();
+          //this.logout();
           deferred.reject(err);
-          return cb(err);
         }.bind(this));
 
         return deferred.promise;

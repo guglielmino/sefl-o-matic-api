@@ -1,24 +1,29 @@
-<section layout="row" layout-sm="column" layout-align="center center">
-<md-content layout-padding>
 
-    <form name="userForm">
+<section layout="vertical" layout-align="center center" layout-margin>
+       
+   <div flex="30"></div>
 
-      <div layout layout="column">
-        <md-input-container flex>
-          <label>User</label>
-          <input ng-model="user.username">
-        </md-input-container>
+   <md-content flex="35" class="md-whiteframe-z1" >
+      <md-icon md-font-set="material-icons" > people </md-icon> 
 
-        <md-input-container flex>
-          <label>Password</label>
-          <input ng-model="user.password" type="password">
-        </md-input-container>
+      <form name="userForm">
 
-      </div>
-      <md-button class="md-raised md-primary">Login</md-button>
-    
-    </form>
+        <div layout="column">
+           <md-input-container flex>
+            <label>User</label>
+              <input ng-model="user.username" placeholder="Username">
+           </md-input-container>
+           <md-input-container flex >
+              <label>Password</label>
+              <input ng-model="user.password" type="password" placeholder="Password">
+           </md-input-container>
+           <md-button class="md-raised md-primary">LOGIN</md-button>
+           
+         </div>
+      </form>
 
-  </md-content>
-  
-  </section>
+   </md-content>
+
+   <div flex="30"></div>
+
+</section>

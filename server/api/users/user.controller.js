@@ -1,7 +1,8 @@
 'use strict';
 
 var errorMapper = require('../../services/helpers/controller.error');
-
+var config = require('../../config/environment');
+var jwt = require('jsonwebtoken');
 
 var self;
 

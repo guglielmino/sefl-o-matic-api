@@ -17,6 +17,18 @@ var UserSchema = new mongoose.Schema({
 });
 
 /**
+ * Virtuals
+ */
+UserSchema
+  .virtual('password')
+  .set(function(password) {
+    this._password = password;
+  })
+  .get(function() {
+    return this._password;
+  });
+
+/**
  * Validations
  */
 

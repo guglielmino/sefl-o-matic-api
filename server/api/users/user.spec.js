@@ -12,7 +12,8 @@ describe('Users controller', function() {
 
 	 	var userData = {
 	    	name: "Ciccio",
-  			email: "ciccio@nowhere.org"
+  			email: "ciccio@nowhere.org",
+  			password: "testpwd"
 	    };
 
 	    request(app)

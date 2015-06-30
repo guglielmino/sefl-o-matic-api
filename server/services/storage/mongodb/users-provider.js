@@ -5,6 +5,9 @@ var _ = require('lodash');
 var User = require('./models/user');
 var errorHandler = require('./error.handler');
 
+var AuthHelper = require('../../../services/helpers/auth.helper');
+var authHelper = new AuthHelper();
+
 var UsersProvider = function(db) {
   this.db = db;
 };
@@ -21,6 +24,20 @@ UsersProvider.prototype.findById = function(userId) {
     }
   });
 
+  return deferred.promise;
+};
+
+UsersProvider.prototype.findOne = function(filter) {
+  var deferred = Q.defer();
+  var query  = User.where(filter);
+  query.findOne(function (err, user) {
+    if (err) {
+      deferred.reject(errorHandler.getDecodedError(err));
+    }
+    else {
+      deferred.resolve(user);
+    }
+  });
   return deferred.promise;
 };
 
@@ -46,6 +63,11 @@ UsersProvider.prototype.create = function(userData) {
 
   user.provider = 'local';
   user.role = 'user';
+
+  user.salt = authHelper.makeSalt();
+  user.hashedPassword = authHelper.encryptPassword(user.salt, user.password);
+
+  console.log("hashed password " + user.hashedPassword + " salt " + user.salt );
 
   user.save(function (err) {
     if (err) {
