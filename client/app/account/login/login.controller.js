@@ -7,19 +7,22 @@ angular.module('SelfOMaticApp')
 
     $rootScope.areaTitle = "Self-O-Matic Login";
 
-    $scope.login = function(form) {
+    $scope.login = function(userForm) {
       $scope.submitted = true;
 
-      if(form.$valid) {
+      if(userForm.$valid) {
+
         Auth.login({
-          email: $scope.user.email,
+          email: $scope.user.username,
           password: $scope.user.password
         })
         .then( function() {
           // Logged in, redirect to home
+
           $location.path('/');
         })
         .catch( function(err) {
+
           $scope.errors.other = err.message;
         });
       }

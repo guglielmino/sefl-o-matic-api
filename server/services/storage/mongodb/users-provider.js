@@ -67,8 +67,6 @@ UsersProvider.prototype.create = function(userData) {
   user.salt = authHelper.makeSalt();
   user.hashedPassword = authHelper.encryptPassword(user.salt, user.password);
 
-  console.log("hashed password " + user.hashedPassword + " salt " + user.salt );
-
   user.save(function (err) {
     if (err) {
       // TODO: in caso di errore di validazione l'errore tornato è un ValidationError

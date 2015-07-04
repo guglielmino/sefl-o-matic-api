@@ -1,0 +1,51 @@
+<section layout="column" layout-align="center center" layout-margin>
+   <form name="configForm"  ng-submit="saveConfig()" novalidate>
+    
+      <md-content class="md-padding">
+         <md-tabs  md-border-bottom md-autoselect >
+            <md-tab label="Facebook parameters">
+               <h1 class="md-display-2">Facebook integration</h1>
+               <md-content class="md-padding">
+                  <md-input-container md-no-float>
+                     <input ng-model="machineConfig.fb_app_id" type="text" name="fb_app_id" placeholder="Facebook APP ID">
+                  </md-input-container>
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.fb_app_secret" type="text" placeholder="Facebook APP SECRET">
+                  </md-input-container>
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.fb_access_token" type="text" placeholder="Facebook ACCESS TOKEN">
+                  </md-input-container>
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.fb_album_id" type="text" placeholder="Facebook ALBUM ID">
+                  </md-input-container>
+               </md-content>
+            </md-tab>
+            <md-tab label="Image parameters">
+               <md-content class="md-padding">
+                  <md-input-container  md-no-float>
+                     <md-checkbox ng-model="machineConfig.hflip_image">Horizontal flip image</md-checkbox>
+                  </md-input-container>
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.watermark_image" type="text" placeholder="Watermark image">
+                  </md-input-container>
+               </md-content>
+            </md-tab>
+            <md-tab label="Pushetta parameters">
+               <md-content class="md-padding">
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.pushetta_api_key" type="text" placeholder="Pushetta API KEY">
+                  </md-input-container>
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.pushetta_channel" type="text" placeholder="Pushetta channel name">
+                  </md-input-container>
+               </md-content>
+            </md-tab>
+         </md-tabs>
+      </md-content>
+
+      <div layout="column" class="md-padding" >
+        	<md-button class="md-raised md-primary" type="submit"  ng-disabled="userForm.$invalid" >Save</md-button>
+      </div>
+
+   </form>
+</section>
