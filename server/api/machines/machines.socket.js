@@ -10,7 +10,10 @@ var MachineSocketioController = function(socketio)  {
 
 
 MachineSocketioController.prototype.notifyConfigUpdate = function(newConfig){
-	self.sock.emit('config_update', newConfig);
+	// TODO: Va gestito l'update alla sola macchina che lo neessita
+	self.sock.emit('config_update', newConfig)
+
+	// self.sock.emit('config_update', newConfig)
 };
 
 module.exports = MachineSocketioController;

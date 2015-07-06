@@ -1,21 +1,31 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-	.controller('ConfigCtrl', function ($scope, $rootScope, $stateParams, $state, ConfigService) {
-		var serial = $stateParams.serial;
+	.controller('ConfigCtrl', function ($scope, $rootScope, $stateParams, $state, $mdDialog, ConfigService) {
 
-		ConfigService.getMachineConfig(serial)
+		var serialNumber = $stateParams.serial;
+		
+		ConfigService.getMachineConfig(serialNumber)
 			.then(function(data){
 				$scope.machineConfig = data;
 			});
 
 		$scope.saveConfig = function(){
-			ConfigService.postMachineConfig(serial, $scope.machineConfig)
+			ConfigService.postMachineConfig(serialNumber, $scope.machineConfig)
 				.then(function(data){
-					debugger;
-					$state.go('machineConfig', { serial : serial })
+					var alert = $mdDialog.alert({
+				        title: 'Config for ' + serialNumber,
+				        content: 'Configuration saved',
+				        ok: 'Close'
+				      });
+					$mdDialog
+				        .show( alert )
+				        .finally(function() {
+				          alert = undefined;
+				          $state.go('machines');
+				       	});
 				}); 
 		};
 
-		$rootScope.areaTitle = "Configurazione di " + serial;
+		$rootScope.areaTitle = "Configurazione di " + serialNumber;
 	});

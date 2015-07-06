@@ -266,7 +266,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'client/assets/images',
+          cwd: 'client/assets/img',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: 'dist/public/assets/images'
         }]
@@ -277,7 +277,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'client/assets/images',
+          cwd: 'client/assets/svg',
           src: '{,*/}*.svg',
           dest: 'dist/public/assets/images'
         }]
