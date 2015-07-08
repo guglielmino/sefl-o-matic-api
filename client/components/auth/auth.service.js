@@ -1,8 +1,8 @@
 angular.module('SelfOMaticApp')
-	.factory('Auth', function Auth($location, $rootScope, $http, $cookieStore, $q) {
+	.factory('Auth', function Auth($location, $rootScope, $http, $cookieStore, $q, User) {
     var currentUser = {};
     if($cookieStore.get('token')) {
-    //  currentUser = User.get();
+      currentUser = User.get();
     }
 
     return {
@@ -40,14 +40,11 @@ angular.module('SelfOMaticApp')
        */
       isLoggedInAsync: function(cb) {
         if(currentUser.hasOwnProperty('$promise')) {
-          // TODO: Da gestire con l'istanza utente
-          cb(true);
-          /*
           currentUser.$promise.then(function() {
             cb(true);
           }).catch(function() {
             cb(false);
-          });*/
+          });
         } else if(currentUser.hasOwnProperty('role')) {
           cb(true);
         } else {
@@ -61,9 +58,7 @@ angular.module('SelfOMaticApp')
        * @return {Object} user
        */
       getCurrentUser: function() {
-        // TODO: Da gestire con il current user
-        return {};
-        //return currentUser;
+        return currentUser;
       },
 
        /**
@@ -72,9 +67,7 @@ angular.module('SelfOMaticApp')
        * @return {Boolean}
        */
       isLoggedIn: function() {
-        // TODO: Da gestire con il current user
-        return true;
-        //return currentUser.hasOwnProperty('role');
+        currentUser.hasOwnProperty('role');
       },
 
       /**
@@ -83,9 +76,7 @@ angular.module('SelfOMaticApp')
        * @return {Boolean}
        */
       isAdmin: function() {
-        // TODO: Da gestire con il current user
-        return true;
-        //return currentUser.role === 'admin';
+        return currentUser.role === 'admin';
       },
 
       /**

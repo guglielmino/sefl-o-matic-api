@@ -16,6 +16,7 @@ var UserController = function(usersProvider)  {
  * restriction: 'admin'
  */
 UserController.prototype.index = function(req, res) {
+
 	self.usersProvider.find({})
 		.then(function(result) {
 			if(result){
@@ -124,7 +125,6 @@ UserController.prototype.changePassword = function(req, res, next) {
 UserController.prototype.me = function(req, res, next) {
 	var userId = req.user._id;
 
-	var userId = req.params.id;
 	self.usersProvider.delById(userId)
 	  	.then(function(user){
 	  		if(!user){

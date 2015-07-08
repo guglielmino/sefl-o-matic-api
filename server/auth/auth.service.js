@@ -20,9 +20,10 @@ var AuthService = function(usersProvider) {
 
 /**
  * Attaches the user object to the request if authenticated
- * Otherwise returns 403
+ * Otherwise returns 401
  */
 AuthService.prototype.isAuthenticated = function() {
+
   return compose()
       // Validate jwt
       .use(function(req, res, next) {
@@ -37,6 +38,7 @@ AuthService.prototype.isAuthenticated = function() {
 
           self.usersProvider.findById(req.user._id)
               .then(function(user) {
+                   
                   if (!user) {
                       res.send(401);
                   } else {
@@ -54,7 +56,11 @@ AuthService.prototype.isAuthenticated = function() {
  * Checks if the user role meets the minimum requirements of the route
  */
 AuthService.prototype.hasRole = function(roleRequired) {
-    if (!roleRequired) throw new Error('Required role needs to be set');
+    console.log("DEBUG: Checking for role " + roleRequired);
+
+    if (!roleRequired){ 
+      throw new Error('Required role needs to be set');
+    }
 
     return compose()
         .use(self.isAuthenticated())

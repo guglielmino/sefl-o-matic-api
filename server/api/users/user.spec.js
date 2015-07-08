@@ -28,5 +28,19 @@ describe('Users controller', function() {
 		    });
 	});
 
+	it('should get 401 trying to get users list', function(done) {
+
+	 	
+	    request(app)
+		    .get('/api/users')
+		    .expect(401)
+		    .end(function(err, res) {
+		      if (err) {
+		        return done(err);
+		      }
+		      done();
+		    });
+	});
+
 
 });

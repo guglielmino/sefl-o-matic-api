@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="SelfOMaticApp" >
    <head>
       <title>Self-O-Matic Admin</title>
+      
       <base href="/">
+
       <meta name="description" content="">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
       <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
@@ -20,35 +22,21 @@
       <!-- endinjector -->
       <!-- endbuild -->
    </head>
-   <body ng-app="SelfOMaticApp" layout="column">
+   <body layout="row" ng-controller="AppCtrl" >
 
-      <md-toolbar layout-margin="row">
-         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings">
-               <md-icon md-svg-icon="assets/svg/menu.svg"></md-icon>
-            </md-button>
-            <h2>
-               <span>{{ areaTitle }}</span>
-            </h2>
-            <span flex></span>
-            <md-button class="md-icon-button" aria-label="Favorite">
-               <md-icon md-svg-icon="assets/svg/favorite.svg" style="color: greenyellow;"></md-icon>
-            </md-button>
-            <md-button class="md-icon-button" aria-label="More">
-               <md-icon md-svg-icon="assets/svg/more_vert.svg"></md-icon>
-            </md-button>
-         </div>
-      </md-toolbar>
+       
+         <md-sidenav  class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left"  md-is-locked-open="$mdMedia('gt-sm')" >
 
-      <div flex layout="row">
-        
-         <md-sidenav  ng-if="auth" md-is-locked-open="$mdMedia('gt-sm')" class="md-whiteframe-z2" md-component-id="left">
+         <md-toolbar class="md-whiteframe-z1" >
+      <h1>Menu</h1>
+    </md-toolbar>
+
             <md-list>
               <md-item >
-                <md-button ng-href="#">
-                    <md-icon md-font-set="material-icons"> dashboard </md-icon> 
+                <md-button ng-href="/#/home">
+                    <md-icon md-font-set="material-icons"> home </md-icon> 
                     </md-icon> 
-                     Dashboard
+                     Home
                  </md-button>
                </md-item >
                <md-item >
@@ -59,7 +47,7 @@
                  </md-button>
                </md-item >
                <md-item >
-                  <md-button  ng-href="#">
+                  <md-button  ng-href="/#/users">
                     <md-icon md-font-set="material-icons"> people </md-icon> 
                     </md-icon> 
                      Utenti
@@ -76,8 +64,30 @@
             </md-list>
          </md-sidenav>
 
+ <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+     <md-toolbar  layout-margin="row">
+         <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleSidenav('left')">
+               <md-icon md-svg-icon="assets/svg/menu.svg"></md-icon>
+            </md-button>
+            <h2>
+               <span>{{ areaTitle }}</span>
+            </h2>
+            <span flex></span>
+            <md-button class="md-icon-button" aria-label="Favorite">
+               <md-icon md-svg-icon="assets/svg/favorite.svg" style="color: greenyellow;"></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="More">
+               <md-icon md-svg-icon="assets/svg/more_vert.svg"></md-icon>
+            </md-button>
+         </div>
+        </md-toolbar>
+
+
          <div flex layout-padding ui-view=""></div>
-      </div>
+    </div>
+    
       <!--[if lt IE 9]>
       <script src="bower_components/es5-shim/es5-shim.js"></script>
       <script src="bower_components/json3/lib/json3.min.js"></script>
@@ -98,6 +108,7 @@
       <script src="bower_components/angular-material/angular-material.js"></script>
       <script src="bower_components/angular-material-icons/angular-material-icons.min.js"></script>
       <script src="bower_components/angular-messages/angular-messages.js"></script>
+      <script src="bower_components/angular-gravatar/build/angular-gravatar.js"></script>
       <!-- endbower -->
       <!-- endbuild -->
       <!-- build:js({.tmp,client}) app/app.js -->
@@ -107,12 +118,18 @@
       <script src="app/account/login/login.controller.js"></script>
       <script src="app/home/home.controller.js"></script>
       <script src="app/home/home.js"></script>
+
+      <script src="app/users/users.controller.js"></script>
+      <script src="app/users/users.js"></script>
+      <script src="app/users/users.service.js"></script>
+
       <script src="app/machines/config/config.controller.js"></script>
       <script src="app/machines/config/config.service.js"></script>
       <script src="app/machines/machines.controller.js"></script>
       <script src="app/machines/machines.js"></script>
       <script src="app/machines/machines.service.js"></script>
       <script src="components/auth/auth.service.js"></script>
+      <script src="components/auth/user.service.js"></script>
       <script src="components/toolbar/toolbar.controller.js"></script>
       <!-- endinjector -->
       <!-- endbuild -->

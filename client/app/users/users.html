@@ -1,0 +1,11 @@
+ <md-subheader class="md-no-sticky">Uteti registrati</md-subheader>
+ <md-list>
+	 <md-list-item class="md-2-line" ng-repeat="user in users">
+	 	<img gravatar-src="'{{ user.email }}'" gravatar-size="100" class="md-avatar" alt="{{ user.name }}" />
+
+        <div class="md-list-item-text">
+          <h3>{{ user.name }}</h3>
+          <p>{{ user.role }}</p>
+        </div>
+	 </md-list-item>
+ </md-list>

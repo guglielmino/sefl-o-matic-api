@@ -8,5 +8,5 @@ angular.module('SelfOMaticApp')
 				$scope.machines = data;
 			});
 
-		$rootScope.areaTitle = "Macchine attive";
+		$rootScope.areaTitle = "Macchine registrate";
 	});

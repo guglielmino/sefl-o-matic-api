@@ -7,9 +7,10 @@ angular.module('SelfOMaticApp', [
   	'ngSanitize',
   	'ngMaterial',
   	'ngMdIcons',
-  	'ngMessages'
+  	'ngMessages',
+  	'ui.gravatar'
 ])
-	.config(function  ($urlRouterProvider, $locationProvider, $mdThemingProvider){
+	.config(function  ($urlRouterProvider, $locationProvider, $mdThemingProvider, $httpProvider){
 		$urlRouterProvider
 		  .otherwise('/home'); // Nota: usando / e attivando html5Mode si entra in recursione
 
@@ -18,8 +19,10 @@ angular.module('SelfOMaticApp', [
 	                          .accentPalette('red');
 
 		$locationProvider.html5Mode(true);
+		$httpProvider.interceptors.push('authInterceptor');
 	})
 	.factory('authInterceptor', function ($rootScope, $q, $cookieStore, $location) {
+
 	    return {
 	      // Add authorization token to headers
 	      request: function (config) {
@@ -43,6 +46,7 @@ angular.module('SelfOMaticApp', [
 	        }
 	      }
 	    };
+
 	  })
 	  .run(function ($rootScope, $location, Auth) {
 	    // Redirect to login if route requires auth and you're not logged in
@@ -52,6 +56,16 @@ angular.module('SelfOMaticApp', [
 	          $location.path('/login');
 	        }
 	      });
-    	});
-	});
+    	})
+
+   
+
+	})
+    .controller('AppCtrl', ['$scope', '$mdSidenav', '$mdDialog', function($scope, $mdSidenav, $mdDialog){
+    	$scope.toggleSidenav = function(menuId) {
+    		console.log("togglo");
+    		$mdSidenav(menuId).toggle();
+ 		};
+	}]);
+
 
