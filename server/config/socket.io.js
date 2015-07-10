@@ -6,6 +6,8 @@
 
 var config = require('./environment');
 
+var connectedClients = {};
+
 // When the user disconnects.. perform this
 function onDisconnect(socket) {
 }
@@ -17,8 +19,10 @@ function onConnect(socket) {
     console.info('[%s] %s', socket.address, JSON.stringify(data, null, 2));
   });
 
-  // Insert sockets below
-  //var socketController = require('../api/machines/machines.socket')(socket);
+  socket.on('register', function (data) {
+    connectedClients[data] = socket;
+    console.info("DBG " + connectedClients[data] + " " + data);
+  });
 
 }
 
@@ -38,23 +42,22 @@ module.exports = function (socketio) {
   //   handshake: true
   // }));
 
-  console.info('Starting socket.io');
 
   socketio.on('connection', function (socket) {
     socket.address = socket.handshake.address !== null ?
-            socket.handshake.address.address + ':' + socket.handshake.address.port :
+            socket.handshake.address + ':' + socket.handshake.address.port :
             process.env.DOMAIN;
-
-    socket.connectedAt = new Date();
+      socket.connectedAt = new Date();
 
     // Call onDisconnect.
     socket.on('disconnect', function () {
       onDisconnect(socket);
-      console.info('[%s] DISCONNECTED', socket.address);
+      console.info('[%s] DISCONNECTED', socket.id);
     });
 
     // Call onConnect.
     onConnect(socket);
-    console.info('[%s] CONNECTED', socket.address);
+    console.info('[%s] CONNECTED', socket.id);
+
   });
 };

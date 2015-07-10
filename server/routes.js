@@ -4,15 +4,15 @@
 
 'use strict';
 
-module.exports = function(app, storageProvider, socketio) {
+module.exports = function(app, storageProvider, socketProvider) {
 
   var machinesProvider = storageProvider.machinesProvider();
-  var machinesController = require('./api/machines')(machinesProvider, socketio);
+  var machinesController = require('./api/machines')(machinesProvider, socketProvider);
 
   var usersProvider = storageProvider.usersProvider();
-  var auth = require('./auth')(usersProvider, socketio);
+  var auth = require('./auth')(usersProvider, socketProvider);
 
-  var usersController = require('./api/users')(usersProvider, socketio);
+  var usersController = require('./api/users')(usersProvider, socketProvider);
 
   // Routes
   app.use('/api/machines', machinesController);

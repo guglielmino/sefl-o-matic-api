@@ -19,7 +19,11 @@ var socketio = require('socket.io')(server, {
   serveClient: true,
   path: '/socket.io'
 });
-require('./config/socket.io')(socketio);
+//require('./config/socket.io')(socketio);
+
+var SocketProvider = require('./services/net/socketprovider');
+var socketprovider = new SocketProvider(socketio);
+
 
 // Storage providers
 var MongoDBProvider = require('./services/storage/mongodb');
@@ -27,7 +31,7 @@ var storageProvider = new MongoDBProvider(config);
 
 
 require('./config/express')(app);
-require('./routes')(app, storageProvider, socketio);
+require('./routes')(app, storageProvider, socketprovider);
 
 console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
 

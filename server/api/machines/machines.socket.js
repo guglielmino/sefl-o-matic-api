@@ -9,11 +9,11 @@ var MachineSocketioController = function(socketio)  {
 };
 
 
-MachineSocketioController.prototype.notifyConfigUpdate = function(newConfig){
+MachineSocketioController.prototype.notifyConfigUpdate = function(serial, newConfig){
 	// TODO: Va gestito l'update alla sola macchina che lo neessita
-	self.sock.emit('config_update', newConfig)
-
-	// self.sock.emit('config_update', newConfig)
+	
+	self.sock.sendTo(serial, 'config_update', newConfig);
+	//self.sock.sendBroadcast('config_update', newConfig);
 };
 
 module.exports = MachineSocketioController;

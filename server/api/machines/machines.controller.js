@@ -95,7 +95,7 @@ MachineController.prototype.setMachineConfig = function(req, res) {
 	self.storageProvider.saveMachineConfig(serial, configData).then(function(result) {
 		if(result){
 			// WebSocket notify
-			self.socketController.notifyConfigUpdate(result.config);
+			self.socketController.notifyConfigUpdate(serial, result.config);
 			res.json(200, result.config);
 		}
 		else{
