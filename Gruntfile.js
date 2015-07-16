@@ -248,6 +248,8 @@ module.exports = function(grunt) {
       css: ['dist/public/{,*/}*.css'],
       js: ['dist/public/{,*/}*.js'],
       options: {
+        dirs: ['dist'],
+        basedir: ['dist'],
         assetsDirs: [
           'dist/public',
           'dist/public/assets/images'
@@ -255,7 +257,8 @@ module.exports = function(grunt) {
         // This is so we update image references in our ng-templates
         patterns: {
           js: [
-            [/(assets\/images\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images']
+            [/(assets\/img\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved images'],
+            [/(assets\/svg\/.*?\.(?:gif|jpeg|jpg|png|webp|svg))/gm, 'Update the JS to reference our revved svg']
           ]
         }
       }
@@ -266,7 +269,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'client/assets/img',
+          cwd: 'client/assets/images',
           src: '{,*/}*.{png,jpg,jpeg,gif}',
           dest: 'dist/public/assets/images'
         }]
@@ -277,7 +280,7 @@ module.exports = function(grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: 'client/assets/svg',
+          cwd: 'client/assets/images',
           src: '{,*/}*.svg',
           dest: 'dist/public/assets/images'
         }]
@@ -377,18 +380,6 @@ module.exports = function(grunt) {
         push: true,
         connectCommits: false,
         message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
-      },
-      heroku: {
-        options: {
-          remote: 'heroku',
-          branch: 'master'
-        }
-      },
-      openshift: {
-        options: {
-          remote: 'openshift',
-          branch: 'master'
-        }
       }
     },
 
