@@ -2,7 +2,6 @@
 
 angular.module('SelfOMaticApp')
   .factory('ConfigService', function MachineService($location, $rootScope, $http, $cookieStore, $q) {
-    
 
     return {
 

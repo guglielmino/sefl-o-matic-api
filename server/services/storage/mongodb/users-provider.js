@@ -81,6 +81,9 @@ UsersProvider.prototype.create = function(userData) {
 };
 
 UsersProvider.prototype.delById = function(userId) {
+  console.log("DELETE " + userId);
+  console.log("STACK " +  console.trace());
+  
   var deferred = Q.defer();
   User.findByIdAndRemove(userId, function(err, user) {
     if(err) {

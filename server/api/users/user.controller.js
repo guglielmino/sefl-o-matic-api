@@ -73,6 +73,7 @@ UserController.prototype.show = function (req, res, next) {
 };
 
 UserController.prototype.destroy = function(req, res) {
+  console.log("DESTROY ");
 	var userId = req.params.id;
 	self.usersProvider.delById(userId)
 	  	.then(function(user){
@@ -125,7 +126,7 @@ UserController.prototype.changePassword = function(req, res, next) {
 UserController.prototype.me = function(req, res, next) {
 	var userId = req.user._id;
 
-	self.usersProvider.delById(userId)
+	self.usersProvider.findById(userId)
 	  	.then(function(user){
 	  		if(!user){
 	  			res.json(401);

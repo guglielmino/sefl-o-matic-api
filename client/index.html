@@ -75,12 +75,11 @@
                <span>{{ areaTitle }}</span>
             </h2>
             <span flex></span>
-            <md-button class="md-icon-button" aria-label="Favorite">
-               <md-icon md-svg-icon="assets/svg/favorite.svg" style="color: greenyellow;"></md-icon>
+          
+            <md-button  class="md-icon-button" aria-label="{{ loggedUser.name }}">
+              <img gravatar-src="'{{ loggedUser.email }}'" gravatar-size="50" class="md-avatar" alt="{{ loggedUser.name }}" />
             </md-button>
-            <md-button class="md-icon-button" aria-label="More">
-               <md-icon md-svg-icon="assets/svg/more_vert.svg"></md-icon>
-            </md-button>
+           
          </div>
         </md-toolbar>
 
@@ -118,16 +117,14 @@
       <script src="app/account/login/login.controller.js"></script>
       <script src="app/home/home.controller.js"></script>
       <script src="app/home/home.js"></script>
-
-      <script src="app/users/users.controller.js"></script>
-      <script src="app/users/users.js"></script>
-      <script src="app/users/users.service.js"></script>
-
       <script src="app/machines/config/config.controller.js"></script>
       <script src="app/machines/config/config.service.js"></script>
       <script src="app/machines/machines.controller.js"></script>
       <script src="app/machines/machines.js"></script>
       <script src="app/machines/machines.service.js"></script>
+      <script src="app/users/users.controller.js"></script>
+      <script src="app/users/users.js"></script>
+      <script src="app/users/users.service.js"></script>
       <script src="components/auth/auth.service.js"></script>
       <script src="components/auth/user.service.js"></script>
       <script src="components/toolbar/toolbar.controller.js"></script>

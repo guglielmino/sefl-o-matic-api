@@ -61,11 +61,20 @@ angular.module('SelfOMaticApp', [
    
 
 	})
-    .controller('AppCtrl', ['$scope', '$mdSidenav', '$mdDialog', function($scope, $mdSidenav, $mdDialog){
+    .controller('AppCtrl', ['$scope', '$mdSidenav', '$mdDialog', 'Auth', function($scope, $mdSidenav, $mdDialog, Auth){
+    	
     	$scope.toggleSidenav = function(menuId) {
     		console.log("togglo");
     		$mdSidenav(menuId).toggle();
  		};
+
+ 		Auth.isLoggedInAsync(function(res) {
+			if(res){
+				$scope.loggedUser = Auth.getCurrentUser();
+			}
+ 		});
+ 
+
 	}]);
 
 
