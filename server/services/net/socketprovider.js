@@ -3,57 +3,95 @@
 var Q = require('q');
 
 var self;
+var connectedMachines = {};
 
 var SocketProvider = function(socketio) {
-	
+
 	this.sock = socketio;
 
-	this.sock.on('connection', function (socket) {
-	    socket.address = socket.handshake.address !== null ?
-	            socket.handshake.address + ':' + socket.handshake.address.port :
-	            process.env.DOMAIN;
+	this.sock.on('connection', function(socket) {
+		socket.address = socket.handshake.address !== null ?
+			socket.handshake.address + ':' + socket.handshake.address.port :
+			process.env.DOMAIN;
 
-	    socket.connectedAt = new Date();
+		socket.connectedAt = new Date();
 
-	    // Call onDisconnect.
-	    socket.on('disconnect', function () {
-	      self.onDisconnect(socket);
-   		});
+		// Call onDisconnect.
+		socket.on('disconnect', function() {
+			self.onDisconnect(socket);
+		});
 
-	    // Call onConnect.
-	    self.onConnect(socket);
+		// Call onConnect.
+		self.onConnect(socket);
 
-	    socket.on('register', function(data) {
-	    	var serial = JSON.stringify(data, null, 2);
-	    	// Subscribe a room identified by client serial 
-	    	// pattern machine:serial
-	    	socket.join("machine:" + data);
-	    });
- 
+		socket.on('register', function(data) {
+			var serial = JSON.stringify(data, null, 2);
+			// Subscribe a room identified by client serial 
+			// pattern machine:serial
+			var roomName = "machine:" + data;
 
-  });
+			socket.join(roomName);
+			connectedMachines[socket.id] = roomName;
 
-  self = this;
-};
+			self.onRegistered(socket, roomName);
+		});
 
 
-SocketProvider.prototype.onConnect = function(socket){
-	console.info('[%s] PROVIDER CONNECTED', socket.id);
-};
+	});
 
-SocketProvider.prototype.onDisconnect = function(socket){
-	console.info('[%s] PROVIDER DISCONNECTED', socket.id);
+	self = this;
 };
 
 /**
-* sendTo - send a realtime event to a socket associated to a serial
-*
-* @param {String} serial
-* @param {String} event
-* @param {Object} data
-* @return {Boolean}
-* @api public
-*/
+ * onRegistered - event fired when a client register itself (emit of register event)
+ *
+ * @param {Object} socket
+ * @param {String} roomName
+ * @api public
+ */
+SocketProvider.prototype.onRegistered = function(socket, roomName) {
+	console.info('[%s] CLIENT REGISTERED %s', socket.id, roomName);
+	this.sendBroadcast('registered', roomName);
+
+};
+
+/**
+ * onConnect - event fired when a client connect
+ *
+ * @param {Object} socket
+ * @api public
+ */
+SocketProvider.prototype.onConnect = function(socket) {
+	console.info('[%s] PROVIDER CONNECTED', socket.id);
+};
+
+/**
+ * onDisconnect - event fired when a client disconnect
+ *
+ * @param {Object} socket
+ * @api public
+ */
+SocketProvider.prototype.onDisconnect = function(socket) {
+	console.info('[%s] PROVIDER DISCONNECTED', socket.id);
+	if (socket.id in connectedMachines) {
+		console.info("LEAVE OF %s", connectedMachines[socket.id]);
+		this.sendBroadcast('unregistered', connectedMachines[socket.id]);
+		delete connectedMachines[socket.id];
+	}
+	for (var idx in socket.rooms) {
+		console.info("Subscribed to room %s", socket.rooms[idx]);
+	}
+};
+
+/**
+ * sendTo - send a realtime event to a socket associated to a serial
+ *
+ * @param {String} serial
+ * @param {String} event
+ * @param {Object} data
+ * @return {Boolean}
+ * @api public
+ */
 SocketProvider.prototype.sendTo = function(serial, event, data) {
 	var roomName = "machine:" + serial;
 	console.log("sentTo room " + roomName);
@@ -61,26 +99,37 @@ SocketProvider.prototype.sendTo = function(serial, event, data) {
 };
 
 /**
-* sendBroadcast - send a event to all connected machines
-*
-* @return {String}
-* @api public
-*/
+ * sendBroadcast - send a event to all connected machines
+ *
+ * @return {String}
+ * @api public
+ */
 SocketProvider.prototype.sendBroadcast = function(event, data) {
-	this.sock.emit(event, data);
+	console.log("sendBroadcast  " + event);
+	self.sock.emit(event, data);
 };
 
 /**
-* Encrypt password
-*
-* @param {String} password
-* @return {Promise}
-* @api public
-*/
+ * Encrypt password
+ *
+ * @param {String} password
+ * @return {Promise}
+ * @api public
+ */
 SocketProvider.prototype.on = function(event, cb) {
 	self.sock.on(event, cb);
 };
 
+/**
+ * Encrypt password
+ *
+ * @param {String} password
+ * @return {Promise}
+ * @api public
+ */
+SocketProvider.prototype.getConnected = function() {
+	return connectedMachines;
+};
+
 
 module.exports = SocketProvider;
-

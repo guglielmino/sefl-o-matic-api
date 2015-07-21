@@ -6,31 +6,35 @@ var errorMapper = require('../../services/helpers/controller.error');
 
 var self;
 
-var MachineController = function(storageProvider, machineSocketController)  {
+var MachineController = function(storageProvider, machineSocketController) {
 	this.storageProvider = storageProvider;
 	this.socketController = machineSocketController;
 	self = this;
 };
 
-MachineController.prototype.index = function(req, res){
+MachineController.prototype.index = function(req, res) {
 	self.storageProvider.getMachines()
 		.then(function(result) {
-			if(result){
-				res.json(200, result);
-			}
-			else{
-				res.status(404).send();
-			}
+				if (result) {
+					for (var idx in result) {
+						result[idx].isOn = self.socketController.isOnlineMachine(result[idx].serial);
+					}
 
-		}, function(providerError) {
-			console.log("err " + providerError.message);
-			res
-				.status(errorMapper.errorCodeToStatus(providerError.status))
-				.send(providerError.message);
-		});
+					res.json(200, result);
+				} else {
+					res.status(404).send();
+				}
+
+			},
+			function(providerError) {
+				console.log("err " + providerError.message);
+				res
+					.status(errorMapper.errorCodeToStatus(providerError.status))
+					.send(providerError.message);
+			});
 };
 
-MachineController.prototype.addOrUpdateMachine = function(req, res){
+MachineController.prototype.addOrUpdateMachine = function(req, res) {
 
 	var errors = validation.addOrUpdateMachine(req);
 	if (errors) {
@@ -54,37 +58,35 @@ MachineController.prototype.getMachineBySerial = function(req, res) {
 	var serial = req.params.serialnumber;
 
 	self.storageProvider.getMachineBySerial(serial).then(function(result) {
-		if(result){
+		if (result) {
 			res.json(200, result);
-		}
-		else{
+		} else {
 			res.status(404).send();
 		}
 
 	}, function(providerError) {
 		console.log("err " + providerError.message);
 		res
-		.status(errorMapper.errorCodeToStatus(providerError.status))
-		.send(providerError.message);
+			.status(errorMapper.errorCodeToStatus(providerError.status))
+			.send(providerError.message);
 	});
 };
 
-MachineController.prototype.getMachineConfig = function(req, res){
+MachineController.prototype.getMachineConfig = function(req, res) {
 	var serial = req.params.serialnumber;
 
 	self.storageProvider.getMachineBySerial(serial).then(function(result) {
-		if(result && result.config){
+		if (result && result.config) {
 			res.json(200, result.config);
-		}
-		else{
+		} else {
 			res.status(404).send();
 		}
 
 	}, function(providerError) {
 		console.log("err " + providerError.message);
 		res
-		.status(errorMapper.errorCodeToStatus(providerError.status))
-		.send(providerError.message);
+			.status(errorMapper.errorCodeToStatus(providerError.status))
+			.send(providerError.message);
 	});
 };
 
@@ -93,19 +95,18 @@ MachineController.prototype.setMachineConfig = function(req, res) {
 	var configData = req.body;
 
 	self.storageProvider.saveMachineConfig(serial, configData).then(function(result) {
-		if(result){
+		if (result) {
 			// WebSocket notify
 			self.socketController.notifyConfigUpdate(serial, result.config);
 			res.json(200, result.config);
-		}
-		else{
+		} else {
 			res.status(404).send();
 		}
 	}, function(providerError) {
 		console.log("err " + providerError.message);
 		res
-		.status(errorMapper.errorCodeToStatus(providerError.status))
-		.send(providerError.message);
+			.status(errorMapper.errorCodeToStatus(providerError.status))
+			.send(providerError.message);
 	});
 };
 

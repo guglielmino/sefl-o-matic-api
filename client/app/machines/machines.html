@@ -11,7 +11,7 @@
                 <img ng-src="assets/images/selfomatic.png" class="md-avatar" alt="Machine" />
           
                 <div offset="5" class="md-list-item-text">
-                  <h3>{{ item.name }}</h3>
+                  <h3>{{ item.name }} <span ng-if="item.isOn" style="color: red"> [ONLINE]</span></h3>
                   <p> {{ item.serial }}</p>
                 </div>
             
