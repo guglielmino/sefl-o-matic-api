@@ -2,7 +2,7 @@ web:
   container_name: som-nodeapp-container
   build: web
   ports:
-    - "9000:9000"
+    - "8080:8080"
   links:
     - mongo
   environment:

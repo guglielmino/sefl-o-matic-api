@@ -11,9 +11,10 @@ RUN git clone http://root:d8r6cosca@gitlab.gumino.com/node-apps/self-o-matic-api
 WORKDIR /opt/selfomatic-api
 
 RUN npm install
+RUN grunt build
 
-EXPOSE  9000
+EXPOSE  8080
 
 #ENV NODE_ENV production
 
-CMD ["node", "/opt/selfomatic-api/server/app.js"] 
+CMD ["node", "/opt/selfomatic-api/dist/server/app.js"] 
