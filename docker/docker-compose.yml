@@ -1,0 +1,14 @@
+web:
+  container_name: som-nodeapp-container
+  build: web
+  ports:
+    - "9000:9000"
+  links:
+    - mongo
+  environment:
+    NODE_ENV: production
+mongo:
+  container_name: som-mongo-container
+  build: mongo
+  ports:
+    - "27017:27017"
