@@ -17,7 +17,14 @@ var MachineSchema = new mongoose.Schema({
     hflip_image: Boolean,
     watermark_image: String,
     pushetta_api_key: String,
-    pushetta_channel: String
+    pushetta_channel: String,
+    telegram_token: String,
+    tw_consumer_key: String,
+    tw_consumer_secret: String,
+    tw_access_token: String,
+    tw_access_token_secret: String,
+    db_access_token: String
+
   }
 });
 
