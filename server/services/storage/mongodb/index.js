@@ -1,7 +1,7 @@
   'use strict';
 
   var mongoose = require('mongoose'),
-  chalk = require('chalk');
+    chalk = require('chalk');
 
   var MongoDBProvider = function(config) {
 
@@ -10,12 +10,13 @@
       throw err;
     }
 
+    console.log("MongoDB Uri " + config.mongo.uri);
     mongoose.connect(config.mongo.uri);
 
     this.db = mongoose.connection;
 
     this.db.on('error', console.error.bind(console, 'connection error:'));
-    this.db.once('open', function () {
+    this.db.once('open', function() {
 
       // Drop database
       if (config.mongo.dropdb) {
@@ -24,10 +25,12 @@
       }
 
       // Load test data
-      if(config.mongo.seedTestData) { require('./seed'); }
+      if (config.mongo.seedTestData) {
+        require('./seed');
+      }
     });
 
-    
+
   };
 
   MongoDBProvider.prototype = {

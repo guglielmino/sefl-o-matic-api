@@ -13,6 +13,6 @@ module.exports = {
 
   // MongoDB connection options
   mongo: {
-    uri: 'mongodb://' + process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost:' + process.env.MONGO_PORT_27017_TCP_PORT || '27017' + '/selfomaticapi'
+    uri: 'mongodb://' + (process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost:') + (process.env.MONGO_PORT_27017_TCP_PORT || '27017') + '/selfomaticapi'
   }
 };
