@@ -37,7 +37,12 @@ angular.module('SelfOMaticApp', [
 			// Intercept 401s and redirect you to login
 			responseError: function(response) {
 				if (response.status === 401) {
-					$location.path('/login');
+					var target_url = $location.path();
+
+                    $location.path('/login')
+                        .search('target_url', target_url);
+
+					//$location.path('/login');
 					// remove any stale tokens
 					$cookieStore.remove('token');
 					return $q.reject(response);
@@ -53,8 +58,11 @@ angular.module('SelfOMaticApp', [
 		$rootScope.$on('$stateChangeStart', function(event, next) {
 			console.log("$stateChangeStart");
 
+
 			Auth.isLoggedInAsync(function(loggedIn) {
+
 				if (next.authenticate && !loggedIn) {
+
 					$location.path('/login');
 				}
 			});

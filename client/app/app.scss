@@ -137,5 +137,6 @@ span.name {
 
 // Component styles are injected through grunt
 // injector
+@import 'account/login/login.scss';
 @import 'machines/machines.scss';
 // endinjector

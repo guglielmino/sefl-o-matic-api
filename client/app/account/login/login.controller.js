@@ -17,9 +17,9 @@ angular.module('SelfOMaticApp')
           password: $scope.user.password
         })
         .then( function() {
-          // Logged in, redirect to home
-
-          $location.path('/');
+          // Logged in, redirect to home or target url
+          var target_url = $location.search().target_url || '/';
+          $location.path(target_url);
         })
         .catch( function(err) {
 

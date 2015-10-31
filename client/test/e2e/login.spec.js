@@ -25,5 +25,18 @@ describe('Login', function() {
 
         expect(browser.getCurrentUrl()).not.toEqual('/login');
 
-    })
+    });
+
+    it('should not login', function(){
+
+        loginPage.setUsername('guglielmino@gmail.com');
+        loginPage.setPassword('aaaa');
+
+        loginPage.login();
+
+        expect(browser.getCurrentUrl()).not.toEqual('/login');
+
+    });
+
+
 });
