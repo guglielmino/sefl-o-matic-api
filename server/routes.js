@@ -6,11 +6,13 @@
 
 module.exports = function(app, storageProvider, socketProvider) {
 
-  var machinesProvider = storageProvider.machinesProvider();
-  var machinesController = require('./api/machines')(machinesProvider, socketProvider);
-
   var usersProvider = storageProvider.usersProvider();
   var auth = require('./auth')(usersProvider, socketProvider);
+
+  var machinesProvider = storageProvider.machinesProvider();
+  var machinesController = require('./api/machines')(machinesProvider,usersProvider,  socketProvider);
+
+
 
   var usersController = require('./api/users')(usersProvider, socketProvider);
 

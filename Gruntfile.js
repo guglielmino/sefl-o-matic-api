@@ -19,6 +19,7 @@ module.exports = function(grunt) {
     injector: 'grunt-asset-injector',
     buildcontrol: 'grunt-build-control',
     rsync: 'grunt-rsync'
+
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -424,7 +425,8 @@ module.exports = function(grunt) {
 
     protractor: {
       options: {
-        configFile: 'protractor.conf.js'
+        configFile: 'client/test/e2e/protractor.conf.js',
+        webdriverManagerUpdate: true
       },
       chrome: {
         options: {
@@ -610,7 +612,8 @@ module.exports = function(grunt) {
         'env:all',
         'env:test',
         'concurrent:test',
-        'express:dev'
+        'express:dev',
+        'protractor'
       ]);
     } else grunt.task.run([
       'test:server'

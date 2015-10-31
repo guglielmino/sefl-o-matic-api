@@ -15,6 +15,7 @@ var chalk = require('chalk');
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
+
 var socketio = require('socket.io')(server, {
   serveClient: true,
   path: '/socket.io'
