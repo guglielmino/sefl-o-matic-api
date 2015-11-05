@@ -603,7 +603,7 @@ module.exports = function(grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'concurrent:test',
+      //  'concurrent:test',
         'karma'
       ]);
     } else if (target === 'e2e') {

@@ -11,7 +11,6 @@ var express = require('express');
 var config = require('./config/environment');
 var chalk = require('chalk');
 
-
 // Setup server
 var app = express();
 var server = require('http').createServer(app);

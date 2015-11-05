@@ -13,7 +13,9 @@ describe('Service: UserService', function () {
 
 
   it('should get all users', function () {
-      UserService.getUsers().then(function(result){
+
+      UserService.getUsers()
+          .then(function(result){
         console.log("BUONO");
       }, function(err){
         console.log("NO BUONO");

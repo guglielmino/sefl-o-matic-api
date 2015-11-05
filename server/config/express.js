@@ -15,7 +15,7 @@ var path = require('path');
 var expressValidator = require('express-validator');
 var config = require('./environment');
 var favicon = require('serve-favicon');
-
+var busboy = require('connect-busboy'); //middleware for form/file upload
 
 
 module.exports = function(app) {
@@ -29,6 +29,8 @@ module.exports = function(app) {
   app.use(expressValidator());
   app.use(methodOverride());
   app.use(cookieParser());
+  app.use(busboy());
+
 
   // Setting the app router and static folder
   app.use('/static/docs', express.static(path.resolve('./docs')));

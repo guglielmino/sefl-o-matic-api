@@ -5,6 +5,7 @@ angular.module('SelfOMaticApp')
         return {
             getUsers: function() {
                 var deferred = $q.defer();
+                console.log("deferred " + deferred);
 
                 $http.get('/api/users', {})
 	                .success(function(data) {

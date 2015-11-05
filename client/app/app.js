@@ -42,7 +42,6 @@ angular.module('SelfOMaticApp', [
                     $location.path('/login')
                         .search('target_url', target_url);
 
-					//$location.path('/login');
 					// remove any stale tokens
 					$cookieStore.remove('token');
 					return $q.reject(response);

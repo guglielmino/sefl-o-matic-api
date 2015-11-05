@@ -12,6 +12,9 @@ module.exports = function(machinesProvider, usersProvider, socketio) {
   var MachineController = require('./machines.controller');
   var machinesController = new MachineController(machinesProvider, machineSocketController);
 
+  var UploadController = require('./upload/upload.controller');
+  var uploadController = new UploadController(machineSocketController);
+
   var AuthService = require('../../auth/auth.service')
   var auth = new AuthService(usersProvider);
   
@@ -19,6 +22,7 @@ module.exports = function(machinesProvider, usersProvider, socketio) {
   router.get('/:serialnumber', machinesController.getMachineBySerial);
   router.get('/:serialnumber/config', machinesController.getMachineConfig);
   router.post('/:serialnumber/config', machinesController.setMachineConfig);
+  router.post('/:serialnumber/upload', uploadController.uploadImage);
 
   router.get('/', auth.isAuthenticated(), machinesController.index);
 
