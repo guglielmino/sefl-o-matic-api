@@ -18,7 +18,8 @@ var storage = multer.diskStorage({
     filename: function (req, file, cb) {
         var file_name = path.parse(file.fieldname).name;
         var file_ext = path.extname(file.fieldname);
-        cb(null, file_name + '-' + req.params.serialnumber +  Date.now() + file_ext);
+        // Nota: il filename viene rinominato con l'aggiunta di un timestamp per evitare duplicati
+        cb(null, file_name + '-' +  Date.now() + file_ext);
     }
 })
 
