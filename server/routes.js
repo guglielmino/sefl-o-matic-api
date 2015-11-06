@@ -4,23 +4,22 @@
 
 'use strict';
 
-module.exports = function(app, storageProvider, socketProvider) {
+module.exports = function(app, storageProvider, socketProvider, eventEmitter) {
 
   var usersProvider = storageProvider.usersProvider();
-  var auth = require('./auth')(usersProvider, socketProvider);
+  var authModule = require('./auth')(usersProvider, socketProvider);
 
   var machinesProvider = storageProvider.machinesProvider();
-  var machinesController = require('./api/machines')(machinesProvider,usersProvider,  socketProvider);
 
+  var machinesModule = require('./api/machines')(machinesProvider, usersProvider, socketProvider, eventEmitter);
 
-
-  var usersController = require('./api/users')(usersProvider, socketProvider);
+  var usersModule = require('./api/users')(usersProvider, socketProvider);
 
   // Routes
-  app.use('/api/machines', machinesController);
-  app.use('/api/users', usersController);
+  app.use('/api/machines', machinesModule);
+  app.use('/api/users', usersModule);
 
-  app.use('/auth', auth);
+  app.use('/auth', authModule);
   
    app.route('/:url(api|auth|components|app|bower_components|assets|static)/*').get(function(req, res) {
     return res.status(404).send({

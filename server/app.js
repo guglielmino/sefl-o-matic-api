@@ -11,6 +11,9 @@ var express = require('express');
 var config = require('./config/environment');
 var chalk = require('chalk');
 
+var events = require('events');
+var eventEmitter = new events.EventEmitter();
+
 // Setup server
 var app = express();
 var server = require('http').createServer(app);
@@ -29,9 +32,10 @@ var socketprovider = new SocketProvider(socketio);
 var MongoDBProvider = require('./services/storage/mongodb');
 var storageProvider = new MongoDBProvider(config);
 
+var imageTaskProvider = require('./services/image_tasks/image_tasks_provider')(eventEmitter);
 
 require('./config/express')(app);
-require('./routes')(app, storageProvider, socketprovider);
+require('./routes')(app, storageProvider, socketprovider, eventEmitter);
 
 console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
 

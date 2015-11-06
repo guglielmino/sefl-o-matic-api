@@ -2,7 +2,7 @@
 
 var express = require('express');
 
-module.exports = function(machinesProvider, usersProvider, socketio) {
+module.exports = function(machinesProvider, usersProvider, socketio, eventEmitter) {
 
   var router = express.Router();
 
@@ -13,7 +13,7 @@ module.exports = function(machinesProvider, usersProvider, socketio) {
   var machinesController = new MachineController(machinesProvider, machineSocketController);
 
   var UploadController = require('./upload/upload.controller');
-  var uploadController = new UploadController(machineSocketController);
+  var uploadController = new UploadController(machineSocketController, eventEmitter);
 
   var AuthService = require('../../auth/auth.service')
   var auth = new AuthService(usersProvider);
