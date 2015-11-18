@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-  .factory('ConfigService', function MachineService($location, $rootScope, $http, $cookieStore, $q) {
+  .factory('ConfigService', function ConfigService($location, $rootScope, $http, $cookieStore, $q) {
 
     return {
 
@@ -14,14 +14,14 @@ angular.module('SelfOMaticApp')
         var deferred = $q.defer();
 
         $http
-          .get('/api/machines/' + serialNumber + '/config' )
+          .get('/api/machines/' + serialNumber + '/config')
           .success(function(data) {
             deferred.resolve(data);
           })
           .error(function(err) {
-            deferred.reject(err);
-          }
-          .bind(this));
+              deferred.reject(err);
+            }
+            .bind(this));
 
         return deferred.promise;
       },
@@ -31,13 +31,13 @@ angular.module('SelfOMaticApp')
 
         $http
           .post('/api/machines/' + serialNumber + '/config', JSON.stringify(configData))
-          .success(function(data) {   
+          .success(function(data) {
             deferred.resolve(data);
           })
           .error(function(err) {
-            deferred.reject(err);
-          }
-          .bind(this));
+              deferred.reject(err);
+            }
+            .bind(this));
 
         return deferred.promise;
       }

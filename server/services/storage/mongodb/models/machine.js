@@ -9,6 +9,7 @@ var MachineSchema = new mongoose.Schema({
     }
   },
   name: String,
+  ip_address: String,
   config: {
     fb_app_id: String,
     fb_app_secret: String,
@@ -24,7 +25,6 @@ var MachineSchema = new mongoose.Schema({
     tw_access_token: String,
     tw_access_token_secret: String,
     db_access_token: String
-
   }
 });
 

@@ -9,16 +9,16 @@ var MachinesProvider = function(db) {
   this.db = db;
 };
 
-MachinesProvider.prototype.addOrUpdateMachine = function(machineData) {
+MachinesProvider.prototype.addMachine = function(machineData, ip_address) {
   var deferred = Q.defer();
 
   var machine = new Machine(machineData);
+  machine.ip_address = ip_address;
 
-  machine.save(function (err) {
+  machine.save(function(err) {
     if (err) {
       deferred.reject(errorHandler.getDecodedError(err));
-    }
-    else{
+    } else {
       deferred.resolve(machine);
     }
   });
@@ -26,14 +26,13 @@ MachinesProvider.prototype.addOrUpdateMachine = function(machineData) {
   return deferred.promise;
 };
 
-MachinesProvider.prototype.getMachines = function(){
+MachinesProvider.prototype.getMachines = function() {
   var deferred = Q.defer();
 
   Machine.find({}, function(err, machines) {
     if (err) {
       deferred.reject(errorHandler.getDecodedError(err));
-    }
-    else{
+    } else {
       deferred.resolve(machines);
     }
   });
@@ -44,11 +43,12 @@ MachinesProvider.prototype.getMachines = function(){
 MachinesProvider.prototype.getMachineBySerial = function(serial) {
   var deferred = Q.defer();
 
-  Machine.findOne({ 'serial': serial }, function (err, machine) {
+  Machine.findOne({
+    'serial': serial
+  }, function(err, machine) {
     if (err) {
       deferred.reject(errorHandler.getDecodedError(err));
-    }
-    else{
+    } else {
       deferred.resolve(machine);
     }
   });
@@ -59,25 +59,27 @@ MachinesProvider.prototype.getMachineBySerial = function(serial) {
 MachinesProvider.prototype.saveMachineConfig = function(serial, configData) {
   var deferred = Q.defer();
 
-  Machine.findOne({ 'serial': serial }, function (err, machine) {
+  Machine.findOne({
+    'serial': serial
+  }, function(err, machine) {
     if (err) {
       deferred.reject(errorHandler.getDecodedError(err));
-    }
-    else {
-      if(machine){
+    } else {
+      if (machine) {
         machine.config = configData;
 
-        machine.save(function (err) {
+        machine.save(function(err) {
           if (err) {
             deferred.reject(errorHandler.getDecodedError(err));
-          }
-          else{
+          } else {
             deferred.resolve(machine);
           }
         });
-      }
-      else{ 
-        deferred.reject({ 'status' : 'NotFound', 'message' : ''});
+      } else {
+        deferred.reject({
+          'status': 'NotFound',
+          'message': ''
+        });
       }
     }
   });

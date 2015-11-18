@@ -4,9 +4,16 @@
       <md-content class="md-padding">
          <md-tabs  class="md-accent" md-border-bottom md-autoselect >
 
-            <md-tab label="Facebook">
-      
+            <md-tab label="Social">
+
+
                <md-content class="md-padding">
+                  <md-toolbar class="md-theme-light">
+                     <h2 class="md-toolbar-tools">
+                        <span>Facebook</span>
+                     </h2>
+                  </md-toolbar>
+
                   <md-input-container md-no-float>
                      <input ng-model="machineConfig.fb_app_id" type="text" name="fb_app_id" placeholder="Facebook APP ID">
                   </md-input-container>
@@ -16,10 +23,43 @@
                   <md-input-container  md-no-float>
                      <input ng-model="machineConfig.fb_access_token" type="text" placeholder="Facebook ACCESS TOKEN">
                   </md-input-container>
+
                   <md-input-container  md-no-float>
                      <input ng-model="machineConfig.fb_album_id" type="text" placeholder="Facebook ALBUM ID">
                   </md-input-container>
                 </md-content>
+
+               <md-toolbar class="md-theme-light">
+                  <h2 class="md-toolbar-tools">
+                     <span>Twitter</span>
+                  </h2>
+               </md-toolbar>
+
+               <md-input-container  md-no-float>
+                  <input ng-model="machineConfig.tw_consumer_key" type="text" placeholder="Consumer Key">
+               </md-input-container>
+               <md-input-container  md-no-float>
+                  <input ng-model="machineConfig.tw_consumer_secret" type="text" placeholder="Consumer Secret">
+               </md-input-container>
+               <md-input-container  md-no-float>
+                  <input ng-model="machineConfig.tw_access_token" type="text" placeholder="Access Token">
+               </md-input-container>
+               <md-input-container  md-no-float>
+                  <input ng-model="machineConfig.tw_access_token_secret" type="text" placeholder="Access Token Secret">
+               </md-input-container>
+
+               <md-toolbar class="md-theme-light">
+                  <h2 class="md-toolbar-tools">
+                     <span>Telegram</span>
+                  </h2>
+               </md-toolbar>
+
+               <md-content class="md-padding">
+                  <md-input-container  md-no-float>
+                     <input ng-model="machineConfig.telegram_token" type="text" placeholder="Telegram bot token">
+                  </md-input-container>
+               </md-content>
+
             </md-tab>
 
             <md-tab label="Immagine">
@@ -44,30 +84,7 @@
                </md-content>
             </md-tab>
 
-            <md-tab label="Twitter">
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.tw_consumer_key" type="text" placeholder="Consumer Key">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.tw_consumer_secret" type="text" placeholder="Consumer Secret">
-                  </md-input-container>
-                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.tw_access_token" type="text" placeholder="Access Token">
-                  </md-input-container>
-                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.tw_access_token_secret" type="text" placeholder="Access Token Secret">
-                  </md-input-container>
-               </md-content>
-            </md-tab>
 
-             <md-tab label="Telegram">
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.telegram_token" type="text" placeholder="Telegram bot token">
-                  </md-input-container>
-               </md-content>
-            </md-tab>
 
             <md-tab label="Dropbox">
                <md-content class="md-padding">

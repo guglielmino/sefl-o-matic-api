@@ -2,7 +2,7 @@
 
 module.exports = {
 
-  addOrUpdateMachine: function(req) {
+  addMachine: function(req) {
 
     req.checkBody('name', 'Param "name" is missing or invalid.').notEmpty();
     req.checkBody('serial', 'Param "serial" is missing or invalid.').notEmpty();

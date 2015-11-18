@@ -10,19 +10,22 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var express = require('express');
 var config = require('./config/environment');
 var chalk = require('chalk');
-
+var fount = require( 'fount' );
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 
 // Setup server
 var app = express();
+
+// Initialize DI container
+require('./bootstrap')(fount);
+
 var server = require('http').createServer(app);
 
 var socketio = require('socket.io')(server, {
   serveClient: true,
   path: '/socket.io'
 });
-//require('./config/socket.io')(socketio);
 
 var SocketProvider = require('./services/net/socketprovider');
 var socketprovider = new SocketProvider(socketio);
@@ -32,17 +35,20 @@ var socketprovider = new SocketProvider(socketio);
 var MongoDBProvider = require('./services/storage/mongodb');
 var storageProvider = new MongoDBProvider(config);
 
-var imageTaskProvider = require('./services/image_tasks/image_tasks_provider')(eventEmitter);
+var imageTaskProvider = require('./services/image_tasks/image_tasks_provider')(eventEmitter, fount);
 
 require('./config/express')(app);
 require('./routes')(app, storageProvider, socketprovider, eventEmitter);
 
 console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
 
+
+
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
+
 
 // Expose app
 exports = module.exports = app;

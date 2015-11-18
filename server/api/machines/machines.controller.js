@@ -17,7 +17,9 @@ MachineController.prototype.index = function(req, res) {
 		.then(function(result) {
 				if (result) {
 					for (var idx in result) {
-						result[idx].isOn = self.socketController.isOnlineMachine(result[idx].serial);
+						result[idx].isOn = self
+							.socketController
+							.isOnlineMachine(result[idx].serial);
 					}
 
 					res.json(200, result);
@@ -34,15 +36,16 @@ MachineController.prototype.index = function(req, res) {
 			});
 };
 
-MachineController.prototype.addOrUpdateMachine = function(req, res) {
+MachineController.prototype.addMachine = function(req, res) {
 
-	var errors = validation.addOrUpdateMachine(req);
+	var errors = validation.addMachine(req);
 	if (errors) {
 		res.send('There have been validation errors: ' + util.inspect(errors), 400);
 		return;
 	}
 
-	self.storageProvider.addOrUpdateMachine(req.body)
+	var remote_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+	self.storageProvider.addMachine(req.body, remote_ip)
 		.then(function(result) {
 			console.log("result " + result);
 			res.json(201, result);
