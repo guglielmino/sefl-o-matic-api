@@ -20,9 +20,12 @@ module.exports = function(machinesProvider, usersProvider, socketio, eventEmitte
   
   router.post('/', machinesController.addMachine);
   router.get('/:serialnumber', machinesController.getMachineBySerial);
+  router.delete('/:serialnumber',  machinesController.deleteMachineBySerial);
   router.get('/:serialnumber/config', machinesController.getMachineConfig);
   router.post('/:serialnumber/config', machinesController.setMachineConfig);
+
   router.post('/:serialnumber/upload', uploadController.uploadImage);
+  router.get('/:serialnumber/upload', uploadController.listFiles);
 
   router.get('/', auth.isAuthenticated(), machinesController.index);
 

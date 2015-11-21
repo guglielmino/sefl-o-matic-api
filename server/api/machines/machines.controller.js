@@ -78,9 +78,30 @@ MachineController.prototype.getMachineBySerial = function(req, res) {
 MachineController.prototype.getMachineConfig = function(req, res) {
 	var serial = req.params.serialnumber;
 
-	self.storageProvider.getMachineBySerial(serial).then(function(result) {
+	self.storageProvider.getMachineBySerial(serial)
+		.then(function(result) {
 		if (result && result.config) {
 			res.json(200, result.config);
+		} else {
+			res.status(404).send();
+		}
+
+	}, function(providerError) {
+		console.log("err " + providerError.message);
+		res
+			.status(errorMapper.errorCodeToStatus(providerError.status))
+			.send(providerError.message);
+	});
+};
+
+MachineController.prototype.deleteMachineBySerial = function (req, res) {
+	var serial = req.params.serialnumber;
+
+	self.storageProvider
+		.deleteMachineBySerial(serial)
+		.then(function(result) {
+		if (result) {
+			res.json(200);
 		} else {
 			res.status(404).send();
 		}

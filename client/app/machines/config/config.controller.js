@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-	.controller('ConfigCtrl', function($scope, $rootScope, $stateParams, $state, $mdDialog, ConfigService) {
+	.controller('ConfigCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$mdDialog', 'ConfigService',
+		function($scope, $rootScope, $stateParams, $state, $mdDialog, ConfigService) {
 
 		var serialNumber = $stateParams.serial;
 
@@ -27,5 +28,7 @@ angular.module('SelfOMaticApp')
 				});
 		};
 
+
+
 		$rootScope.areaTitle = "Configurazione di " + serialNumber;
-	});
+	}]);

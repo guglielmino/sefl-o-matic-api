@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-  .controller('LoginCtrl', function ($scope, $rootScope, Auth, $location, $window) {
+  .controller('LoginCtrl', ['$scope', '$rootScope', 'Auth', '$location', '$window',
+      function ($scope, $rootScope, Auth, $location, $window) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -31,4 +32,4 @@ angular.module('SelfOMaticApp')
     $scope.loginOauth = function(provider) {
       $window.location.href = '/auth/' + provider;
     };
-  });
+  }]);

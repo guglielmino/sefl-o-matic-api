@@ -11,20 +11,38 @@ var MachineSchema = new mongoose.Schema({
   name: String,
   ip_address: String,
   config: {
-    fb_app_id: String,
-    fb_app_secret: String,
-    fb_access_token: String,
-    fb_album_id: String,
-    hflip_image: Boolean,
-    watermark_image: String,
-    pushetta_api_key: String,
-    pushetta_channel: String,
-    telegram_token: String,
-    tw_consumer_key: String,
-    tw_consumer_secret: String,
-    tw_access_token: String,
-    tw_access_token_secret: String,
-    db_access_token: String
+    facebook: {
+      enabled: Boolean,
+      app_id: String,
+      app_secret: String,
+      access_token: String,
+      album_id: String,
+      message: String
+    },
+    twitter: {
+      enabled: Boolean,
+      consumer_key: String,
+      consumer_secret: String,
+      access_token: String,
+      access_token_secret: String
+    },
+    image: {
+      hflip_image: Boolean,
+      watermark_image: String
+    },
+    pushetta: {
+      enabled: Boolean,
+      api_key: String,
+      channel: String
+    },
+    telegram: {
+      enabled: Boolean,
+      token: String
+    },
+    dropbox: {
+      enabled: Boolean,
+      access_token: String
+    }
   }
 });
 

@@ -1,27 +1,45 @@
 'use strict';
 
+var https = require('https');
+var FormData = require('form-data');
+
+
 var self;
 
-var FacebookService = function(){
+var FacebookService = function() {
     self = this;
-    self.FB = require('fb');
 };
 
-FacebookService.prototype.postImage = function(image){
-   /* FB.setAccessToken('access_token');
+FacebookService.prototype.postImage = function(postData) {
+    var form = new FormData();
+    form.append('file',  postData.imagePath);
+    form.append('message', postData.message);
 
-    var body = 'My first post using facebook-node-sdk';
-    FB.api('me/feed', 'post', { message: body}, function (res) {
-        if(!res || res.error) {
-            console.log(!res ? 'error occurred' : res.error);
-            return;
-        }
-        console.log('Post Id: ' + res.id);
-    });*/
-    console.log("postImage " + self.FB);
+    //POST request options, notice 'path' has access_token parameter
+    var options = {
+        method: 'post',
+        host: 'graph.facebook.com',
+        path: '/' + postData.albumId + '/photos?access_token=' + postData.accessToken,
+        headers: form.getHeaders()
+    };
+
+    //Do POST request, callback for response
+    var request = https.request(options, function (res){
+        console.log("fb res " + res.statusCode.toString() + ' -- ' + res.statusMessage );
+        // TODO: Log
+    });
+
+    //Binds form to request
+    form.pipe(request);
+
+    //If anything goes wrong (request-wise not FB)
+    request.on('error', function (error) {
+        console.log("error" + error);
+        // TODO: Log
+    });
 };
 
-module.exports = function(fount) {
+module.exports = function(fount, storageProvider) {
     fount.register('fb_service', function() { return new FacebookService(); });
 };
 

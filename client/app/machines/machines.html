@@ -3,23 +3,31 @@
     <md-subheader class="md-no-sticky">Macchine registrate</md-subheader>
     
     <md-list >
+      <md-list-item   class="md-3-line" ng-repeat="item in machines">
 
-      <md-list-item  class="md-2-line" ng-repeat="item in machines">
-        
-           <md-button ng-href="/#/machines/{{ item.serial }}/config">
-              <div layout="row" md-padding>
-                <img ng-src="assets/images/selfomatic.png" class="md-avatar" alt="Machine" />
-          
-                <div offset="5" class="md-list-item-text">
-                  <h3>{{ item.name }} <span ng-if="item.isOn" style="color: red"> [ONLINE]</span></h3>
-                  <p> {{ item.serial }}</p>
-                </div>
-            
-                <md-icon  md-font-set="material-icons">keyboard_arrow_right</md-icon>
-              </div>
-         </md-button>
-    
-      </md-list-item> 
+          <md-button class="del-machine md-raised md-warn" ng-click="deleteMachine($event, item.serial)">
+              <md-icon class="material-icons md-light machine-tool-item">remove</md-icon>
+          </md-button>
 
-  </md-list>
+          <img ng-src="assets/images/selfomatic.png" class="" alt="Machine" />
+
+
+        <div offset="5" class="md-list-item-text">
+          <h2>{{ item.name }} <span ng-if="item.isOn" style="color: red"> [ONLINE]</span></h2>
+          <h3> {{ item.serial }}</h3>
+        </div>
+
+          <md-button class="machine" ng-click="showUploads($event, item.serial)">
+            <md-icon class="material-icons md-light machine-tool-item"> photo_library</md-icon>
+          </md-button>
+
+
+          <md-button class="machine" ng-href="/#/machines/{{ item.serial }}/config">
+              <md-icon  md-font-set="material-icons">keyboard_arrow_right</md-icon>
+          </md-button>
+
+   </md-list-item>
+
+
+</md-list>
 </md-content>
