@@ -27,8 +27,17 @@
 
 
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left">
-        <md-toolbar class="md-whiteframe-z1">
-            <h1>Menu</h1>
+        <md-toolbar class="md-tall md-hue-2">
+            <span flex></span>
+            <div layout="column" class="md-toolbar-tools-bottom inset">
+               <img gravatar-src="'{{ loggedUser.email }}'"
+                    gravatar-size="50" class="md-avatar" style="width: 4rem"
+                     alt="{{ loggedUser.name }}"/>
+                <span></span>
+                <div>{{ loggedUser.name }}</div>
+                <div>{{ loggedUser.email }}</div>
+
+            </div>
         </md-toolbar>
 
         <md-list>
@@ -71,14 +80,12 @@
                 <md-button class="md-icon-button" aria-label="Settings" ng-click="toggleSidenav('left')">
                     <md-icon md-svg-icon="assets/images/menu.svg"></md-icon>
                 </md-button>
-                <h2>
+                <h3>
                     <span>{{ areaTitle }}</span>
-                </h2>
+                </h3>
                 <span flex></span>
-
-                <md-button class="md-icon-button" aria-label="{{ loggedUser.name }}">
-                    <img gravatar-src="'{{ loggedUser.email }}'" gravatar-size="50" class="md-avatar"
-                         alt="{{ loggedUser.name }}"/>
+                <md-button aria-label="Search" ng-click="showSearch = !showSearch">
+                    <ng-md-icon icon="search"></ng-md-icon>
                 </md-button>
 
             </div>

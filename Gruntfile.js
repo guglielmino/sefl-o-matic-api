@@ -647,6 +647,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
     'build',
+    //  TODO: Sistemare i test (quanto prima)
     //'test',
     'rsync:prod'
   ]);

@@ -15,7 +15,7 @@ module.exports = function(machinesProvider, usersProvider, socketio, eventEmitte
   var UploadController = require('./upload/upload.controller');
   var uploadController = new UploadController(machineSocketController, eventEmitter);
 
-  var AuthService = require('../../auth/auth.service')
+  var AuthService = require('../../auth/auth.service');
   var auth = new AuthService(usersProvider);
   
   router.post('/', machinesController.addMachine);
