@@ -2,30 +2,35 @@
 
     <md-card ng-repeat="item in machines" >
 
-        <md-card-content layout="row">
+        <md-card-content>
+            <div layout="row">
+                <div flex="auto">
+                    <img ng-src="assets/images/selfomatic.png" class="md-card-image" alt="Machine" />
+                </div>
+                <div flex="40">
+                    <h2 >{{ item.name }}</h2>
+                    <span ng-if="item.isOn" style="color: red"> [ONLINE]</span>
+                    <span ng-if="!item.isOn" style="color: grey"> [OFFLINE]</span>
 
-            <div flex="20">
-                <img ng-src="assets/images/selfomatic.png" class="md-card-image" alt="Machine" />
+                </div>
             </div>
-            <div flex="60">
-                <h2 >{{ item.name }}</h2>
-                <h3> {{ item.serial }}</h3>
+            <div layout="row">
+                <div flex="auto">
+                    <h3> {{ item.serial }}</h3>
+                </div>
             </div>
-            <div flex="auto">
-                <span ng-if="item.isOn" style="color: red"> [ONLINE]</span>
-                <span ng-if="!item.isOn" style="color: grey"> [OFFLINE]</span>
-            </div>
-
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
+            <md-button flex="50" class="md-primary md-raised" ng-click="showActionsSheet($event, item.serial)">Azioni</md-button>
+            <!--
             <md-button flex="20" class="md-raised md-warn" ng-click="deleteMachine($event, item.serial)">
-                 <md-icon md-font-set="material-icons">remove</md-icon> Elimina
+                  Elimina
             </md-button>
 
             <md-button flex="20" class="md-raised" ng-click="showUploads($event, item.serial)">
                  <md-icon class="material-icons md-light machine-tool-item"> photo_library</md-icon> Foto
             </md-button>
-
+               -->
             <md-button flex="20" class="md-raised" ng-href="/#/machines/{{ item.serial }}/config">
                 Config <md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon></md-button>
         </md-card-actions>

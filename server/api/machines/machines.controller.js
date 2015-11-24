@@ -12,6 +12,11 @@ var MachineController = function(storageProvider, machineSocketController) {
 	self = this;
 };
 
+/**
+ * Get all machines registered
+ * @param req
+ * @param res
+ */
 MachineController.prototype.index = function(req, res) {
 	self.storageProvider.getMachines()
 		.then(function(result) {
@@ -36,6 +41,11 @@ MachineController.prototype.index = function(req, res) {
 			});
 };
 
+/**
+ * Register a new machine
+ * @param req
+ * @param res
+ */
 MachineController.prototype.addMachine = function(req, res) {
 
 	var errors = validation.addMachine(req);
@@ -57,6 +67,11 @@ MachineController.prototype.addMachine = function(req, res) {
 		});
 };
 
+/**
+ * Get machine's data using it's serial as identifier
+ * @param req
+ * @param res
+ */
 MachineController.prototype.getMachineBySerial = function(req, res) {
 	var serial = req.params.serialnumber;
 
@@ -75,6 +90,11 @@ MachineController.prototype.getMachineBySerial = function(req, res) {
 	});
 };
 
+/**
+ * Get machine's configuration data using it's serial as identifier
+ * @param req
+ * @param res
+ */
 MachineController.prototype.getMachineConfig = function(req, res) {
 	var serial = req.params.serialnumber;
 
@@ -94,6 +114,11 @@ MachineController.prototype.getMachineConfig = function(req, res) {
 	});
 };
 
+/**
+ * Remove a machine identified by serial number
+ * @param req
+ * @param res
+ */
 MachineController.prototype.deleteMachineBySerial = function (req, res) {
 	var serial = req.params.serialnumber;
 
@@ -114,6 +139,11 @@ MachineController.prototype.deleteMachineBySerial = function (req, res) {
 	});
 };
 
+/**
+ * Update machine config data
+ * @param req
+ * @param res
+ */
 MachineController.prototype.setMachineConfig = function(req, res) {
 	var serial = req.params.serialnumber;
 	var configData = req.body;
@@ -133,5 +163,6 @@ MachineController.prototype.setMachineConfig = function(req, res) {
 			.send(providerError.message);
 	});
 };
+
 
 module.exports = MachineController;

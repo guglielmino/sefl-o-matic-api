@@ -1,8 +1,15 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-    .controller('MachinesCtrl', ['$scope', '$rootScope', '$filter', '$mdDialog', 'MachineService', 'SocketService',
-        function ($scope, $rootScope, $filter, $mdDialog, MachineService, SocketService) {
+    .controller('MachinesCtrl', [
+        '$scope',
+        '$rootScope',
+        '$filter',
+        '$mdDialog',
+        '$mdBottomSheet',
+        'MachineService',
+        'SocketService',
+        function ($scope, $rootScope, $filter, $mdDialog, $mdBottomSheet, MachineService, SocketService) {
 
         MachineService.getMachines()
             .then(function (data) {
@@ -21,10 +28,22 @@ angular.module('SelfOMaticApp')
 
         $rootScope.areaTitle = "Macchine registrate";
 
+        $scope.showActionsSheet = function($event, serial) {
+            $scope.alert = '';
+            $mdBottomSheet.show({
+                templateUrl: 'app/machines/actions/machine-actions.html',
+                controller: 'MachineActionsCtrl',
+                locals: {serial: serial},
+                targetEvent: $event
+            }).then(function (clickedItem) {
+                $scope.alert = clickedItem['name'] + ' clicked!';
+            });
+        };
+
         $scope.showUploads = function (ev, serial) {
             $mdDialog.show({
                 controller: DialogController,
-                templateUrl: 'app/machines/imagebrowser.tpl.html',
+                templateUrl: 'app/machines/imagebrowser.html',
                 parent: angular.element(document.body),
                 targetEvent: ev,
                 locals: {serial: serial},
@@ -38,40 +57,7 @@ angular.module('SelfOMaticApp')
                 });
         };
 
-        $scope.deleteMachine = function (ev, serial) {
 
-            var confirm = $mdDialog
-                .confirm()
-                .title('Eliminare la Self-O-Matic ' + serial + '?')
-                .content('Nota: tutte le configurazioni andranno perse.')
-                .targetEvent(ev)
-                .ok('Ok')
-                .cancel('Annulla');
-
-            $mdDialog.show(confirm)
-                .then(function () {
-                    // OK
-                    console.log("Ok");
-                    doDeleteMachine(serial);
-                }, function () {
-                    // ANNULLA
-                    console.log("Annulla");
-                });
-        };
-
-        function doDeleteMachine(serial) {
-            MachineService
-                .deleteMachine(serial)
-                .then(function (res) {
-                    console.log("deleted " + res);
-                    _.remove($scope.machines, function (item) {
-                        return item.serial === serial;
-                    });
-                },
-                function (err) {
-                    console.log("err " + err);
-                });
-        }
 
         function onMachineEvent(connected, roomSerial) {
             console.log((connected ? 'registered' : 'unregistered ') + roomSerial);

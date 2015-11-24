@@ -1,0 +1,22 @@
+<md-bottom-sheet class="md-list md-has-header" ng-cloak>
+    <md-subheader>Azioni</md-subheader>
+    <md-list>
+        <md-list-item>
+            <md-button
+                    ng-click=""
+
+                    class="md-list-item-content" >
+                <md-icon class="material-icons md-light machine-tool-item">photo_library</md-icon>
+                <span class="md-inline-list-icon-label">Mostra foto</span>
+            </md-button>
+
+            <md-button
+                    ng-click="deleteMachine($event)"
+
+                    class="md-list-item-content md-warn" >
+                <md-icon class="material-icons md-light machine-tool-item">remove_circle_outline</md-icon>
+                <span class="md-inline-list-icon-label">Rimuovi</span>
+            </md-button>
+        </md-list-item>
+    </md-list>
+</md-bottom-sheet>
