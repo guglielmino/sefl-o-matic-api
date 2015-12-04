@@ -24,11 +24,14 @@ var MachineSchema = new mongoose.Schema({
       consumer_key: String,
       consumer_secret: String,
       access_token: String,
-      access_token_secret: String
+      access_token_secret: String,
+      message: String
     },
     image: {
       hflip_image: Boolean,
-      watermark_image: String
+      watermark_image: String,
+      bightness: Number,
+      image_effect: String
     },
     pushetta: {
       enabled: Boolean,

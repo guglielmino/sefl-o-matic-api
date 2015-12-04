@@ -19,6 +19,7 @@ MachineSocketioController.prototype.notifyConfigUpdate = function(serial, newCon
 
 /**
  * Send a simple command (ie. a command without any parameter) to a specific machine
+ *
  * @param serial {string} serial number of the machine where to send the command
  * @param command {string} a command to be executed on the machine (eg 'snapshot', 'check', ...)
  */
@@ -28,6 +29,7 @@ MachineSocketioController.prototype.sendSimpleCommad = function(serial, command)
 
 /**
  * Check if specified machine is online (ie active and with a socket connected to us)
+ *
  * @param serial {string} serial number of the machine
  * @returns {boolean}
  */

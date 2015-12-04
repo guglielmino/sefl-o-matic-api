@@ -2,13 +2,24 @@
 
 var fs = require('fs');
 var util = require('util');
+var logger = require.main.require('service/utils/logger');
 
 var self;
 
+/**
+ * Note: this'll be updated to use a Queue broker in future (RabbitMQ)
+ */
+
+/**
+ * Handle workflow for every image uploaded by a self-o-matic machine
+ *
+ * @param eventEmitter {EventEmitter}
+ * @param fount
+ * @param storageProvider
+ * @constructor
+ */
 var WorkflowManager = function(eventEmitter, fount, storageProvider){
-    // NOTA: this == undefined, Why?
     self = this;
-    console.log(util.format('self %s this %s', self , this));
 
     var machineProvider = storageProvider.machinesProvider();
 
@@ -18,12 +29,15 @@ var WorkflowManager = function(eventEmitter, fount, storageProvider){
             .getMachineBySerial(machine_serial)
             .then(function(machine) {
                 if (machine) {
-                    console.log("Upload of " + file_name + " for " + machine_serial + " cfg " + machine.config.facebook.app_id);
+                    console.log("Upload of " + file_name + " for " + machine_serial + " cfg " + machine.config);
 
                     var imageFullPath = process.cwd() + '/uploads/' + machine_serial + '/' + file_name;
-                    // TODO: Overlay skin
-                    this.manageFacebookPost(fount, machine.config.facebook, imageFullPath);
-                    this.manageTwitterPost(fount, machine.config.twitter, imageFullPath);
+
+                    var skinnedImage = self.skinImage(fount, machine.config.image, imageFullPath)
+                        .then(function(res){
+                            self.manageFacebookPost(fount, machine.config.facebook, skinnedImage);
+                            self.manageTwitterPost(fount, machine.config.twitter, skinnedImage);
+                        });
 
                 }
             });
@@ -32,7 +46,8 @@ var WorkflowManager = function(eventEmitter, fount, storageProvider){
 
 WorkflowManager.prototype.manageFacebookPost = function(fount, facebookConfig, imageFullPath){
     if(facebookConfig.enabled) {
-        fount.resolve( 'fb_service' ).then( function( fb_service ) {
+        fount.resolve( 'fb_service' )
+            .then( function( fb_service ) {
             var postData = {
                 accessToken: facebookConfig.access_token,
                 imagePath:  fs.createReadStream(imageFullPath),
@@ -41,14 +56,42 @@ WorkflowManager.prototype.manageFacebookPost = function(fount, facebookConfig, i
             };
 
             if(!fb_service.postImage(postData)){
-                // TODO: Logging ...
+                logger.error("Post on Facebook failed");
             }
         });
     }
 };
 
 WorkflowManager.prototype.manageTwitterPost = function(fount, twitterConfig, imageFullPath){
+    if(twitterConfig.enabled){
+        fount.resolve( 'twitter_service' )
+            .then( function( twitter_service ) {
+                twitter_service.postImage({
+                        consumer_key: twitterConfig.consumer_key,
+                        consumer_secret: twitterConfig.consumer_secret,
+                        access_token: twitterConfig.access_token,
+                        access_token_secret: twitterConfig.access_token_secret,
+                        message: twitterConfig.message
+                    }, imageFullPath)
+                    .then(function(res){
+                        console.log('res ' + res);
+                    },
+                    function(err){
+                        logger.error("Post on Twitter failed");
+                    });
 
+            });
+    }
+
+};
+
+WorkflowManager.prototype.skinImage = function(fount, imageConfig, imageFullPath){
+    fount.resolve( 'img_processing' )
+        .then( function( img_processing ) {
+            img_processing
+                .watermarkImage({}, '/Users/fabrizio/GitLab/self-o-matic-api/server/services/tasks/image/test.jpg');
+
+        });
 
 };
 

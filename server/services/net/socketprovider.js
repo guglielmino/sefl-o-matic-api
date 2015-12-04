@@ -43,11 +43,10 @@ var SocketProvider = function(socketio) {
 };
 
 /**
- * onRegistered - event fired when a client register itself (emit of register event)
+ * Callback called on a new machine registration
  *
- * @param {Object} socket
- * @param {String} roomName
- * @api public
+ * @param socket
+ * @param roomName
  */
 SocketProvider.prototype.onRegistered = function(socket, roomName) {
 	console.info('[%s] CLIENT REGISTERED %s', socket.id, roomName);
@@ -110,22 +109,19 @@ SocketProvider.prototype.sendBroadcast = function(event, data) {
 };
 
 /**
- * Encrypt password
+ * Register a callback on a specific event
  *
- * @param {String} password
- * @return {Promise}
- * @api public
+ * @param event
+ * @param cb
  */
 SocketProvider.prototype.on = function(event, cb) {
 	self.sock.on(event, cb);
 };
 
 /**
- * Encrypt password
+ * Get a list of connected machines
  *
- * @param {String} password
- * @return {Promise}
- * @api public
+ * @returns {{}}
  */
 SocketProvider.prototype.getConnected = function() {
 	return connectedMachines;

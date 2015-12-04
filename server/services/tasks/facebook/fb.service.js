@@ -10,16 +10,16 @@ var FacebookService = function() {
     self = this;
 };
 
-FacebookService.prototype.postImage = function(postData) {
+FacebookService.prototype.postImage = function(configData, imageFullPath) {
     var form = new FormData();
-    form.append('file',  postData.imagePath);
-    form.append('message', postData.message);
+    form.append('file',  imageFullPath);
+    form.append('message', configData.message);
 
     //POST request options, notice 'path' has access_token parameter
     var options = {
         method: 'post',
         host: 'graph.facebook.com',
-        path: '/' + postData.albumId + '/photos?access_token=' + postData.accessToken,
+        path: '/' + configData.albumId + '/photos?access_token=' + configData.accessToken,
         headers: form.getHeaders()
     };
 
@@ -39,7 +39,7 @@ FacebookService.prototype.postImage = function(postData) {
     });
 };
 
-module.exports = function(fount, storageProvider) {
+module.exports = function(fount) {
     fount.register('fb_service', function() { return new FacebookService(); });
 };
 

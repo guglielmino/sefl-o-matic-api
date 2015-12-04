@@ -74,9 +74,92 @@
                   <md-input-container  md-no-float>
                      <md-checkbox ng-model="machineConfig.image.hflip_image">Horizontal flip image</md-checkbox>
                   </md-input-container>
+
+                  <span class="md-body-1">Luminosità</span>
+                  <md-slider md-discrete ng-model="machineConfig.image.bightness" step="1" min="0" max="100">
+                  </md-slider>
+
+                  <md-input-container>
+                     <label>Effetto</label>
+                     <md-select ng-model="machineConfig.image.image_effect">
+                        <md-option  value="none">
+                           Nessuno
+                        </md-option>
+                        <md-option  value="negative">
+                           Negativo
+                        </md-option>
+                        <md-option  value="solarize">
+                           Solarize
+                        </md-option>
+                        <md-option  value="sketch">
+                           Sketch
+                        </md-option>
+                        <md-option  value="denoise">
+                           Denoise
+                        </md-option>
+                        <md-option  value="emboss">
+                           Emboss
+                        </md-option>
+                        <md-option  value="oilpaint">
+                           Oilpaint
+                        </md-option>
+                        <md-option  value="hatch">
+                           Hatch
+                        </md-option>
+                        <md-option  value="gpen">
+                           Gpen
+                        </md-option>
+                        <md-option  value="pastel">
+                           Pastel
+                        </md-option>
+                        <md-option  value="watercolor">
+                           Watercolor
+                        </md-option>
+                        <md-option  value="film">
+                           Film
+                        </md-option>
+                        <md-option  value="blur">
+                           Blur
+                        </md-option>
+                        <md-option  value="saturation">
+                           Saturation
+                        </md-option>
+                        <md-option  value="colorswap">
+                           Colorswap
+                        </md-option>
+                        <md-option  value="washedout">
+                           Washedout
+                        </md-option>
+                        <md-option  value="posterise">
+                           Posterise
+                        </md-option>
+                        <md-option  value="colorpoint">
+                           Colorpoint
+                        </md-option>
+                        <md-option  value="colorbalance">
+                           Colorbalance
+                        </md-option>
+                        <md-option  value="cartoon">
+                           Cartoon
+                        </md-option>
+                        <md-option  value="deinterlace1">
+                           Deinterlace1
+                        </md-option>
+                        <md-option  value="deinterlace2">
+                           Deinterlace2
+                        </md-option>
+                     </md-select>
+                  </md-input-container>
+
+                  <md-input-container  md-no-float>
+                     <input id="fileInput" name="file" type="file" class="ng-hide" multiple>
+                     <md-button id="uploadButton" class="md-raised md-primary"> Seleziona immagini </md-button>
+                  </md-input-container>
+
                   <md-input-container  md-no-float>
                      <input ng-model="machineConfig.image.watermark_image" type="text" placeholder="Watermark image">
                   </md-input-container>
+
                </md-content>
             </md-tab>
 
@@ -93,7 +176,6 @@
                   </md-input-container>
                </md-content>
             </md-tab>
-
 
 
             <md-tab label="Dropbox">

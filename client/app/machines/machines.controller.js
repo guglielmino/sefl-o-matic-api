@@ -29,14 +29,15 @@ angular.module('SelfOMaticApp')
         $rootScope.areaTitle = "Macchine registrate";
 
         $scope.showActionsSheet = function($event, serial) {
-            $scope.alert = '';
             $mdBottomSheet.show({
                 templateUrl: 'app/machines/actions/machine-actions.html',
                 controller: 'MachineActionsCtrl',
                 locals: {serial: serial},
+                scope: $scope,
+                preserveScope: true,
                 targetEvent: $event
             }).then(function (clickedItem) {
-                $scope.alert = clickedItem['name'] + ' clicked!';
+
             });
         };
 
