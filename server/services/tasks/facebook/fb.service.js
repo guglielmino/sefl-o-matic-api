@@ -2,7 +2,7 @@
 
 var https = require('https');
 var FormData = require('form-data');
-
+var Q = require('q');
 
 var self;
 
@@ -11,6 +11,8 @@ var FacebookService = function() {
 };
 
 FacebookService.prototype.postImage = function(configData, imageFullPath) {
+    var deferred = Q.defer();
+
     var form = new FormData();
     form.append('file',  imageFullPath);
     form.append('message', configData.message);
@@ -26,17 +28,16 @@ FacebookService.prototype.postImage = function(configData, imageFullPath) {
     //Do POST request, callback for response
     var request = https.request(options, function (res){
         console.log("fb res " + res.statusCode.toString() + ' -- ' + res.statusMessage );
-        // TODO: Log
+        deferred.resolve(res);
     });
 
-    //Binds form to request
     form.pipe(request);
 
-    //If anything goes wrong (request-wise not FB)
-    request.on('error', function (error) {
-        console.log("error" + error);
-        // TODO: Log
+    request.on('error', function (err) {
+        deferred.reject(err);
     });
+
+    return deferred.promise;
 };
 
 module.exports = function(fount) {
