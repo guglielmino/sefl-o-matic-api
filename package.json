@@ -30,6 +30,7 @@
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "path-parse": "^1.0.5",
     "pubnub": "^3.7.18",
     "q": "^1.4.1",
     "serve-favicon": "~2.0.1",

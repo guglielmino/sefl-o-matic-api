@@ -13,6 +13,8 @@ var chalk = require('chalk');
 var fount = require( 'fount' );
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
+var logger = require('./services/utils/logger');
+
 
 // Setup server
 var app = express();
@@ -36,8 +38,8 @@ var MongoDBProvider = require('./services/storage/mongodb');
 var storageProvider = new MongoDBProvider(config);
 
 
-var WorkflowManager = require('./services/image_workflow/workflow_manager')
-var workflowManager = new WorkflowManager(eventEmitter, fount, storageProvider);
+var WorkflowManager = require('./services/image_workflow/workflow_manager');
+new WorkflowManager(eventEmitter, fount, storageProvider);
 
 require('./config/express')(app);
 require('./routes')(app, storageProvider, socketprovider, eventEmitter);
@@ -47,6 +49,7 @@ console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
 // Start server
 server.listen(config.port, config.ip, function () {
   console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
+  logger.info('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
 
 
