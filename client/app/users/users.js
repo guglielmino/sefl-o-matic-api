@@ -8,7 +8,8 @@ angular.module('SelfOMaticApp')
             .state('users', {
                 url: '/users',
                 templateUrl: 'app/users/users.html',
-                controller: 'UsersCtrl'
+                controller: 'UsersCtrl',
+                controllerAs: 'vm'
             });
 
     });

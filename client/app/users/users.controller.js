@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-    .controller('UsersCtrl', function ($scope, $rootScope, UserService) {
+    .controller('UsersCtrl', function ($rootScope, UserService) {
 
         UserService.getUsers()
             .then(function (data) {
-                $scope.users = data;
+                this.users = data;
             });
 
         $rootScope.areaTitle = 'Utenti registrati';
