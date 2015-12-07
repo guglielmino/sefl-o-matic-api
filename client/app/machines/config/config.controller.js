@@ -30,5 +30,5 @@ angular.module('SelfOMaticApp')
 
 
 
-		$rootScope.areaTitle = "Configurazione di " + serialNumber;
+		$rootScope.areaTitle = 'Configurazione di ' + serialNumber;
 	}]);

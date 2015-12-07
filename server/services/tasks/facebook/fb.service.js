@@ -31,7 +31,7 @@ FacebookService.prototype.postImage = function(configData, imageFullPath) {
     //Do POST request, callback for response
     var request = https.request(options, function (res){
         console.log("fb res " + res.statusCode.toString() + ' -- ' + res.statusMessage );
-        if(res.statusMessage == 200) {
+        if(res.statusMessage === 200) {
             deferred.resolve(res);
         }
         else{

@@ -9,7 +9,7 @@ var async = require('async');
 
 function getRandomSerial(){
   var s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  return Array(5)
+  return new Array(5)
                           .join()
                           .split(',')
                           .map(function() { 

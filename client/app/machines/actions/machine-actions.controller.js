@@ -34,13 +34,12 @@ angular.module('SelfOMaticApp')
                 MachineService
                     .deleteMachine(serial)
                     .then(function (res) {
-                        // TODO: Come alterare l'elenco nel parent?
                         _.remove($scope.machines, function (item) {
                             return item.serial === serial;
                         });
                     },
                     function (err) {
-                        console.log("err " + err);
+
                     });
             }
-        }])
+        }]);

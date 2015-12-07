@@ -24,8 +24,8 @@ TwitterService.prototype.postImage = function(configData, imageFullPath) {
             'status': (configData.message || ' '),
             'media[]': imageFullPath
         },
-        function(error, result) {
-            if (error) {
+        function(err, result) {
+            if (err) {
                 deferred.reject(err);
             }
 

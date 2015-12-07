@@ -10,7 +10,9 @@ var fs = require('fs');
 var self;
 
 function save(err, image) {
-    if (err) throw err;
+    if (err) {
+        throw err;
+    }
 
     image.write('/Users/fabrizio/GitLab/self-o-matic-api/server/services/tasks/image/' + image.name + ".jpg");
 }
@@ -25,7 +27,7 @@ ImgProcessingService.prototype.watermarkImage = function (configData, imageFullP
     var files = [];
     if (fs.existsSync(skinPath)) {
 
-        var files = fs.readdirSync(skinPath)
+        files = fs.readdirSync(skinPath)
             .filter(function (item) {
                 return (item.indexOf(".jpg") > -1 || item.indexOf(".png") > -1);
             })
@@ -47,7 +49,7 @@ ImgProcessingService.prototype.watermarkImage = function (configData, imageFullP
         gm(imageFullPath)
             .draw([util.format('image Over 0,0 0,0 %s', mask)])
             .write(outputFileName, function (e) {
-                if(e instanceof Error){
+                if (e instanceof Error) {
                     deferred.reject(e);
                 }
                 else {

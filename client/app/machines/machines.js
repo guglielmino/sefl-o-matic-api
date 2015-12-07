@@ -1,22 +1,18 @@
- 'use strict';
+'use strict';
 
 angular.module('SelfOMaticApp')
-  .config(function ($stateProvider) {
-  	 
-    $stateProvider
-    
+    .config(function ($stateProvider) {
 
-      .state('machines', {
-        url: '/machines',
-        templateUrl: 'app/machines/machines.html',
-        controller: 'MachinesCtrl'
-      })
+        $stateProvider
+            .state('machines', {
+                url: '/machines',
+                templateUrl: 'app/machines/machines.html',
+                controller: 'MachinesCtrl'
+            })
 
-      .state('config', {
-        url: "/machines/:serial/config",
-        templateUrl: 'app/machines/config/config.html',
-        controller: 'ConfigCtrl'
-      });
-  	  
-
-  });
+            .state('config', {
+                url: '/machines/:serial/config',
+                templateUrl: 'app/machines/config/config.html',
+                controller: 'ConfigCtrl'
+            });
+    });

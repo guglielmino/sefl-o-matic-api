@@ -12,8 +12,10 @@ var UserController = function(usersProvider)  {
 };
 
 /**
- * Get list of users
- * restriction: 'admin'
+ * Get all registered users
+ *
+ * @param req
+ * @param res
  */
 UserController.prototype.index = function(req, res) {
 
@@ -27,7 +29,6 @@ UserController.prototype.index = function(req, res) {
 			}
 
 		}, function(providerError) {
-			console.log("err " + providerError.message);
 			res
 				.status(errorMapper.errorCodeToStatus(providerError.status))
 				.send(providerError.message);
@@ -103,23 +104,10 @@ UserController.prototype.changePassword = function(req, res, next) {
     		res.json(user.profile);
     	}
   	}, function(providerError){
-  		console.log("err " + providerError.message);
       res
         .status(errorMapper.errorCodeToStatus(providerError.status))
         .send(providerError.message);
   	});
-
-  User.findById(userId, function (err, user) {
-    if(user.authenticate(oldPass)) {
-      user.password = newPass;
-      user.save(function(err) {
-        if (err) return validationError(res, err);
-        res.send(200);
-      });
-    } else {
-      res.send(403);
-    }
-  });
 };
 
 

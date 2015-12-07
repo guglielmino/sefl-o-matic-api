@@ -38,7 +38,9 @@ AuthHelper.prototype.makeSalt = function() {
 * @api public
 */
 AuthHelper.prototype.encryptPassword = function(salt, password) {
-	if (!password || !salt) return '';
+	if (!password || !salt) {
+		return '';
+	}
 	var msalt = new Buffer(salt, 'base64');
 	return crypto.pbkdf2Sync(password, msalt, 10000, 64).toString('base64');
 };

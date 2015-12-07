@@ -26,7 +26,7 @@ angular.module('SelfOMaticApp')
         });
 
 
-        $rootScope.areaTitle = "Macchine registrate";
+        $rootScope.areaTitle = 'Macchine registrate';
 
         $scope.showActionsSheet = function($event, serial) {
             $mdBottomSheet.show({
@@ -73,25 +73,25 @@ angular.module('SelfOMaticApp')
 
         function DialogController($scope, $mdDialog, MachineService, serial) {
             $scope.vm = {};
-            var img_index = 0;
+            var imgIndex = 0;
 
             MachineService.getMachineUploads(serial)
                 .then(function (results) {
                     $scope.vm.images = results;
-                    $scope.vm.image_url = results[results.length - 1];
+                    $scope.vm.imageUrl = results[results.length - 1];
                 });
 
             $scope.nextImg = function () {
-                if (img_index < $scope.vm.images.length) {
-                    img_index++;
-                    $scope.vm.image_url = $scope.vm.images[img_index];
+                if (imgIndex < $scope.vm.images.length) {
+                    imgIndex++;
+                    $scope.vm.imageUrl = $scope.vm.images[imgIndex];
                 }
             };
 
             $scope.prevImg = function () {
-                if (img_index > 0) {
-                    img_index--;
-                    $scope.vm.image_url = $scope.vm.images[img_index];
+                if (imgIndex > 0) {
+                    imgIndex--;
+                    $scope.vm.imageUrl = $scope.vm.images[imgIndex];
                 }
             };
 

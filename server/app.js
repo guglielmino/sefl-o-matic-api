@@ -10,7 +10,7 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var express = require('express');
 var config = require('./config/environment');
 var chalk = require('chalk');
-var fount = require( 'fount' );
+var fount = require('fount');
 var events = require('events');
 var eventEmitter = new events.EventEmitter();
 var logger = require('./services/utils/logger');
@@ -44,7 +44,7 @@ new WorkflowManager(eventEmitter, fount, storageProvider);
 require('./config/express')(app);
 require('./routes')(app, storageProvider, socketprovider, eventEmitter);
 
-console.log(chalk.green('Environment: ' + process.env.NODE_ENV));
+logger.info('Environment: ' + process.env.NODE_ENV);
 
 // Start server
 server.listen(config.port, config.ip, function () {
