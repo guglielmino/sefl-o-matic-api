@@ -62,9 +62,5 @@ ImgProcessingService.prototype.watermarkImage = function (configData, imageFullP
     return deferred.promise;
 };
 
-module.exports = function (fount) {
-    fount.register('img_processing', function () {
-        return new ImgProcessingService();
-    });
-};
+module.exports = new ImgProcessingService();
 

@@ -4,8 +4,7 @@ var path = require('path');
 var winston = require('winston');
 winston.emitErrs = true;
 
-var appDir = path.dirname(require.main.filename);
-var logDir = appDir + '/logs';
+var logDir = __dirname + '/../../logs';
 if ( !fs.existsSync( logDir ) ) {
     // Create the directory if it does not exist
     fs.mkdirSync( logDir );

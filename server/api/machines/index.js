@@ -2,32 +2,32 @@
 
 var express = require('express');
 
-module.exports = function(machinesProvider, usersProvider, socketio, eventEmitter) {
+module.exports = function (machinesProvider, usersProvider, socketio, eventEmitter) {
 
-  var router = express.Router();
+    var router = express.Router();
 
-  var MachineSocketController = require('./machines.socket');
-  var machineSocketController = new MachineSocketController(socketio);
+    var MachineSocketController = require('./machines.socket');
+    var machineSocketController = new MachineSocketController(socketio);
 
-  var MachineController = require('./machines.controller');
-  var machinesController = new MachineController(machinesProvider, machineSocketController);
+    var MachineController = require('./machines.controller');
+    var machinesController = new MachineController(machinesProvider, machineSocketController);
 
-  var UploadController = require('./upload/upload.controller');
-  var uploadController = new UploadController(machineSocketController, eventEmitter);
+    var UploadController = require('./upload/upload.controller');
+    var uploadController = new UploadController(machineSocketController, eventEmitter);
 
-  var AuthService = require('../../auth/auth.service');
-  var auth = new AuthService(usersProvider);
-  
-  router.post('/', machinesController.addMachine);
-  router.get('/:serialnumber', machinesController.getMachineBySerial);
-  router.delete('/:serialnumber',  machinesController.deleteMachineBySerial);
-  router.get('/:serialnumber/config', machinesController.getMachineConfig);
-  router.post('/:serialnumber/config', machinesController.setMachineConfig);
+    var AuthService = require('../../auth/auth.service');
+    var auth = new AuthService(usersProvider);
 
-  router.post('/:serialnumber/upload', uploadController.uploadImage);
-  router.get('/:serialnumber/upload', uploadController.listFiles);
+    router.post('/', machinesController.addMachine);
+    router.get('/:serialnumber', machinesController.getMachineBySerial);
+    router.delete('/:serialnumber', machinesController.deleteMachineBySerial);
+    router.get('/:serialnumber/config', machinesController.getMachineConfig);
+    router.post('/:serialnumber/config', machinesController.setMachineConfig);
 
-  router.get('/', auth.isAuthenticated(), machinesController.index);
+    router.post('/:serialnumber/upload', uploadController.uploadImage);
+    router.get('/:serialnumber/upload', uploadController.listFiles);
 
-  return router;
-}
+    router.get('/', auth.isAuthenticated(), machinesController.index);
+
+    return router;
+};

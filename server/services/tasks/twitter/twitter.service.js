@@ -21,7 +21,7 @@ TwitterService.prototype.postImage = function(configData, imageFullPath) {
 
     twitterRestClient.statusesUpdateWithMedia(
         {
-            'status': configData.message,
+            'status': (configData.message || ' '),
             'media[]': imageFullPath
         },
         function(error, result) {
@@ -37,7 +37,4 @@ TwitterService.prototype.postImage = function(configData, imageFullPath) {
     return deferred.promise;
 };
 
-module.exports = function(fount) {
-    fount.register('twitter_service', function() { return new TwitterService(); });
-};
-
+module.exports = new TwitterService();

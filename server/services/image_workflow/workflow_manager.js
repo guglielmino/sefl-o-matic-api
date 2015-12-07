@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 var util = require('util');
-var logger = require.main.require('./services/utils/logger');
+var logger = require('services/utils/logger');
 var Q = require('q');
 
 var self;
@@ -53,12 +53,11 @@ var WorkflowManager = function (eventEmitter, fount, storageProvider) {
 
             var postData = {
                 accessToken: facebookConfig.access_token,
-                imagePath: fs.createReadStream(imageFullPath),
                 message: facebookConfig.message,
                 albumId: facebookConfig.album_id
             };
 
-            fbService.postImage(postData)
+            fbService.postImage(postData, imageFullPath)
                 .then(function (res) {
                         logger.info("Posted on Facebook");
                     },

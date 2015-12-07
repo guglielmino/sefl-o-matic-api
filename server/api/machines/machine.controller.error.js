@@ -1,7 +1,7 @@
 'use strict';
 
 var errorStatuses = {
-	'KeyViolation' : 304,
+	'KeyViolation' : 304
 };
 
 exports.errorCodeToStatus = function (statusCode) {
@@ -12,5 +12,5 @@ exports.errorCodeToStatus = function (statusCode) {
 	}
 
 	return res;
-}
+};
 
