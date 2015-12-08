@@ -34,6 +34,7 @@ angular.module('SelfOMaticApp')
             $scope.showUploads = function (ev) {
                 $mdDialog.show({
                         controller: 'ImageBrowserCtrl',
+                        controllerAs: 'wm',
                         templateUrl: 'app/machines/actions/image-browser.html',
                         parent: angular.element(document.body),
                         targetEvent: ev,

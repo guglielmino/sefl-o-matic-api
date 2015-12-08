@@ -8,30 +8,27 @@ var multer = require('multer');
 var self;
 
 var UploadController = function (machineSocketController, eventEmitter) {
-    self = this;
-
-
     this.socketController = machineSocketController;
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
 
-            var dest_dir = 'uploads/' + req.params.serialnumber;
-            if (!fs.existsSync(dest_dir)) {
-                fs.mkdirSync(dest_dir);
+            var destDir = 'uploads/' + req.params.serialnumber;
+            if (!fs.existsSync(destDir)) {
+                fs.mkdirSync(destDir);
             }
 
-            cb(null, dest_dir);
+            cb(null, destDir);
         },
         filename: function (req, file, cb) {
-            var file_name = path.parse(file.fieldname).name;
-            var file_ext = path.extname(file.fieldname);
-            var full_file_name = file_name + '-' + Date.now() + file_ext;
+            var fileName = path.parse(file.fieldname).name;
+            var fileExt = path.extname(file.fieldname);
+            var fullFileName = fileName + '-' + Date.now() + fileExt;
 
-            eventEmitter.emit('file_received', full_file_name, String(req.params.serialnumber));
+            eventEmitter.emit('file_received', fullFileName, String(req.params.serialnumber));
             // Nota: il filename viene rinominato con l'aggiunta di un timestamp per evitare duplicati
 
-            cb(null, full_file_name);
+            cb(null, fullFileName);
         }
     });
 
@@ -40,9 +37,6 @@ var UploadController = function (machineSocketController, eventEmitter) {
             storage: storage,
             dest: 'uploads'
         }).any();
-
-
-    self = this;
 };
 
 UploadController.prototype.uploadImage = function (req, res) {
@@ -55,15 +49,15 @@ UploadController.prototype.uploadImage = function (req, res) {
 };
 
 UploadController.prototype.listFiles = function (req, res) {
-    var uploads_base_path = req.app.get('uploads_url_path');
+    var uploadsBasePath = req.app.get('uploads_url_path');
 
-    var files_dir = 'uploads/' + req.params.serialnumber;
-    var files = fs.readdirSync(files_dir)
+    var filesDir = 'uploads/' + req.params.serialnumber;
+    var files = fs.readdirSync(filesDir)
         .filter(function (item) {
-            return (item.indexOf(".jpg") > -1 || item.indexOf(".png") > -1);
+            return (item.indexOf('.jpg') > -1 || item.indexOf('.png') > -1);
         })
         .map(function (item) {
-            return util.format('%s/%s/%s', uploads_base_path, req.params.serialnumber, item);
+            return util.format('%s/%s/%s', uploadsBasePath, req.params.serialnumber, item);
         });
     res.json(200, files);
 };

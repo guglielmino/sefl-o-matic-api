@@ -20,11 +20,9 @@ angular.module('SelfOMaticApp')
                 onMachineEvent(true, roomSerial);
             });
 
-
             SocketService.on('unregistered', function (socket, roomSerial) {
                 onMachineEvent(false, roomSerial);
             });
-
 
             $rootScope.areaTitle = 'Macchine registrate';
 
@@ -41,12 +39,7 @@ angular.module('SelfOMaticApp')
                 });
             };
 
-
-
-
             function onMachineEvent(connected, roomSerial) {
-                console.log((connected ? 'registered' : 'unregistered ') + roomSerial);
-
                 var serial = roomSerial.split(':')[1];
                 for (var idx in $scope.machines) {
                     if ($scope.machines[idx].serial === serial) {
@@ -54,6 +47,4 @@ angular.module('SelfOMaticApp')
                     }
                 }
             }
-
-
         }]);

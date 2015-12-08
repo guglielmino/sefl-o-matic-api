@@ -2,7 +2,7 @@
     <form>
         <md-toolbar>
             <div class="md-toolbar-tools">
-                <h2>Preview immagine</h2>
+                <h2>Preview immagine ( / {{ vm.imageCount }})</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="cancel()">
                     <md-icon aria-label="Close dialog">clear</md-icon>
@@ -20,12 +20,13 @@
         <md-dialog-actions layout="row">
 
             <span flex></span>
-            <md-button ng-if=" vm.imageUrl" ng-click="nextImg()">
-                Next
-            </md-button>
             <md-button ng-if=" vm.imageUrl" ng-click="prevImg()" style="margin-right:20px;">
                 Prev
             </md-button>
+            <md-button ng-if=" vm.imageUrl" ng-click="nextImg()">
+                Next
+            </md-button>
+
         </md-dialog-actions>
     </form>
 </md-dialog>

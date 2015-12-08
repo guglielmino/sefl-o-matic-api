@@ -1,40 +1,42 @@
+'use strict';
+
 angular.module('SelfOMaticApp')
     .controller('ImageBrowserCtrl', [
-        '$scope',
         '$mdDialog',
         'MachineService',
         'serial',
-        function($scope, $mdDialog, MachineService, serial) {
-            $scope.vm = {};
+        function($mdDialog, MachineService, serial) {
             var imgIndex = 0;
+            var self = this;
 
             MachineService.getMachineUploads(serial)
                 .then(function (results) {
-                    $scope.vm.images = results;
-                    $scope.vm.imageUrl = results[results.length - 1];
+                    self.images = results;
+                    self.imageUrl = results[results.length - 1];
+                    self.imageCount = results.length;
                 });
 
-            $scope.nextImg = function () {
+            self.nextImg = function () {
                 if (imgIndex < $scope.vm.images.length) {
                     imgIndex++;
-                    $scope.vm.imageUrl = $scope.vm.images[imgIndex];
+                    self.imageUrl = $scope.vm.images[imgIndex];
                 }
             };
 
-            $scope.prevImg = function () {
+            self.prevImg = function () {
                 if (imgIndex > 0) {
                     imgIndex--;
-                    $scope.vm.imageUrl = $scope.vm.images[imgIndex];
+                    self.imageUrl = $scope.vm.images[imgIndex];
                 }
             };
 
-            $scope.hide = function () {
+            self.hide = function () {
                 $mdDialog.hide();
             };
-            $scope.cancel = function () {
+            self.cancel = function () {
                 $mdDialog.cancel();
             };
-            $scope.answer = function (answer) {
+            self.answer = function (answer) {
                 $mdDialog.hide(answer);
             };
         }]);
