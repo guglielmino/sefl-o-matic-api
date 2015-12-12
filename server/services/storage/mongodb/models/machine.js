@@ -30,7 +30,7 @@ var MachineSchema = new mongoose.Schema({
     image: {
       hflip_image: Boolean,
       watermark_image: String,
-      bightness: Number,
+      brightness: Number,
       image_effect: String
     },
     pushetta: {
