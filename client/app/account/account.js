@@ -6,6 +6,7 @@ angular.module('SelfOMaticApp')
 			.state('login', {
 				url: '/login',
 				templateUrl: 'app/account/login/login.html',
-				controller: 'LoginCtrl'
+				controller: 'LoginCtrl',
+				controllerAs: 'vm'
 			});
 	});

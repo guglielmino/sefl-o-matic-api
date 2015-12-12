@@ -1,21 +1,22 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-    .controller('LoginCtrl', ['$scope', '$rootScope', 'Auth', '$location', '$window',
-        function ($scope, $rootScope, Auth, $location, $window) {
-            $scope.user = {};
-            $scope.errors = {};
+    .controller('LoginCtrl', ['$rootScope', 'Auth', '$location', '$window',
+        function ($rootScope, Auth, $location, $window) {
+            var self = this;
+            self.user = {};
+            self.errors = {};
 
             $rootScope.areaTitle = 'Self-O-Matic Login';
 
-            $scope.login = function (userForm) {
-                $scope.submitted = true;
+            self.login = function (userForm) {
+                self.submitted = true;
 
                 if (userForm.$valid) {
 
                     Auth.login({
-                            email: $scope.user.username,
-                            password: $scope.user.password
+                            email: self.user.username,
+                            password: self.user.password
                         })
                         .then(function () {
                             // Logged in, redirect to home or target url
@@ -24,12 +25,12 @@ angular.module('SelfOMaticApp')
                         })
                         .catch(function (err) {
 
-                            $scope.errors.other = err.message;
+                            self.errors.other = err.message;
                         });
                 }
             };
 
-            $scope.loginOauth = function (provider) {
+            self.loginOauth = function (provider) {
                 $window.location.href = '/auth/' + provider;
             };
         }]);

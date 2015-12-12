@@ -7,12 +7,14 @@ angular.module('SelfOMaticApp')
             .state('machines', {
                 url: '/machines',
                 templateUrl: 'app/machines/machines.html',
-                controller: 'MachinesCtrl'
+                controller: 'MachinesCtrl',
+                controllerAs: 'vm'
             })
 
             .state('config', {
                 url: '/machines/:serial/config',
                 templateUrl: 'app/machines/config/config.html',
-                controller: 'ConfigCtrl'
+                controller: 'ConfigCtrl',
+                controllerAs: 'vm'
             });
     });

@@ -2,10 +2,10 @@
 
 angular.module('SelfOMaticApp')
     .controller('UsersCtrl', function ($rootScope, UserService) {
-
+        var self = this;
         UserService.getUsers()
             .then(function (data) {
-                this.users = data;
+                self.users = data;
             });
 
         $rootScope.areaTitle = 'Utenti registrati';

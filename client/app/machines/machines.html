@@ -1,6 +1,6 @@
 <md-content flex md-scroll-y>
 
-    <md-card ng-repeat="item in machines" >
+    <md-card ng-repeat="item in vm.machines" >
 
         <md-card-content>
             <div layout="row">
@@ -21,18 +21,10 @@
             </div>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
-            <md-button flex="50" class="md-primary md-raised" ng-click="showActionsSheet($event, item.serial)">Azioni</md-button>
-            <!--
-            <md-button flex="20" class="md-raised md-warn" ng-click="deleteMachine($event, item.serial)">
-                  Elimina
-            </md-button>
-
-            <md-button flex="20" class="md-raised" ng-click="showUploads($event, item.serial)">
-                 <md-icon class="material-icons md-light machine-tool-item"> photo_library</md-icon> Foto
-            </md-button>
-               -->
+            <md-button flex="50" class="md-primary md-raised" ng-click="vm.showActionsSheet($event, item.serial)">Azioni</md-button>
             <md-button flex="20" class="md-raised" ng-href="/#/machines/{{ item.serial }}/config">
-                Config <md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon></md-button>
+                Config
+            <md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon></md-button>
         </md-card-actions>
     </md-card>
 

@@ -2,18 +2,17 @@
 
 angular.module('SelfOMaticApp')
     .controller('MachinesCtrl', [
-        '$scope',
         '$rootScope',
         '$filter',
         '$mdDialog',
         '$mdBottomSheet',
         'MachineService',
         'SocketService',
-        function ($scope, $rootScope, $filter, $mdDialog, $mdBottomSheet, MachineService, SocketService) {
-
+        function ($rootScope, $filter, $mdDialog, $mdBottomSheet, MachineService, SocketService) {
+            var self = this;
             MachineService.getMachines()
                 .then(function (data) {
-                    $scope.machines = data;
+                    self.machines = data;
                 });
 
             SocketService.on('registered', function (socket, roomSerial) {
@@ -26,12 +25,12 @@ angular.module('SelfOMaticApp')
 
             $rootScope.areaTitle = 'Macchine registrate';
 
-            $scope.showActionsSheet = function ($event, serial) {
+            self.showActionsSheet = function ($event, serial) {
                 $mdBottomSheet.show({
                     templateUrl: 'app/machines/actions/machine-actions.html',
                     controller: 'MachineActionsCtrl',
-                    locals: {serial: serial},
-                    scope: $scope,
+                    controllerAs: 'vm',
+                    locals: {serial: serial, machines: self.machines},
                     preserveScope: true,
                     targetEvent: $event
                 }).then(function (clickedItem) {
@@ -41,9 +40,9 @@ angular.module('SelfOMaticApp')
 
             function onMachineEvent(connected, roomSerial) {
                 var serial = roomSerial.split(':')[1];
-                for (var idx in $scope.machines) {
-                    if ($scope.machines[idx].serial === serial) {
-                        $scope.machines[idx].isOn = connected;
+                for (var idx in self.machines) {
+                    if (self.machines[idx].serial === serial) {
+                        self.machines[idx].isOn = connected;
                     }
                 }
             }

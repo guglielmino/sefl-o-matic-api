@@ -3,7 +3,7 @@
     <md-list>
         <md-list-item>
             <md-button
-                    ng-click="showUploads($event, 'serial')"
+                    ng-click="vm.showUploads($event, 'serial')"
 
                     class="md-list-item-content" >
                 <md-icon class="material-icons md-light machine-tool-item">photo_library</md-icon>
@@ -11,7 +11,7 @@
             </md-button>
 
             <md-button
-                    ng-click="deleteMachine($event)"
+                    ng-click="vm.deleteMachine($event)"
 
                     class="md-list-item-content md-warn" >
                 <md-icon class="material-icons md-light machine-tool-item">remove_circle_outline</md-icon>

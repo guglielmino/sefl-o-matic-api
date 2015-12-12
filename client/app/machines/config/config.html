@@ -1,6 +1,6 @@
 <div ng-cloak>
 
-   <form name="configForm"  ng-submit="saveConfig()" novalidate>
+   <form name="configForm"  ng-submit="vm.saveConfig()" novalidate>
     
       <md-content class="md-padding">
          <md-tabs  class="md-accent" md-border-bottom md-autoselect >
@@ -14,22 +14,22 @@
                      </h2>
                   </md-toolbar>
                   <md-input-container  md-no-float>
-                     <md-checkbox ng-model="machineConfig.facebook.enabled">Enabled</md-checkbox>
+                     <md-checkbox ng-model="vm.machineConfig.facebook.enabled">Enabled</md-checkbox>
                   </md-input-container>
                   <md-input-container md-no-float>
-                     <input ng-model="machineConfig.facebook.app_id" type="text" name="fb_app_id" placeholder="Facebook APP ID">
+                     <input ng-model="vm.machineConfig.facebook.app_id" type="text" name="fb_app_id" placeholder="Facebook APP ID">
                   </md-input-container>
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.facebook.app_secret" type="text" placeholder="Facebook APP SECRET">
+                     <input ng-model="vm.machineConfig.facebook.app_secret" type="text" placeholder="Facebook APP SECRET">
                   </md-input-container>
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.facebook.access_token" type="text" placeholder="Facebook ACCESS TOKEN">
+                     <input ng-model="vm.machineConfig.facebook.access_token" type="text" placeholder="Facebook ACCESS TOKEN">
                   </md-input-container>
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.facebook.album_id" type="text" placeholder="Facebook ALBUM ID">
+                     <input ng-model="vm.machineConfig.facebook.album_id" type="text" placeholder="Facebook ALBUM ID">
                   </md-input-container>
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.facebook.message" type="text" placeholder="Messaggio da postare">
+                     <input ng-model="vm.machineConfig.facebook.message" type="text" placeholder="Messaggio da postare">
                   </md-input-container>
                 </md-content>
 
@@ -39,22 +39,22 @@
                   </h2>
                </md-toolbar>
                <md-input-container  md-no-float>
-                  <md-checkbox ng-model="machineConfig.twitter.enabled">Enabled</md-checkbox>
+                  <md-checkbox ng-model="vm.machineConfig.twitter.enabled">Enabled</md-checkbox>
                </md-input-container>
                <md-input-container  md-no-float>
-                  <input ng-model="machineConfig.twitter.consumer_key" type="text" placeholder="Consumer Key">
+                  <input ng-model="vm.machineConfig.twitter.consumer_key" type="text" placeholder="Consumer Key">
                </md-input-container>
                <md-input-container  md-no-float>
-                  <input ng-model="machineConfig.twitter.consumer_secret" type="text" placeholder="Consumer Secret">
+                  <input ng-model="vm.machineConfig.twitter.consumer_secret" type="text" placeholder="Consumer Secret">
                </md-input-container>
                <md-input-container  md-no-float>
-                  <input ng-model="machineConfig.twitter.access_token" type="text" placeholder="Access Token">
+                  <input ng-model="vm.machineConfig.twitter.access_token" type="text" placeholder="Access Token">
                </md-input-container>
                <md-input-container  md-no-float>
-                  <input ng-model="machineConfig.twitter.access_token_secret" type="text" placeholder="Access Token Secret">
+                  <input ng-model="vm.machineConfig.twitter.access_token_secret" type="text" placeholder="Access Token Secret">
                </md-input-container>
                <md-input-container  md-no-float>
-                  <input ng-model="machineConfig.twitter.message" type="text" placeholder="Messaggio da postare">
+                  <input ng-model="vm.machineConfig.twitter.message" type="text" placeholder="Messaggio da postare">
                </md-input-container>
 
 
@@ -65,11 +65,11 @@
                </md-toolbar>
 
                <md-input-container  md-no-float>
-                  <md-checkbox ng-model="machineConfig.telegram.enabled">Enabled</md-checkbox>
+                  <md-checkbox ng-model="vm.machineConfig.telegram.enabled">Enabled</md-checkbox>
                </md-input-container>
                <md-content class="md-padding">
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.telegram.token" type="text" placeholder="Telegram bot token">
+                     <input ng-model="vm.machineConfig.telegram.token" type="text" placeholder="Telegram bot token">
                   </md-input-container>
                </md-content>
 
@@ -78,16 +78,16 @@
             <md-tab label="Immagine">
                <md-content class="md-padding">
                   <md-input-container  md-no-float>
-                     <md-checkbox ng-model="machineConfig.image.hflip_image">Horizontal flip image</md-checkbox>
+                     <md-checkbox ng-model="vm.machineConfig.image.hflip_image">Horizontal flip image</md-checkbox>
                   </md-input-container>
 
                   <span class="md-body-1">Luminosità</span>
-                  <md-slider md-discrete ng-model="machineConfig.image.bightness" step="1" min="0" max="100">
+                  <md-slider md-discrete ng-model="vm.machineConfig.image.bightness" step="1" min="0" max="100">
                   </md-slider>
 
                   <md-input-container>
                      <label>Effetto</label>
-                     <md-select ng-model="machineConfig.image.image_effect">
+                     <md-select ng-model="vm.machineConfig.image.image_effect">
                         <md-option  value="none">
                            Nessuno
                         </md-option>
@@ -163,7 +163,7 @@
                   </md-input-container>
 
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.image.watermark_image" type="text" placeholder="Watermark image">
+                     <input ng-model="vm.machineConfig.image.watermark_image" type="text" placeholder="Watermark image">
                   </md-input-container>
 
                </md-content>
@@ -171,14 +171,14 @@
 
             <md-tab label="Pushetta">
                <md-input-container  md-no-float>
-                  <md-checkbox ng-model="machineConfig.pushetta.enabled">Enabled</md-checkbox>
+                  <md-checkbox ng-model="vm.machineConfig.pushetta.enabled">Enabled</md-checkbox>
                </md-input-container>
                <md-content class="md-padding">
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.pushetta.api_key" type="text" placeholder="Pushetta API KEY">
+                     <input ng-model="vm.machineConfig.pushetta.api_key" type="text" placeholder="Pushetta API KEY">
                   </md-input-container>
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.pushetta.channel" type="text" placeholder="Pushetta channel name">
+                     <input ng-model="vm.machineConfig.pushetta.channel" type="text" placeholder="Pushetta channel name">
                   </md-input-container>
                </md-content>
             </md-tab>
@@ -187,7 +187,7 @@
             <md-tab label="Dropbox">
                <md-content class="md-padding">
                   <md-input-container  md-no-float>
-                     <input ng-model="machineConfig.dropbox.access_token" type="text" placeholder="Dropbox App token">
+                     <input ng-model="vm.machineConfig.dropbox.access_token" type="text" placeholder="Dropbox App token">
                   </md-input-container>
                </md-content>
             </md-tab>
@@ -198,6 +198,7 @@
 
       <div layout="column" class="md-padding" >
          <md-button class="md-raised md-primary" type="submit"  ng-disabled="userForm.$invalid" >Save</md-button>
+         
       </div>
 
 

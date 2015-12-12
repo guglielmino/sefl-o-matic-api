@@ -5,14 +5,15 @@
 
 angular.module('SelfOMaticApp')
     .controller('MachineActionsCtrl', [
-        '$scope',
         '$mdDialog',
         '$mdBottomSheet',
         'MachineService',
         'serial',
-        function ($scope, $mdDialog, $mdBottomSheet, MachineService, serial) {
+        'machines',
+        function ($mdDialog, $mdBottomSheet, MachineService, serial, machines) {
+            var self = this;
 
-            $scope.deleteMachine = function (ev) {
+            self.deleteMachine = function (ev) {
 
                 var confirm = $mdDialog
                     .confirm()
@@ -31,7 +32,7 @@ angular.module('SelfOMaticApp')
                     });
             };
 
-            $scope.showUploads = function (ev) {
+            self.showUploads = function (ev) {
                 $mdDialog.show({
                         controller: 'ImageBrowserCtrl',
                         controllerAs: 'wm',
@@ -53,7 +54,7 @@ angular.module('SelfOMaticApp')
                 MachineService
                     .deleteMachine(serial)
                     .then(function (res) {
-                            _.remove($scope.machines, function (item) {
+                            _.remove(machines, function (item) {
                                 return item.serial === serial;
                             });
                         },

@@ -1,18 +1,19 @@
 'use strict';
 
 angular.module('SelfOMaticApp')
-    .controller('ConfigCtrl', ['$scope', '$rootScope', '$stateParams', '$state', '$mdDialog', 'ConfigService',
-        function ($scope, $rootScope, $stateParams, $state, $mdDialog, ConfigService) {
+    .controller('ConfigCtrl', ['$rootScope', '$stateParams', '$state', '$mdDialog', 'ConfigService',
+        function ($rootScope, $stateParams, $state, $mdDialog, ConfigService) {
 
+            var self = this;
             var serialNumber = $stateParams.serial;
 
             ConfigService.getMachineConfig(serialNumber)
                 .then(function (data) {
-                    $scope.machineConfig = data;
+                    self.machineConfig = data;
                 });
 
-            $scope.saveConfig = function () {
-                ConfigService.postMachineConfig(serialNumber, $scope.machineConfig)
+            self.saveConfig = function () {
+                ConfigService.postMachineConfig(serialNumber, self.machineConfig)
                     .then(function (data) {
                         var alert = $mdDialog.alert({
                             title: 'Config for ' + serialNumber,
