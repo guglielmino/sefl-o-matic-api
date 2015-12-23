@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp')
     .factory('SocketService', function SocketService($rootScope) {
 
         var socket = io('', {

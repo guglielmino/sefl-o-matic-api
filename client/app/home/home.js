@@ -1,6 +1,6 @@
  'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.home')
   .config(function ($stateProvider) {
   	 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="SelfOMaticApp">
+<html ng-app="somapp">
 <head>
     <title>Self-O-Matic Admin</title>
 
@@ -120,21 +120,28 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,client}) app/app.js -->
+    <script src="app/app.module.js"></script>
     <script src="app/app.js"></script>
     <!-- injector:js -->
+    <script src="app/account/account.module.js"></script>
     <script src="app/account/account.js"></script>
     <script src="app/account/login/login.controller.js"></script>
+    <script src="app/home/home.module.js"></script>
     <script src="app/home/home.controller.js"></script>
     <script src="app/home/home.js"></script>
+    <script src="app/machines/actions/machine-actions.module.js"></script>
     <script src="app/machines/actions/image-browser.controller.js"></script>
     <script src="app/machines/actions/machine-actions.controller.js"></script>
+    <script src="app/machines/config/config.module.js"></script>
     <script src="app/machines/config/config.controller.js"></script>
     <script src="app/machines/config/config.service.js"></script>
+    <script src="app/machines/machines.module.js"></script>
     <script src="app/machines/machines.controller.js"></script>
     <script src="app/machines/machines.js"></script>
     <script src="app/machines/machines.service.js"></script>
     <script src="app/machines/map/map.controller.js"></script>
     <script src="app/machines/map/map.service.js"></script>
+    <script src="app/users/users.module.js"></script>
     <script src="app/users/users.controller.js"></script>
     <script src="app/users/users.js"></script>
     <script src="app/users/users.service.js"></script>

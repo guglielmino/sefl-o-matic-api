@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.machines')
     .config(function ($stateProvider) {
 
         $stateProvider
@@ -18,3 +19,4 @@ angular.module('SelfOMaticApp')
                 controllerAs: 'vm'
             });
     });
+})();

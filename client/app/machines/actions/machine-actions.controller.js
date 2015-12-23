@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.machines.actions')
     .controller('MachineActionsCtrl', [
         '$mdDialog',
         '$mdBottomSheet',

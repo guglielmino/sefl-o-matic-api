@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.machines.config')
     .factory('ConfigService', function ConfigService($location, $rootScope, $http, $cookieStore, $q) {
 
         return {

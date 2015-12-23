@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.users')
 
     .config(function ($stateProvider) {
 
@@ -13,3 +14,4 @@ angular.module('SelfOMaticApp')
             });
 
     });
+})();

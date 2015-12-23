@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.machines.config')
     .controller('ConfigCtrl', ['$rootScope', '$stateParams', '$state', '$mdDialog', 'ConfigService',
         function ($rootScope, $stateParams, $state, $mdDialog, ConfigService) {
 

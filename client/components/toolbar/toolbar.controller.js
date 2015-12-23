@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp')
     .controller('ToolbarCtrl', function ($scope) {
         $scope.menuItems = [
             {name: 'Home', url: '/#home'},

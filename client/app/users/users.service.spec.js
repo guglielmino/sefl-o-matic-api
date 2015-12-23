@@ -4,7 +4,7 @@ describe('Service: UserService', function () {
 
     var UserService, httpBackend;
     // load the controller's module
-    beforeEach(module('SelfOMaticApp'));
+    beforeEach(module('somapp.users'));
     // Inject the service
     beforeEach(inject(function (_UserService_, $httpBackend) {
         UserService = _UserService_;

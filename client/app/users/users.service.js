@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.users')
     .factory('UserService', function MachineService($http, $cookieStore, $q) {
         return {
             getUsers: function () {
@@ -20,3 +21,4 @@ angular.module('SelfOMaticApp')
         };
 
     });
+})();

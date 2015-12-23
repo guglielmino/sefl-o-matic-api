@@ -1,4 +1,4 @@
-angular.module('SelfOMaticApp')
+angular.module('somapp')
 	.factory('Auth', function Auth($location, $rootScope, $http, $cookieStore, $q, User) {
     var currentUser = {};
     if($cookieStore.get('token')) {

@@ -1,16 +1,6 @@
 'use strict';
 
-angular.module('SelfOMaticApp', [
-        'ui.router',
-        'ngCookies',
-        'ngResource',
-        'ngSanitize',
-        'ngMaterial',
-        'ngMdIcons',
-        'ngMessages',
-        'ui.gravatar',
-        'btford.socket-io'
-    ])
+angular.module('somapp')
     .config(function ($urlRouterProvider, $locationProvider, $mdThemingProvider, $httpProvider) {
         $urlRouterProvider
             .otherwise('/home'); // Nota: usando / e attivando html5Mode si entra in recursione

@@ -1,9 +1,11 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
-	.controller('HomeCtrl', ['$rootScope',
-		function ($rootScope) {
-		$rootScope.areaTitle = 'Self-O-Matic';
+    angular.module('somapp.home')
+        .controller('HomeCtrl', ['$rootScope',
+            function ($rootScope) {
+                $rootScope.areaTitle = 'Self-O-Matic';
 
-		$rootScope.auth = true;
-	}]);
+                $rootScope.auth = true;
+            }]);
+})();

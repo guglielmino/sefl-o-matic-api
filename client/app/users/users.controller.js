@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.users')
     .controller('UsersCtrl', function ($rootScope, UserService) {
         var self = this;
         UserService.getUsers()
@@ -10,3 +11,4 @@ angular.module('SelfOMaticApp')
 
         $rootScope.areaTitle = 'Utenti registrati';
     });
+})();

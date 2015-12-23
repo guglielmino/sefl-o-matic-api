@@ -1,6 +1,7 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('SelfOMaticApp')
+angular.module('somapp.machines')
     .factory('MachineService', function MachineService($location, $rootScope, $http, $cookieStore, $q) {
 
         var machineService = {};
@@ -64,3 +65,4 @@ angular.module('SelfOMaticApp')
         return machineService;
 
     });
+})();
