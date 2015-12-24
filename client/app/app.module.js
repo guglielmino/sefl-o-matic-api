@@ -10,6 +10,7 @@
      * @description
      * The main app module
      */
+
     angular.module('somapp', [
         'ui.router',
         'ngCookies',

@@ -1,9 +1,7 @@
-/**
- * Created by fabrizio on 23/11/15.
- */
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('somapp.machines.actions')
+    angular.module('somapp.machines.actions')
     .controller('MachineActionsCtrl', [
         '$mdDialog',
         '$mdBottomSheet',
@@ -63,3 +61,4 @@ angular.module('somapp.machines.actions')
                         });
             }
         }]);
+})();

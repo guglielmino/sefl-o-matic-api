@@ -1,31 +1,47 @@
 <md-content flex md-scroll-y>
 
-    <md-card ng-repeat="item in vm.machines" >
+    <md-card ng-repeat="item in vm.machines">
+        <md-card-header>
+
+            <md-card-avatar>
+                <img src="assets/images/selfomatic.png" />
+            </md-card-avatar>
+
+            <md-card-header-text>
+                <div layout="row" layout-align="end center">
+                    <span ng-if="item.isOn" style="color: red"> <i class="material-icons">network_wifi</i></span>
+                    <span ng-if="!item.isOn" style="color: grey"> <i class="material-icons">signal_wifi_off</i></span>
+                </div>
+                <span class="md-title">{{ item.name }}</span>
+                <span class="md-subhead">serial {{ item.serial }}</span>
+
+            </md-card-header-text>
+        </md-card-header>
 
         <md-card-content>
-            <div layout="row">
-                <div flex="auto">
-                    <img ng-src="assets/images/selfomatic.png" class="md-card-image" alt="Machine" />
-                </div>
-                <div flex="40">
-                    <h2 >{{ item.name }}</h2>
-                    <span ng-if="item.isOn" style="color: red"> [ONLINE]</span>
-                    <span ng-if="!item.isOn" style="color: grey"> [OFFLINE]</span>
+            <img ng-if="item.imageUrl" ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine"/>
+            <span ng-if="!item.imageUrl">Nessuna immagine disponibile</span>
 
-                </div>
-            </div>
-            <div layout="row">
-                <div flex="auto">
-                    <h3> {{ item.serial }}</h3>
-                </div>
-            </div>
+            <p>
+               Sintesi configurazione
+                <ul>
+
+                    <li>Facebook attivo</li>
+                    <li>Twitter attivo</li>
+                </ul>
+            </p>
         </md-card-content>
+
         <md-card-actions layout="row" layout-align="end center">
-            <md-button flex="50" class="md-primary md-raised" ng-click="vm.showActionsSheet($event, item.serial)">Azioni</md-button>
-            <md-button flex="20" class="md-raised" ng-href="/#/machines/{{ item.serial }}/config">
-                Config
-            <md-icon md-font-set="material-icons">keyboard_arrow_right</md-icon></md-button>
+
+            <md-button class="md-icon-button" aria-label="actions" ng-click="vm.showActionsSheet($event, item.serial)">
+                <md-icon><i class="material-icons">menu</i></md-icon>
+            </md-button>
+            <md-button class="md-icon-button" aria-label="config" ng-href="/#/machines/{{ item.serial }}/config">
+                <md-icon><i class="material-icons">keyboard_arrow_right</i></md-icon>
+            </md-button>
         </md-card-actions>
+
     </md-card>
 
 </md-content>

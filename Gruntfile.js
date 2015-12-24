@@ -59,7 +59,8 @@ module.exports = function (grunt) {
                     'client/{app,components}/**/*.js',
                     '!client/{app,components}/**/*.spec.js',
                     '!client/{app,components}/**/*.mock.js',
-                    '!client/app/app.js'],
+                    '!client/app/app.js',
+                    '!client/app/app.module.js'],
                 tasks: ['injector:scripts']
             },
             injectCss: {
@@ -480,8 +481,10 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'client/index.html': [
-                        ['{.tmp,client}/{app,components}/**/*.js',
+                        ['{.tmp,client}/{app,components}/**/*.module.js',
+                            '{.tmp,client}/{app,components}/**/*.js',
                             '!{.tmp,client}/app/app.js',
+                            '!{.tmp,client}/app/app.module.js',
                             '!{.tmp,client}/{app,components}/**/*.spec.js',
                             '!{.tmp,client}/{app,components}/**/*.mock.js']
                     ]

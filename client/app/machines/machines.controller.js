@@ -11,9 +11,16 @@
             'SocketService',
             function ($rootScope, $filter, $mdDialog, $mdBottomSheet, MachineService, SocketService) {
                 var self = this;
+
                 MachineService.getMachines()
                     .then(function (data) {
                         self.machines = data;
+                        _.each(self.machines, function (machine) {
+                            MachineService.getMachineUploads(machine.serial)
+                                .then(function (results) {
+                                    machine.imageUrl = _.last(results);
+                                });
+                        });
                     });
 
                 SocketService.on('registered', function (socket, roomSerial) {

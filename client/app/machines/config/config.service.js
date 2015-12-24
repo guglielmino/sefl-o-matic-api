@@ -1,6 +1,8 @@
-'use strict';
+(function () {
+    'use strict';
 
-angular.module('somapp.machines.config')
+
+    angular.module('somapp.machines.config')
     .factory('ConfigService', function ConfigService($location, $rootScope, $http, $cookieStore, $q) {
 
         return {
@@ -44,3 +46,4 @@ angular.module('somapp.machines.config')
 
         };
     });
+})();
