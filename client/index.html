@@ -23,7 +23,7 @@
     <!-- endinjector -->
     <!-- endbuild -->
 </head>
-<body layout="row" ng-controller="AppCtrl">
+<body layout="row" ng-controller="AppCtrl" ng-cloak>
 
 
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left">
@@ -91,7 +91,7 @@
             </div>
         </md-toolbar>
 
-        <div layout-padding ui-view=""></div>
+        <div layout-fill ui-view=""></div>
     </div>
 
     <!--[if lt IE 9]>

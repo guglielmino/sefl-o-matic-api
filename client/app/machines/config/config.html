@@ -1,206 +1,216 @@
-<div ng-cloak>
+<md-content>
 
-   <form name="configForm"  ng-submit="vm.saveConfig()" novalidate>
-    
-      <md-content class="md-padding">
-         <md-tabs  class="md-accent" md-border-bottom md-autoselect >
+    <form name="configForm" ng-submit="vm.saveConfig()" novalidate>
+
+
+        <md-tabs md-dynamic-height md-border-bottom class="md-accent">
 
             <md-tab label="Social">
 
-               <md-content class="md-padding">
-                  <md-toolbar class="md-theme-light">
-                     <h2 class="md-toolbar-tools">
-                        <span>Facebook</span>
-                     </h2>
-                  </md-toolbar>
-                  <md-input-container  md-no-float>
-                     <md-checkbox ng-model="vm.machineConfig.facebook.enabled">Enabled</md-checkbox>
-                  </md-input-container>
-                  <md-input-container md-no-float>
-                     <input ng-model="vm.machineConfig.facebook.app_id" type="text" name="fb_app_id" placeholder="Facebook APP ID">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.facebook.app_secret" type="text" placeholder="Facebook APP SECRET">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.facebook.access_token" type="text" placeholder="Facebook ACCESS TOKEN">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.facebook.album_id" type="text" placeholder="Facebook ALBUM ID">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.facebook.message" type="text" placeholder="Messaggio da postare">
-                  </md-input-container>
+                <md-content class="md-padding">
+                    <md-toolbar class="md-theme-light">
+                        <h2 class="md-toolbar-tools">
+                            <span>Facebook</span>
+                        </h2>
+                    </md-toolbar>
+                    <md-input-container md-no-float>
+                        <md-checkbox ng-model="vm.machineConfig.facebook.enabled">Enabled</md-checkbox>
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.facebook.app_id" type="text" name="fb_app_id"
+                               placeholder="Facebook APP ID">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.facebook.app_secret" type="text"
+                               placeholder="Facebook APP SECRET">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.facebook.access_token" type="text"
+                               placeholder="Facebook ACCESS TOKEN">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.facebook.album_id" type="text"
+                               placeholder="Facebook ALBUM ID">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.facebook.message" type="text"
+                               placeholder="Messaggio da postare">
+                    </md-input-container>
+
+
+                    <md-toolbar class="md-theme-light">
+                        <h2 class="md-toolbar-tools">
+                            <span>Twitter</span>
+                        </h2>
+                    </md-toolbar>
+
+                    <md-input-container md-no-float>
+                        <md-checkbox ng-model="vm.machineConfig.twitter.enabled">Enabled</md-checkbox>
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.twitter.consumer_key" type="text" placeholder="Consumer Key">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.twitter.consumer_secret" type="text"
+                               placeholder="Consumer Secret">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.twitter.access_token" type="text" placeholder="Access Token">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.twitter.access_token_secret" type="text"
+                               placeholder="Access Token Secret">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.twitter.message" type="text"
+                               placeholder="Messaggio da postare">
+                    </md-input-container>
+
+
+                    <md-toolbar class="md-theme-light">
+                        <h2 class="md-toolbar-tools">
+                            <span>Telegram</span>
+                        </h2>
+                    </md-toolbar>
+
+                    <md-input-container md-no-float>
+                        <md-checkbox ng-model="vm.machineConfig.telegram.enabled">Enabled</md-checkbox>
+                    </md-input-container>
+
+
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.telegram.token" type="text" placeholder="Telegram bot token">
+                    </md-input-container>
                 </md-content>
-
-               <md-toolbar class="md-theme-light">
-                  <h2 class="md-toolbar-tools">
-                     <span>Twitter</span>
-                  </h2>
-               </md-toolbar>
-               <md-input-container  md-no-float>
-                  <md-checkbox ng-model="vm.machineConfig.twitter.enabled">Enabled</md-checkbox>
-               </md-input-container>
-               <md-input-container  md-no-float>
-                  <input ng-model="vm.machineConfig.twitter.consumer_key" type="text" placeholder="Consumer Key">
-               </md-input-container>
-               <md-input-container  md-no-float>
-                  <input ng-model="vm.machineConfig.twitter.consumer_secret" type="text" placeholder="Consumer Secret">
-               </md-input-container>
-               <md-input-container  md-no-float>
-                  <input ng-model="vm.machineConfig.twitter.access_token" type="text" placeholder="Access Token">
-               </md-input-container>
-               <md-input-container  md-no-float>
-                  <input ng-model="vm.machineConfig.twitter.access_token_secret" type="text" placeholder="Access Token Secret">
-               </md-input-container>
-               <md-input-container  md-no-float>
-                  <input ng-model="vm.machineConfig.twitter.message" type="text" placeholder="Messaggio da postare">
-               </md-input-container>
-
-
-               <md-toolbar class="md-theme-light">
-                  <h2 class="md-toolbar-tools">
-                     <span>Telegram</span>
-                  </h2>
-               </md-toolbar>
-
-               <md-input-container  md-no-float>
-                  <md-checkbox ng-model="vm.machineConfig.telegram.enabled">Enabled</md-checkbox>
-               </md-input-container>
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.telegram.token" type="text" placeholder="Telegram bot token">
-                  </md-input-container>
-               </md-content>
 
             </md-tab>
 
             <md-tab label="Immagine">
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <md-checkbox ng-model="vm.machineConfig.image.hflip_image">Horizontal flip image</md-checkbox>
-                  </md-input-container>
+                <md-content class="md-padding">
+                    <md-input-container md-no-float>
+                        <md-checkbox ng-model="vm.machineConfig.image.hflip_image">Horizontal flip image</md-checkbox>
+                    </md-input-container>
 
-                  <span class="md-body-1">Luminosità</span>
-                  <md-slider md-discrete ng-model="vm.machineConfig.image.brightness" step="1" min="0" max="100">
-                  </md-slider>
+                    <span class="md-body-1">Luminosità</span>
+                    <md-slider md-discrete ng-model="vm.machineConfig.image.brightness" step="1" min="0" max="100">
+                    </md-slider>
 
-                  <md-input-container>
-                     <label>Effetto</label>
-                     <md-select ng-model="vm.machineConfig.image.image_effect">
-                        <md-option  value="none">
-                           Nessuno
-                        </md-option>
-                        <md-option  value="negative">
-                           Negativo
-                        </md-option>
-                        <md-option  value="solarize">
-                           Solarize
-                        </md-option>
-                        <md-option  value="sketch">
-                           Sketch
-                        </md-option>
-                        <md-option  value="denoise">
-                           Denoise
-                        </md-option>
-                        <md-option  value="emboss">
-                           Emboss
-                        </md-option>
-                        <md-option  value="oilpaint">
-                           Oilpaint
-                        </md-option>
-                        <md-option  value="hatch">
-                           Hatch
-                        </md-option>
-                        <md-option  value="gpen">
-                           Gpen
-                        </md-option>
-                        <md-option  value="pastel">
-                           Pastel
-                        </md-option>
-                        <md-option  value="watercolor">
-                           Watercolor
-                        </md-option>
-                        <md-option  value="film">
-                           Film
-                        </md-option>
-                        <md-option  value="blur">
-                           Blur
-                        </md-option>
-                        <md-option  value="saturation">
-                           Saturation
-                        </md-option>
-                        <md-option  value="colorswap">
-                           Colorswap
-                        </md-option>
-                        <md-option  value="washedout">
-                           Washedout
-                        </md-option>
-                        <md-option  value="posterise">
-                           Posterise
-                        </md-option>
-                        <md-option  value="colorpoint">
-                           Colorpoint
-                        </md-option>
-                        <md-option  value="colorbalance">
-                           Colorbalance
-                        </md-option>
-                        <md-option  value="cartoon">
-                           Cartoon
-                        </md-option>
-                        <md-option  value="deinterlace1">
-                           Deinterlace1
-                        </md-option>
-                        <md-option  value="deinterlace2">
-                           Deinterlace2
-                        </md-option>
-                     </md-select>
-                  </md-input-container>
+                    <md-input-container>
+                        <label>Effetto</label>
+                        <md-select ng-model="vm.machineConfig.image.image_effect">
+                            <md-option value="none">
+                                Nessuno
+                            </md-option>
+                            <md-option value="negative">
+                                Negativo
+                            </md-option>
+                            <md-option value="solarize">
+                                Solarize
+                            </md-option>
+                            <md-option value="sketch">
+                                Sketch
+                            </md-option>
+                            <md-option value="denoise">
+                                Denoise
+                            </md-option>
+                            <md-option value="emboss">
+                                Emboss
+                            </md-option>
+                            <md-option value="oilpaint">
+                                Oilpaint
+                            </md-option>
+                            <md-option value="hatch">
+                                Hatch
+                            </md-option>
+                            <md-option value="gpen">
+                                Gpen
+                            </md-option>
+                            <md-option value="pastel">
+                                Pastel
+                            </md-option>
+                            <md-option value="watercolor">
+                                Watercolor
+                            </md-option>
+                            <md-option value="film">
+                                Film
+                            </md-option>
+                            <md-option value="blur">
+                                Blur
+                            </md-option>
+                            <md-option value="saturation">
+                                Saturation
+                            </md-option>
+                            <md-option value="colorswap">
+                                Colorswap
+                            </md-option>
+                            <md-option value="washedout">
+                                Washedout
+                            </md-option>
+                            <md-option value="posterise">
+                                Posterise
+                            </md-option>
+                            <md-option value="colorpoint">
+                                Colorpoint
+                            </md-option>
+                            <md-option value="colorbalance">
+                                Colorbalance
+                            </md-option>
+                            <md-option value="cartoon">
+                                Cartoon
+                            </md-option>
+                            <md-option value="deinterlace1">
+                                Deinterlace1
+                            </md-option>
+                            <md-option value="deinterlace2">
+                                Deinterlace2
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
 
-                  <md-input-container  md-no-float>
-                     <input id="fileInput" name="file" type="file" class="ng-hide" multiple>
-                     <md-button id="uploadButton" class="md-raised md-primary"> Seleziona immagini </md-button>
-                  </md-input-container>
+                    <md-input-container md-no-float>
+                        <input id="fileInput" name="file" type="file" class="ng-hide" multiple>
+                        <md-button id="uploadButton" class="md-raised md-primary"> Seleziona immagini</md-button>
+                    </md-input-container>
 
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.image.watermark_image" type="text" placeholder="Watermark image">
-                  </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.image.watermark_image" type="text"
+                               placeholder="Watermark image">
+                    </md-input-container>
 
-               </md-content>
+                </md-content>
             </md-tab>
 
             <md-tab label="Pushetta">
-               <md-input-container  md-no-float>
-                  <md-checkbox ng-model="vm.machineConfig.pushetta.enabled">Enabled</md-checkbox>
-               </md-input-container>
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.pushetta.api_key" type="text" placeholder="Pushetta API KEY">
-                  </md-input-container>
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.pushetta.channel" type="text" placeholder="Pushetta channel name">
-                  </md-input-container>
-               </md-content>
+                <md-input-container md-no-float>
+                    <md-checkbox ng-model="vm.machineConfig.pushetta.enabled">Enabled</md-checkbox>
+                </md-input-container>
+                <md-content class="md-padding">
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.pushetta.api_key" type="text" placeholder="Pushetta API KEY">
+                    </md-input-container>
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.pushetta.channel" type="text"
+                               placeholder="Pushetta channel name">
+                    </md-input-container>
+                </md-content>
             </md-tab>
 
 
             <md-tab label="Dropbox">
-               <md-content class="md-padding">
-                  <md-input-container  md-no-float>
-                     <input ng-model="vm.machineConfig.dropbox.access_token" type="text" placeholder="Dropbox App token">
-                  </md-input-container>
-               </md-content>
+                <md-content class="md-padding">
+                    <md-input-container md-no-float>
+                        <input ng-model="vm.machineConfig.dropbox.access_token" type="text"
+                               placeholder="Dropbox App token">
+                    </md-input-container>
+                </md-content>
             </md-tab>
 
-         </md-tabs>
-      </md-content>
+        </md-tabs>
 
+        <div layout="column" class="md-padding">
+            <md-button class="md-raised md-primary" type="submit" ng-disabled="userForm.$invalid">Save</md-button>
 
-      <div layout="column" class="md-padding" >
-         <md-button class="md-raised md-primary" type="submit"  ng-disabled="userForm.$invalid" >Save</md-button>
-         
-      </div>
+        </div>
 
-
-   </form>
- </div>
+    </form>
+</md-content>
