@@ -19,11 +19,11 @@
         </md-card-header>
 
         <md-card-content>
-            <img ng-if="item.imageUrl" ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine"/>
+            <img ng-if="item.imageUrl" ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine" style="width: 313px"/>
             <span ng-if="!item.imageUrl">Nessuna immagine disponibile</span>
 
             <p>
-               Sintesi configurazione
+               <span class="md-body-2">Configurazione</span>
                 <ul>
 
                     <li>Facebook attivo</li>

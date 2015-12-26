@@ -52,13 +52,17 @@ UploadController.prototype.listFiles = function (req, res) {
     var uploadsBasePath = req.app.get('uploads_url_path');
 
     var filesDir = 'uploads/' + req.params.serialnumber;
-    var files = fs.readdirSync(filesDir)
-        .filter(function (item) {
-            return (item.indexOf('.jpg') > -1 || item.indexOf('.png') > -1);
-        })
-        .map(function (item) {
-            return util.format('%s/%s/%s', uploadsBasePath, req.params.serialnumber, item);
-        });
+    var files = [];
+
+    if (fs.existsSync(filesDir)) {
+        files = fs.readdirSync(filesDir)
+            .filter(function (item) {
+                return (item.indexOf('.jpg') > -1 || item.indexOf('.png') > -1);
+            })
+            .map(function (item) {
+                return util.format('%s/%s/%s', uploadsBasePath, req.params.serialnumber, item);
+            });
+    }
     res.json(200, files);
 };
 
