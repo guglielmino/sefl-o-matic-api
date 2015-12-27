@@ -1,35 +1,34 @@
-
 <section layout="vertical" layout-align="center center" layout-margin>
 
-   <div flex="10"></div>
+    <div flex="10"></div>
 
-   <md-content flex="80" class="md-whiteframe-z1" >
-      <md-icon md-font-set="material-icons" > people </md-icon>
-      <form name="userForm" ng-submit="vm.login(userForm)" >
-         <div layout="column">
-            <md-input-container flex>
-               <label>User</label>
-               <input ng-model="vm.user.username" >
+    <md-content flex="80" class="md-whiteframe-z1">
+        <md-icon md-font-set="material-icons"> people</md-icon>
+        <form name="loginForm" ng-submit="vm.login(loginForm)" novalidate>
 
-            </md-input-container>
-            <md-input-container flex >
-               <label>Password</label>
-               <input ng-model="vm.user.password" type="password" >
-            </md-input-container>
+            <div layout="column">
+                
+                <md-input-container flex>
+                    <label>User</label>
+                    <input ng-model="vm.user.username">
+                </md-input-container>
+                
+                <md-input-container flex>
+                    <label>Password</label>
+                    <input ng-model="vm.user.password" type="password">
+                </md-input-container>
 
-             <div ng-show="errors.other" class="input_error">
-                 <div >{{ vm.errors.other }}</div>
-             </div>
+                <div ng-show="errors.other" class="input_error">
+                    <div>{{ vm.errors.other }}</div>
+                </div>
 
-            <md-button class="md-raised md-primary" ng-disabled="userForm.$invalid">LOGIN</md-button>
-         </div>
+                <md-button class="md-raised md-primary" ng-disabled="loginForm.$invalid">LOGIN</md-button>
+            </div>
 
+        </form>
 
-      </form>
+    </md-content>
 
+    <div flex="10"></div>
 
-   </md-content>
-
-   <div flex="10"></div>
-   
 </section>

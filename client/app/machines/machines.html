@@ -18,8 +18,16 @@
             </md-card-header-text>
         </md-card-header>
 
-        <md-card-content>
-            <img ng-if="item.imageUrl" ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine" style="width: 313px"/>
+        <md-card-content >
+            <div ng-if="item.imageUrl" layout="row" layout-align="space-between center">
+                <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+                    <md-icon><i class="material-icons">chevron_left</i></md-icon>
+                </md-button>
+                <img  ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine" style="width: 313px"/>
+                <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+                    <md-icon><i class="material-icons">chevron_right</i></md-icon>
+                </md-button>
+            </div>
             <span ng-if="!item.imageUrl">Nessuna immagine disponibile</span>
 
             <p>
