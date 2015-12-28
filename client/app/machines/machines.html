@@ -36,8 +36,8 @@
                <span class="md-body-2">Configurazione</span>
                 <ul>
 
-                    <li>Facebook attivo</li>
-                    <li>Twitter attivo</li>
+                    <li>Facebook {{ item.config.facebook.enabled ? "attivo" : "disattivo" }}</li>
+                    <li>Twitter {{ item.config.twitter.enabled ? "attivo" : "disattivo" }}</li>
                 </ul>
             </p>
         </md-card-content>
