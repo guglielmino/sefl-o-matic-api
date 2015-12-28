@@ -24,7 +24,6 @@
         'somapp.account.login',
         'somapp.home',
         'somapp.machines',
-        'somapp.machines.actions',
         'somapp.machines.config',
         'somapp.users'
     ]);

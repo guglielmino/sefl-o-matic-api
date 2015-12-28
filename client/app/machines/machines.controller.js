@@ -6,11 +6,11 @@
             '$rootScope',
             '$filter',
             '$mdDialog',
-            '$mdBottomSheet',
             'MachineService',
             'SocketService',
-            function ($rootScope, $filter, $mdDialog, $mdBottomSheet, MachineService, SocketService) {
+            function ($rootScope, $filter, $mdDialog, MachineService, SocketService) {
                 var self = this;
+                var originatorEv;
 
                 MachineService.getMachines()
                     .then(function (data) {
@@ -35,18 +35,71 @@
 
                 $rootScope.areaTitle = 'Macchine registrate';
 
-                self.showActionsSheet = function ($event, serial) {
-                    $mdBottomSheet.show({
-                        templateUrl: 'app/machines/actions/machine-actions.html',
-                        controller: 'MachineActionsCtrl',
-                        controllerAs: 'vm',
-                        locals: {serial: serial, machines: self.machines},
-                        preserveScope: true,
-                        targetEvent: $event
-                    }).then(function (clickedItem) {
-
-                    });
+                this.openMenu = function($mdOpenMenu, ev) {
+                    originatorEv = ev;
+                    $mdOpenMenu(ev);
                 };
+
+                this.deleteMachine = function (ev, serial) {
+
+                    var confirm = $mdDialog
+                        .confirm()
+                        .title('Eliminare la macchina ' + serial + '?')
+                        .content('Nota: tutte le configurazioni andranno perse.')
+                        .targetEvent(ev)
+                        .ok('Ok')
+                        .cancel('Annulla');
+
+                    $mdDialog.show(confirm)
+                        .then(function () {
+                            doDeleteMachine(serial);
+                        }, function () {
+
+                        });
+
+                    originatorEv = null;
+                };
+
+                this.nextImg = function (serial) {
+                    var machine = getMachine(serial);
+
+                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
+                    if (machine.imageIndex  < machine.images.length - 1) {
+                        machine.imageIndex ++;
+                    }
+                    else{
+                        machine.imageIndex = 0;
+                    }
+
+                    machine.imageUrl = machine.images[machine.imageIndex ];
+                };
+
+                this.prevImg = function (serial) {
+                    var machine = getMachine(serial);
+
+                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
+                    if (machine.imageIndex > 0) {
+                        machine.imageIndex--;
+                    }
+                    else{
+                        machine.imageIndex = machine.images.length - 1;
+                    }
+
+                    machine.imageUrl = machine.images[machine.imageIndex ];
+                };
+
+                function doDeleteMachine(serial) {
+                    MachineService
+                        .deleteMachine(serial)
+                        .then(function (res) {
+                                _.remove(self.machines, function (item) {
+                                    return item.serial === serial;
+                                });
+                            },
+                            function (err) {
+
+                            });
+                }
 
                 function onMachineEvent(connected, roomSerial) {
                     var serial = roomSerial.split(':')[1];
@@ -63,32 +116,5 @@
                     });
                 }
 
-                self.nextImg = function (serial) {
-                    var machine = getMachine(serial);
-
-                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
-                    if (machine.imageIndex  < machine.images.length - 1) {
-                        machine.imageIndex ++;
-                    }
-                    else{
-                        machine.imageIndex = 0;
-                    }
-
-                    machine.imageUrl = machine.images[machine.imageIndex ];
-                };
-
-                self.prevImg = function (serial) {
-                    var machine = getMachine(serial);
-
-                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
-                    if (machine.imageIndex > 0) {
-                        machine.imageIndex--;
-                    }
-                    else{
-                        machine.imageIndex = machine.images.length - 1;
-                    }
-
-                    machine.imageUrl = machine.images[machine.imageIndex ];
-                };
             }]);
 })();
