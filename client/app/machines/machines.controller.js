@@ -18,10 +18,12 @@
                         _.each(self.machines, function (machine) {
                             MachineService.getMachineUploads(machine.serial)
                                 .then(function (results) {
+                                    machine.images = results;
                                     machine.imageUrl = _.last(results);
                                 });
                         });
                     });
+
 
                 SocketService.on('registered', function (socket, roomSerial) {
                     onMachineEvent(true, roomSerial);
@@ -54,5 +56,39 @@
                         }
                     }
                 }
+
+                function getMachine(serial){
+                    return _.find(self.machines, function(m) {
+                        return m.serial === serial;
+                    });
+                }
+
+                self.nextImg = function (serial) {
+                    var machine = getMachine(serial);
+
+                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
+                    if (machine.imageIndex  < machine.images.length - 1) {
+                        machine.imageIndex ++;
+                    }
+                    else{
+                        machine.imageIndex = 0;
+                    }
+
+                    machine.imageUrl = machine.images[machine.imageIndex ];
+                };
+
+                self.prevImg = function (serial) {
+                    var machine = getMachine(serial);
+
+                    machine.imageIndex = ((machine.imageIndex === undefined) ? machine.images.length - 1 : machine.imageIndex);
+                    if (machine.imageIndex > 0) {
+                        machine.imageIndex--;
+                    }
+                    else{
+                        machine.imageIndex = machine.images.length - 1;
+                    }
+
+                    machine.imageUrl = machine.images[machine.imageIndex ];
+                };
             }]);
 })();

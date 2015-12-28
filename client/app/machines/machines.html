@@ -19,12 +19,14 @@
         </md-card-header>
 
         <md-card-content >
+            <span ng-if="item.imageUrl" >{{ item.imageIndex === undefined ?  item.images.length -1 : item.imageIndex  }} / {{ item.images.length -1 }}</span>
             <div ng-if="item.imageUrl" layout="row" layout-align="space-between center">
-                <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+
+                <md-button class="md-fab md-mini md-primary" aria-label="Previous" ng-click="vm.prevImg(item.serial)">
                     <md-icon><i class="material-icons">chevron_left</i></md-icon>
                 </md-button>
                 <img  ng-src="{{ item.imageUrl }}" class="md-card-image" alt="Machine" style="width: 313px"/>
-                <md-button class="md-fab md-mini md-primary" aria-label="Use Android">
+                <md-button class="md-fab md-mini md-primary" aria-label="Next" ng-click="vm.nextImg(item.serial)">
                     <md-icon><i class="material-icons">chevron_right</i></md-icon>
                 </md-button>
             </div>
