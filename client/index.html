@@ -23,19 +23,20 @@
     <!-- endinjector -->
     <!-- endbuild -->
 </head>
-<body layout="row" ng-controller="AppCtrl" ng-cloak>
+<body layout="row" ng-controller="AppCtrl as appCtrl" ng-cloak>
 
 
     <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left">
         <md-toolbar class="md-tall md-hue-2">
             <span flex></span>
             <div layout="column" class="md-toolbar-tools-bottom inset">
-               <img gravatar-src="'{{ loggedUser.email }}'"
+               <img gravatar-src="'{{ appCtrl.loggedUser.email }}'"
                     gravatar-size="50" class="md-avatar" style="width: 4rem"
                      alt="{{ loggedUser.name }}"/>
                 <span></span>
-                <div>{{ loggedUser.name }}</div>
-                <div>{{ loggedUser.email }}</div>
+                <div>{{ appCtrl.loggedUser.name }}</div>
+                <div>{{ appCtrl.loggedUser.email }}</div>
+                <md-button ng-if="appCtrl.loggedUser" class="md-primary" ng-clock="2">Logout</md-button>
 
             </div>
         </md-toolbar>

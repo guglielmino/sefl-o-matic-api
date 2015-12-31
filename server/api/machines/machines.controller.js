@@ -27,7 +27,7 @@ MachineController.prototype.index = function(req, res) {
 							.isOnlineMachine(result[idx].serial);
 					}
 
-					res.json(200, result);
+					res.status(200).json(result);
 				} else {
 					res.status(404).send();
 				}
@@ -57,8 +57,7 @@ MachineController.prototype.addMachine = function(req, res) {
 	var remote_ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 	self.storageProvider.addMachine(req.body, remote_ip)
 		.then(function(result) {
-			console.log("result " + result);
-			res.json(201, result);
+			res.status(201).json(result);
 		}, function(providerError) {
 			console.log("err " + providerError.message);
 			res
@@ -77,7 +76,7 @@ MachineController.prototype.getMachineBySerial = function(req, res) {
 
 	self.storageProvider.getMachineBySerial(serial).then(function(result) {
 		if (result) {
-			res.json(200, result);
+			res.status(200).json(result);
 		} else {
 			res.status(404).send();
 		}
@@ -101,7 +100,7 @@ MachineController.prototype.getMachineConfig = function(req, res) {
 	self.storageProvider.getMachineBySerial(serial)
 		.then(function(result) {
 		if (result && result.config) {
-			res.json(200, result.config);
+			res.status(200).json(result.config);
 		} else {
 			res.status(404).send();
 		}
@@ -126,7 +125,7 @@ MachineController.prototype.deleteMachineBySerial = function (req, res) {
 		.deleteMachineBySerial(serial)
 		.then(function(result) {
 		if (result) {
-			res.json(200);
+			res.status(200).send();
 		} else {
 			res.status(404).send();
 		}
@@ -152,7 +151,7 @@ MachineController.prototype.setMachineConfig = function(req, res) {
 		if (result) {
 			// WebSocket notify
 			self.socketController.notifyConfigUpdate(serial, result.config);
-			res.json(200, result.config);
+			res.status(200).json(result.config);
 		} else {
 			res.status(404).send();
 		}

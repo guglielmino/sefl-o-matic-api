@@ -46,13 +46,8 @@
         .run(function ($rootScope, $location, $mdSidenav, Auth) {
             // Redirect to login if route requires auth and you're not logged in
             $rootScope.$on('$stateChangeStart', function (event, next) {
-                console.log('$stateChangeStart');
-
-
                 Auth.isLoggedInAsync(function (loggedIn) {
-
                     if (next.authenticate && !loggedIn) {
-
                         $location.path('/login');
                     }
                 });
@@ -62,19 +57,22 @@
                 // TODO: Andrebbe ricevuto in qualche modo il parametro identificativo della sidenav ('left')
                 $mdSidenav('left').close();
             });
-
-
         })
-        .controller('AppCtrl', ['$scope', '$mdSidenav', '$mdDialog', 'Auth', function ($scope, $mdSidenav, $mdDialog, Auth) {
+        .controller('AppCtrl', ['$rootScope', '$mdSidenav', '$mdDialog', 'Auth', function ($rootScope, $mdSidenav, $mdDialog, Auth) {
+            var self = this;
 
-            $scope.toggleSidenav = function (menuId) {
+            this.toggleSidenav = function (menuId) {
                 $mdSidenav(menuId).toggle();
             };
 
             Auth.isLoggedInAsync(function (res) {
                 if (res) {
-                    $scope.loggedUser = Auth.getCurrentUser();
+                    self.loggedUser = Auth.getCurrentUser();
                 }
+            });
+
+            $rootScope.$on('loggedIn', function(){
+                self.loggedUser = Auth.getCurrentUser();
             });
 
 

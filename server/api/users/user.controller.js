@@ -22,7 +22,7 @@ UserController.prototype.index = function(req, res) {
 	self.usersProvider.find({})
 		.then(function(result) {
 			if(result){
-				res.json(200, result);
+				res.status(200).json(result);
 			}
 			else{
 				res.status(404).send();
@@ -42,7 +42,7 @@ UserController.prototype.create = function (req, res, next) {
   self.usersProvider.create(req.body)
   	.then(function(user) {
 	  		var token = jwt.sign({_id: user._id }, config.secrets.session, { expiresInMinutes: 60*5 });
- 			  res.json(201, { token: token });
+ 			  res.status(201).json({ token: token });
 	  	}, function(providerError) {
 	  		console.log("err " + providerError.message);
         res
@@ -63,7 +63,7 @@ UserController.prototype.show = function (req, res, next) {
   			res.send(401);
   		}
   		else{
-    		res.json(user.profile);
+    		res.status(200).json(user.profile);
     	}
   	}, function(providerError){
   		console.log("err " + providerError.message);
@@ -101,7 +101,7 @@ UserController.prototype.changePassword = function(req, res, next) {
   			res.send(401);
   		}
   		else{
-    		res.json(user.profile);
+    		res.status(200).json(user.profile);
     	}
   	}, function(providerError){
       res
@@ -117,10 +117,10 @@ UserController.prototype.me = function(req, res, next) {
 	self.usersProvider.findById(userId)
 	  	.then(function(user){
 	  		if(!user){
-	  			res.json(401);
+	  			res.status(401);
 	  		}
 	  		else{
-	  			res.json(user);
+	  			res.status(200).json(user);
 	  		}
 	  	}, function(providerError){
 	  		console.log("err " + providerError.message);

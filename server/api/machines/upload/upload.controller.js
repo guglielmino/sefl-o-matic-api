@@ -44,7 +44,7 @@ UploadController.prototype.uploadImage = function (req, res) {
         if (err) {
             res.status(400).send(err);
         }
-        res.json(200, {});
+        res.status(200).json({});
     });
 };
 
@@ -63,7 +63,7 @@ UploadController.prototype.listFiles = function (req, res) {
                 return util.format('%s/%s/%s', uploadsBasePath, req.params.serialnumber, item);
             });
     }
-    res.json(200, files);
+    res.status(200).json(files);
 };
 
 module.exports = UploadController;

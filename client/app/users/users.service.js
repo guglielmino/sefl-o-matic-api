@@ -7,7 +7,7 @@ angular.module('somapp.users')
             getUsers: function () {
                 var deferred = $q.defer();
 
-                $http.get('/api/users', {})
+                $http.get('/api/users')
                     .success(function (data) {
                         deferred.resolve(data);
                     })
