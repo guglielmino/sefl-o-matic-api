@@ -538,8 +538,8 @@ module.exports = function (grunt) {
             prod: {
                 options: {
                     src: "dist/",
-                    dest: "/home/nodejs/admin_selfomatic",
-                    host: "nodejs@www.gumino.com",
+                    dest: "/opt/admin.self-o-matic.com",
+                    host: "deploy@www.gumino.com",
                     delete: false
                 }
             }
