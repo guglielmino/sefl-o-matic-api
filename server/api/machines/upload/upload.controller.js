@@ -8,6 +8,7 @@ var multer = require('multer');
 var self;
 
 var UploadController = function (machineSocketController, eventEmitter) {
+    self = this;
     this.socketController = machineSocketController;
 
     var storage = multer.diskStorage({

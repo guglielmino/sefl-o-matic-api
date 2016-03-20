@@ -20,4 +20,4 @@ module.exports = function(usersProvider, socketio) {
   router.post('/', usersController.create);
 
   return router;
-}
+};

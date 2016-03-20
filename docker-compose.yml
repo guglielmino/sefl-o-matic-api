@@ -1,0 +1,14 @@
+web:
+  build: docker/app/
+  working_dir: /home/app
+  ports:
+    - "8080:8080"
+  environment:
+    NODE_ENV: production
+  links:
+    - mongo
+mongo:
+  image: mongo:latest
+  command: mongod --smallfiles --quiet --logpath=/dev/null
+  ports:
+   - "27017:27017"
