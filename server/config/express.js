@@ -34,8 +34,9 @@ module.exports = function(app) {
 
   // Setting the app router and static folder
   app.set('uploads_url_path', '/static/uploads');
-  app.use(app.get('uploads_url_path'), express.static(path.resolve('./uploads')));
-  console.log('STATIC -->' + path.resolve('./uploads'));
+  var uploadsPath = process.env.NODE_PATH + '/uploads/';
+  app.use(app.get('uploads_url_path'), express.static(uploadsPath));
+  console.log('STATIC -->' + uploadsPath);
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
