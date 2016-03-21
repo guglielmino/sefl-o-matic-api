@@ -14,7 +14,7 @@ var UploadController = function (machineSocketController, eventEmitter) {
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
 
-            var destDir = 'uploads/' + req.params.serialnumber;
+            var destDir = process.env.NODE_PATH + '/uploads/' + req.params.serialnumber;
             if (!fs.existsSync(destDir)) {
                 fs.mkdirSync(destDir);
             }
@@ -52,7 +52,7 @@ UploadController.prototype.uploadImage = function (req, res) {
 UploadController.prototype.listFiles = function (req, res) {
     var uploadsBasePath = req.app.get('uploads_url_path');
 
-    var filesDir = 'uploads/' + req.params.serialnumber;
+    var filesDir = process.env.NODE_PATH + '/uploads/' + req.params.serialnumber;
     var files = [];
 
     if (fs.existsSync(filesDir)) {
