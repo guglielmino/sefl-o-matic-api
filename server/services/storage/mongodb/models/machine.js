@@ -47,6 +47,9 @@ var MachineSchema = new mongoose.Schema({
       access_token: String
     }
   }
+},
+{
+  timestamps: true
 });
 
 
